@@ -1,3 +1,7 @@
+# Openhab config files
+.cfg
+
+
 # Windows image file caches
 Thumbs.db
 ehthumbs.db

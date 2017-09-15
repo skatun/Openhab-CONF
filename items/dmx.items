@@ -1,0 +1,79 @@
+
+
+Color LL1 "LL1"(Group_DMX,Group_DMX_LivingRoom, Group_DMX_Dinner,Group_DMX_Wall,Group_DMX_TV) {dmx="CHANNEL[25,26,27:100000]"}
+Color LL2 "LL2"(Group_DMX,Group_DMX_LivingRoom, Group_DMX_Dinner,Group_DMX_Wall,Group_DMX_TV,Group_DMX_Lounge) {dmx="CHANNEL[22,23,24:100000]"}
+Color LL3 "LL3"(Group_DMX,Group_DMX_LivingRoom, Group_DMX_Wall,Group_DMX_Kitchen,Group_DMX_Cooking) {dmx="CHANNEL[19,20,21:100000]"}
+Color LL4 "LL4"(Group_DMX,Group_DMX_LivingRoom, Group_DMX_Wall,Group_DMX_Kitchen,Group_DMX_Cooking) {dmx="CHANNEL[16,17,18:100000]"}
+Color LL5 "LL5"(Group_DMX,Group_DMX_LivingRoom,Group_DMX_Kitchen,Group_DMX_Cooking) {dmx="CHANNEL[13,14,15:100000]"}
+Color LL6 "LL6"(Group_DMX,Group_DMX_LivingRoom,Group_DMX_Kitchen,Group_DMX_Cooking) {dmx="CHANNEL[10,11,12:100000]"}
+Color LL7 "LL7"(Group_DMX,Group_DMX_LivingRoom,Group_DMX_Kitchen,Group_DMX_Cooking) {dmx="CHANNEL[7,8,9:100000]"}
+Color LL8 "LL8"(Group_DMX,Group_DMX_LivingRoom,Group_DMX_Kitchen,Group_DMX_Cooking) {dmx="CHANNEL[4,5,6:100000]"}
+Color LL9 "LL9"(Group_DMX,Group_DMX_LivingRoom,Group_DMX_Cooking,Group_DMX_Dinner,Group_DMX_Lounge) {dmx="CHANNEL[1,2,3:100000]"}
+Color LL10 "LL10"(Group_DMX,Group_DMX_LivingRoom,Group_DMX_Cooking,Group_DMX_Dinner) {dmx="CHANNEL[52,53,54:100000]"}
+Color LL11 "LL11"(Group_DMX,Group_DMX_LivingRoom,Group_DMX_Cooking,Group_DMX_Dinner,Group_DMX_Lounge) {dmx="CHANNEL[49,50,51:100000]"}
+Color LL12 "LL12"(Group_DMX,Group_DMX_LivingRoom,Group_DMX_Cooking,Group_DMX_Dinner) {dmx="CHANNEL[46,47,48:100000]"}
+Color LL13 "LL13"(Group_DMX,Group_DMX_LivingRoom,Group_DMX_Kitchen,Group_DMX_Cooking) {dmx="CHANNEL[43,44,45:100000]"}
+Color LL14 "LL14"(Group_DMX,Group_DMX_LivingRoom,Group_DMX_Cooking,Group_DMX_Kitchen,Group_DMX_Lounge) {dmx="CHANNEL[40,41,42:100000]"}
+Color LL15 "LL15"(Group_DMX,Group_DMX_LivingRoom,Group_DMX_Kitchen,Group_DMX_Cooking) {dmx="CHANNEL[37,38,39:100000]"}
+Color LL16 "LL16"(Group_DMX,Group_DMX_LivingRoom) {dmx="CHANNEL[34,35,36:100000]"}
+Color LL17 "LL17"(Group_DMX,Group_DMX_LivingRoom,Group_DMX_Lounge) {dmx="CHANNEL[31,32,33:100000]"}
+Color LL18 "LL18"(Group_DMX,Group_DMX_LivingRoom,Group_DMX_Reading) {dmx="CHANNEL[28,29,30:100000]"}
+Color LL19 "LL19"(Group_DMX,Group_DMX_LivingRoom,Group_DMX_Reading) {dmx="CHANNEL[79,80,81:100000]"}
+Color LL20 "LL20"(Group_DMX,Group_DMX_LivingRoom,Group_DMX_Lounge) {dmx="CHANNEL[76,77,78:100000]"}
+Color LL21 "LL21"(Group_DMX,Group_DMX_LivingRoom) {dmx="CHANNEL[73,74,75:100000]"}
+Color LL22 "LL22"(Group_DMX,Group_DMX_LivingRoom,Group_DMX_Reading) {dmx="CHANNEL[70,71,72:100000]"}
+Color LL23 "LL23"(Group_DMX,Group_DMX_LivingRoom,Group_DMX_Reading) {dmx="CHANNEL[67,68,69:100000]"}
+Color LL24 "LL24"(Group_DMX,Group_DMX_LivingRoom,Group_DMX_FirePlace) {dmx="CHANNEL[64,65,66:100000]"}
+Color LL25 "LL25"(Group_DMX,Group_DMX_LivingRoom,Group_DMX_FirePlace) {dmx="CHANNEL[61,62,63:100000]"}
+Color LL26 "LL26"(Group_DMX,Group_DMX_LivingRoom) {dmx="CHANNEL[58,59,60:100000]"}
+Color LL27 "LL27"(Group_DMX,Group_DMX_LivingRoom,Group_DMX_FirePlace) {dmx="CHANNEL[55,56,57:100000]"}
+Color LL28 "LL28"(Group_DMX,Group_DMX_LivingRoom,Group_DMX_Reading,Group_DMX_Lounge) {dmx="CHANNEL[106,107,108:100000]"}
+Color LL29 "LL29"(Group_DMX,Group_DMX_LivingRoom,Group_DMX_Reading,Group_DMX_Lounge) {dmx="CHANNEL[103,104,105:100000]"}
+Color LL30 "LL30"(Group_DMX,Group_DMX_LivingRoom) {dmx="CHANNEL[100,101,102:100000]"}
+
+
+Color LB1 "LB1"(Group_DMX,Group_DMX_LivingRoom,Group_DMX_Bar) {dmx="CHANNEL[97,98,99:100000]"}
+Color LB2 "LB2"(Group_DMX,Group_DMX_LivingRoom,Group_DMX_Bar) {dmx="CHANNEL[94,95,96:100000]"}
+Color LB3 "LB3"(Group_DMX,Group_DMX_LivingRoom , Group_DMX_Bar) {dmx="CHANNEL[91,92,93:100000]"}
+Color LB4 "LB4"(Group_DMX,Group_DMX_LivingRoom , Group_DMX_Bar) {dmx="CHANNEL[88,89,90:100000]"}
+Color LB5 "LB5"(Group_DMX,Group_DMX_LivingRoom , Group_DMX_Bar) {dmx="CHANNEL[85,86,87:100000]"}
+Color LB6 "LB6"(Group_DMX,Group_DMX_LivingRoom,Group_DMX_Bar) {dmx="CHANNEL[82,83,84:100000]"}
+
+Color LT1 "LT1"(Group_DMX,Group_DMX_BathRoom) {dmx="CHANNEL[132,133,134:100000]"}
+Color LT2 "LT2"(Group_DMX,Group_DMX_BathRoom) {dmx="CHANNEL[129,130,131:100000]"}
+Color LT3 "LT3"(Group_DMX,Group_DMX_BathRoom) {dmx="CHANNEL[126,127,128:100000]"}
+Color LT4 "LT4"(Group_DMX,Group_DMX_BathRoom) {dmx="CHANNEL[123,124,125:100000]"}
+Color LT5 "LT5"(Group_DMX,Group_DMX_BathRoom) {dmx="CHANNEL[120,121,122:100000]"}
+Color LT6 "LT6"(Group_DMX,Group_DMX_BathRoom) {dmx="CHANNEL[117,118,119:100000]"}
+
+Color LMB1 "LMB1"(Group_DMX,Group_DMX_MasterBedRoom) {dmx="CHANNEL[114,115,116:100000]"}
+Color LMB2 "LMB2"(Group_DMX,Group_DMX_MasterBedRoom) {dmx="CHANNEL[111,112,113:100000]"}
+Color LMB3 "LMB3"(Group_DMX,Group_DMX_MasterBedRoom) {dmx="CHANNEL[108,109,110:100000]"}
+Color LMB4 "LMB4"(Group_DMX,Group_DMX_MasterBedRoom) {dmx="CHANNEL[159,160,161:100000]"}
+Color LMB5 "LMB5"(Group_DMX,Group_DMX_MasterBedRoom) {dmx="CHANNEL[156,157,158:100000]"}
+Color LMB6 "LMB6"(Group_DMX,Group_DMX_MasterBedRoom) {dmx="CHANNEL[153,154,155:100000]"}
+Color LMB7 "LMB7"(Group_DMX,Group_DMX_MasterBedRoom) {dmx="CHANNEL[150,151,152:100000]"}
+Color LMB8 "LMB8"(Group_DMX,Group_DMX_MasterBedRoom) {dmx="CHANNEL[147,148,149:100000]"}
+Color LMB9 "LMB9"(Group_DMX,Group_DMX_MasterBedRoom) {dmx="CHANNEL[144,145,146:100000]"}
+
+Color LGB1 "LGB1"(Group_DMX) {dmx="CHANNEL[141,142,143:100000]"}
+Color LGB2 "LGB2"(Group_DMX) {dmx="CHANNEL[138,139,140:100000]"}
+Color LGB3 "LGB3"(Group_DMX) {dmx="CHANNEL[135,136,137:100000]"}
+Color LGB4 "LGB4"(Group_DMX) {dmx="CHANNEL[186,187,188:100000]"}
+Color LGB5 "LGB5"(Group_DMX) {dmx="CHANNEL[183,184,185:100000]"}
+
+Color LH1 "LH1"(Group_DMX) {dmx="CHANNEL[180,181,182:100000]"}
+Color LH2 "LH2"(Group_DMX) {dmx="CHANNEL[177,178,179:100000]"}
+Color LH3 "LH3"(Group_DMX) {dmx="CHANNEL[174,175,176:100000]"}
+Color LH4 "LH4"(Group_DMX) {dmx="CHANNEL[171,172,173:100000]"}
+Color LH5 "LH5"(Group_DMX) {dmx="CHANNEL[168,169,170:100000]"}
+
+
+//Dimmer items
+Dimmer Dimmer_LivingRoom "Dimmer [%d %%]" 
+Dimmer Dimmer_MasterBedRoom "Dimmer [%d %%]"
+Number Dimmer_Value
+
+Color Color_LivingRoom "The Color Wheel"  
+Color Color_MasterBedRoom "The Color Wheel"
+Color Color_BathRoom "The Color Wheel"

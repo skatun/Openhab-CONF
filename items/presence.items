@@ -1,0 +1,23 @@
+
+
+Switch Presence_Kim "Kim"
+Switch Presence_Yulia "Yulia"
+Switch Presence_Family "Family"
+Switch Presence_Guest "Guests"
+
+//Camera
+
+
+//Mobilfunktelefone
+Switch MOBKIM_WLAN "Cell Kim" (grp_PRAESENZ) { nh="192.168.1.158" }
+Switch MOBYULIA_WLAN "Cell Liv Unni" (grp_PRAESENZ) { nh="192.168.1.159" }
+
+
+
+//Mobilfunktelefone
+//Switch MOB188_BT "Handy Daniel" (grp_PRAESENZ) { exec="<[/scripts/bt.sh 1:60000:REGEX((.*?))]" }
+//Switch MOB137_BT "Handy Tina" (grp_PRAESENZ) { exec="<[/scripts/bt.sh 2:60000:REGEX((.*?))]" }
+
+
+//String UnknownDevices    "Unknown Devices in Range: [%s]" { bluetooth="?" }
+//Number NoOfPairedDevices "Paired Devices in Range: [%d]"  { bluetooth="!" }

@@ -1,0 +1,62 @@
+sitemap admin label="Admin"
+{
+	Frame label="Temperatures" {
+		Text label="Set Points" icon="groundfloor"{
+		  	Setpoint item=Heating_LivingRoom_Setpoint_Day label="Living Room Temperature Set Point Day [%.1f °C]" icon="temperature" minValue=1 maxValue=30 step=0.5
+			Setpoint item=Heating_BedRoom_Setpoint_Day label="Bedroom Temperature Set Point Day [%.1f °C]" icon="temperature" minValue=1 maxValue=30 step=0.5
+			Setpoint item=Heating_MasterBedRoom_Setpoint_Day label="Master Bedroom Temperature Set Point Day [%.1f °C]" icon="temperature" minValue=1 maxValue=30 step=0.5
+			Setpoint item=Heating_BathRoom_Setpoint_Day label="Bathroom Temperature Set Point Day [%.1f °C]" icon="temperature" minValue=1 maxValue=30 step=0.5
+
+			Setpoint item=Heating_LivingRoom_Setpoint_Night label="Living Room Temperature Set Point Night [%.1f °C]" icon="temperature" minValue=1 maxValue=30 step=0.5
+			Setpoint item=Heating_BedRoom_Setpoint_Night label="Bedroom Temperature Set Point Night [%.1f °C]" icon="temperature" minValue=1 maxValue=30 step=0.5
+			Setpoint item=Heating_MasterBedRoom_Setpoint_Night label="Master Bedroom Temperature Set Point Night [%.1f °C]" icon="temperature" minValue=1 maxValue=30 step=0.5
+			Setpoint item=Heating_BathRoom_Setpoint_Night label="Bathroom Temperature Set Point Night [%.1f °C]" icon="temperature" minValue=1 maxValue=30 step=0.5
+			
+			Setpoint item=Heating_LivingRoom_Setpoint_Away label="Living Room Temperature Set Point Away [%.1f °C]" icon="temperature" minValue=1 maxValue=30 step=0.5
+			Setpoint item=Heating_BedRoom_Setpoint_Away label="Bedroom Temperature Set Point Away [%.1f °C]" icon="temperature" minValue=1 maxValue=30 step=0.5
+			Setpoint item=Heating_MasterBedRoom_Setpoint_Away label="Master Bedroom Temperature Set Point Away [%.1f °C]" icon="temperature" minValue=1 maxValue=30 step=0.5
+			Setpoint item=Heating_BathRoom_Setpoint_Away label="Bathroom Temperature Set Point Away [%.1f °C]" icon="temperature" minValue=1 maxValue=30 step=0.5			
+		}
+	}
+	Frame label="Wifi/RF signals" {
+		Text label="Netatmo Signals" icon="network"{
+			Text item=Netatmo_Indoor_wifi icon="signal"
+			Text item=Netatmo_Outdoor_BatteryVP icon="battery"
+			Text item=Netatmo_Outdoor_RfStatus icon="rf"
+			Text item=nRainBatteryStatus icon="battery"
+			Text item=nRainRfstatus icon="rf"
+			
+		}
+	}
+	
+	Frame label="Alarms" {
+		Text label="Alarm" icon="groundfloor"{
+			Switch item=Ventilation_Filter label="Changing of filter in HVAC" icon="fan" mappings=[ON="CHANGE REQUIRED", OFF="OK"]
+			Switch item=Drain_Shower label="Cleaning shower drain" icon="fan" mappings=[ON="CLEANING REQUIRED", OFF="OK"]
+			//Text item=Netatmo_Indoor_wifi icon="signal"
+			Text item=Dimmer_Value label="Dimmer value[% Val]"
+		}
+	}
+	
+	Frame label="NETWORK" {
+		Text item=SpeedtestSummary {
+			  Frame label="Results" {
+			    Text item=SpeedtestResultDown
+			    Text item=SpeedtestResultUp
+			    Text item=SpeedtestResultPing
+			  }
+			  Frame label="Control" {
+			    Text item=SpeedtestResultDate
+			    Text item=SpeedtestRunning label="Speedtest [%s]" visibility=[SpeedtestRunning != "-"]
+			    Switch item=SpeedtestRerun mappings=[ON="Start"]
+			  }
+			  Frame label="Statistic" {
+			    Text label="..." icon="speedtest_analytics8"
+			  }
+		}	
+	}
+		
+	
+		
+	
+}

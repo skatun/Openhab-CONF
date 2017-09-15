@@ -1,0 +1,28 @@
+
+/* Heating */
+Switch Heating_Hallway (Group_Heating) 	{gpio="pin:17" } //Relay 9
+Switch Heating_LivingRoom (Group_Heating)	{gpio="pin:27" } //Relay 7
+Switch Heating_Kitchen (Group_Heating)	{gpio="pin:11" }//Relay8
+Switch Heating_Bathroom (Group_Heating){gpio="pin:5" }//Relay 6
+Switch Heating_MasterBedRoom (Group_Heating){gpio="pin:21" }//Relay 1
+Switch Heating_BedRoom (Group_Heating){gpio="pin:4" }//Relay 11
+	
+Number Heating_LivingRoom_Setpoint (Group_SetPoint, Group_LivingRoom)
+Number Heating_BedRoom_Setpoint 	(Group_SetPoint, Group_BedRoom)
+Number Heating_MasterBedRoom_Setpoint 	(Group_SetPoint, Group_MasterBedRoom)
+Number Heating_BathRoom_Setpoint 	(Group_SetPoint, Group_BathRoom)
+
+Number Heating_LivingRoom_Setpoint_Night (Group_SetPoint, Group_LivingRoom)
+Number Heating_BedRoom_Setpoint_Night 	(Group_SetPoint, Group_BedRoom)
+Number Heating_MasterBedRoom_Setpoint_Night 	(Group_SetPoint, Group_MasterBedRoom)
+Number Heating_BathRoom_Setpoint_Night 	(Group_SetPoint, Group_BathRoom)
+
+Number Heating_LivingRoom_Setpoint_Day (Group_SetPoint, Group_LivingRoom)
+Number Heating_BedRoom_Setpoint_Day 	(Group_SetPoint, Group_BedRoom)
+Number Heating_MasterBedRoom_Setpoint_Day 	(Group_SetPoint, Group_MasterBedRoom)
+Number Heating_BathRoom_Setpoint_Day 	(Group_SetPoint, Group_BathRoom)
+
+Number Heating_LivingRoom_Setpoint_Away (Group_SetPoint, Group_LivingRoom)
+Number Heating_BedRoom_Setpoint_Away 	(Group_SetPoint, Group_BedRoom)
+Number Heating_MasterBedRoom_Setpoint_Away 	(Group_SetPoint, Group_MasterBedRoom)
+Number Heating_BathRoom_Setpoint_Away 	(Group_SetPoint, Group_BathRoom)

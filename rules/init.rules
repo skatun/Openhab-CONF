@@ -1,0 +1,25 @@
+rule "Initialize all items"
+when
+    System started
+then
+    logInfo(    "Initializer", "Started Timer ...")
+
+
+    createTimer(now.plusSeconds(45)) [|
+
+        logInfo("Initializer", "... initializing!")
+        //Wir warten 45 Sekunden, dann initalisieren wir alle die nicht aus der Datenbank bef�llt wurden
+       // Group_LightLogging.members.filter( x | x.state == Uninitialized).forEach[ item |
+
+           // postUpdate( item, OFF)
+        //]
+		
+		Group_Temperature.allMembers.filter( x | x.state == Uninitialized || x.state == Undefined).forEach[ item |
+			item.postUpdate( 21)
+		]
+
+		Group_SetPoint.allMembers.filter( x | x.state == Uninitialized || x.state == Undefined).forEach[ item |
+			item.postUpdate( 21)
+		]
+    ]
+end

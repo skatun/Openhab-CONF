@@ -1,0 +1,21 @@
+	/* Lights */
+	
+	// { gpio="pin:13" }
+	
+	
+	// {gpio="pin:12"}   //Relay 16
+
+	Switch Light_All_Off "Light Off" [ "Lighting" ]
+	
+	Switch Light_Wall_Dinner 	"Wall Dinner"    { gpio="pin:26" } //Relay 13
+	Switch Light_Wall_TV 	"Wall TV"    { gpio="pin:16" } //Relay 14
+	Switch Light_Wall_FirePlace 	"Wall FirePlace"    { gpio="pin:19" } //Relay 15
+	
+	/*Kitchen*/
+	Switch Light_Kitchen 		"Kitchen "  		(Group_Kitchen)   { gpio="pin:6" } //Relay 4
+	
+	/*Hallway*/
+	Switch Light_Hallway 	"Hallway"  		(Group_Hallway) [ "Lighting" ] { gpio="pin:20" } //Relay 12
+	
+	
+	Switch Light_Balcony "Outdoor" 		(Group_Balcony) [ "Lighting" ] { gpio="pin:10" } //relay  3

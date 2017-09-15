@@ -1,0 +1,22 @@
+
+Group Group_LivingRoom 
+
+
+//DMX groups
+Group Group_DMX
+Group Group_DMX_LivingRoom
+Group Group_DMX_Bar
+Group Group_DMX_MasterBedRoom
+Group Group_DMX_Dinner
+Group Group_DMX_Wall
+Group Group_DMX_FirePlace
+Group Group_DMX_Kitchen
+Group Group_DMX_TV
+Group Group_DMX_Cooking
+Group Group_DMX_Reading
+Group Group_DMX_Lounge 
+Group Group_DMX_BathRoom 
+
+Group Group_Temperature
+Group Group_SetPoint
+Group Group_Heating

@@ -1,0 +1,143 @@
+rule "Welcome changed"
+   	when
+		Item Welcome_Kim_AtHome changed
+	then
+		if (Welcome_Kim_AtHome.state==ON){
+			Scene_Presence_Kim.postUpdate(2)
+			Scene_Presence_Kim.postUpdate(3)
+			}	
+		else {
+			Scene_Presence_Kim.postUpdate(1)
+		}
+end
+
+rule "Mode change"
+	when
+		Item Scene_DayMode changed
+	then
+		Heating_LivingRoom_Setpoint = Heating_LivingRoom_Setpoint_Day
+end	
+
+
+
+/* 
+rule "Kim is home"
+   when
+      Item MOBKIM_WLAN changed to ON 
+	  //or Item MOBKIM_BT changed to ON
+   then
+      postUpdate(MOBKIM, ON)
+end
+ 
+rule "Kim left the appartment"
+   when
+      Item MOBKIM_WLAN changed to OFF 
+	  //or Item MOBKIM_BT changed to OFF
+   then
+      if(MOBKIM_WLAN.state == OFF ) {//&& MOBKIM_BT.state == OFF
+         postUpdate(MOBKIM, OFF)
+      }
+end
+
+rule "Liv Unni is home"
+   when
+      Item MOBLIVUNNI_WLAN changed to ON 
+	  //or Item MOBLIVUNNI_BT changed to ON
+   then
+      postUpdate(MOBLIVUNNI, ON)
+end
+ 
+rule "Liv Unni left the appartment"
+   when
+      Item MOBLIVUNNI_WLAN changed to OFF 
+	  //or Item MOBLIVUNNI_BT changed to OFF
+   then
+      if(MOBLIVUNNI_WLAN.state == OFF  { //&& MOBLIVUNNI_BT.state == OFF)
+         postUpdate(MOBLIVUNNI, OFF)
+      }
+end
+
+rule "Yulia is home"
+   when
+      Item MOBYULIA_WLAN changed to ON 
+	  //or Item MOBLIVUNNI_BT changed to ON
+   then
+      postUpdate(MOBYULIA, ON)
+end
+ 
+rule "Yulia left the appartment"
+   when
+      Item MOBYULIA_WLAN changed to OFF 
+	  //or Item MOBLIVUNNI_BT changed to OFF
+   then
+      if(MOBYULIA_WLAN.state == OFF  { //&& MOBLIVUNNI_BT.state == OFF)
+         postUpdate(MOBYULIA, OFF)
+      }
+end
+
+rule "Someone is at home"
+   when
+      (Item MOBKIM changed to ON or
+      Item MOBLIVUNNI changed to ON or
+	  Item MOBYULIA changed to ON) 
+   then
+   
+		postUpdate(Present, ON)
+		// we dont want to accidently turn on lights and heat during the night if phone reconnects to network...
+		if(testState2.state==OFF) {
+   
+			
+			sendCommand(Light_All,ON)
+			sendCommand(Heating_LivingRoom, ON)
+			sendCommand(Heating_Kitchen, ON)
+			sendCommand(Heating_Bathroom, ON)
+			sendCommand(Heating_MasterBedroom, ON)
+			sendCommand(Heating_Bedroom, ON)
+			sendCommand(Heating_Hallway,ON)
+			
+			
+			sendCommand(Light_Module1,ON)
+			sendCommand(Light_Module2, ON)
+			sendCommand(Light_Module3, ON)
+			sendCommand(Light_Module4, ON)
+			sendCommand(Light_Kitchen, ON)
+			sendCommand(Heating_Bedroom, ON)
+			sendCommand(Light_Hallway,ON)
+			
+		}
+end
+ 
+rule "No one is at home"
+   when
+      Item MOBKIM changed to OFF or
+      Item MOBLIVUNNI changed to OFF
+	  Item MOBYULIA changed to OFF
+   then
+      if(MOBKIM.state == OFF && MOBLIVUNNI.state == OFF && MOBYULIA.state == OFF ) {
+			postUpdate(Present, OFF)
+			//Only switch heat of during the day
+			if (testState.state==OFF){
+				sendCommand(Light_All,OFF)
+				sendCommand(Heating_LivingRoom, OFF)
+				sendCommand(Heating_Kitchen, OFF)
+				sendCommand(Heating_Bathroom, OFF)
+				sendCommand(Heating_MasterBedroom, OFF)
+				sendCommand(Heating_Bedroom, OFF)
+				sendCommand(Heating_Hallway,OFF)
+			}
+				
+			//turn lights off
+			sendCommand(Light_Module1,OFF)
+			sendCommand(Light_Module2, OFF)
+			sendCommand(Light_Module3, OFF)
+			sendCommand(Light_Module4, OFF)
+			sendCommand(Light_Kitchen, OFF)
+			sendCommand(Heating_Bedroom, OFF)
+			sendCommand(Light_Hallway,OFF)
+			
+		}
+      }
+end
+* 
+* 
+*/

@@ -1,0 +1,142 @@
+
+rule "turn off all lights"
+when
+    Item Light_All_Off received command ON
+then 
+	Scene_LivingRoom1.sendCommand(1)
+	Scene_BathRoom.sendCommand(1)
+	Scene_MasterBedRoom.sendCommand(1)
+	Light_Hallway.sendCommand(OFF)
+	
+end
+
+
+
+
+
+rule "Update kitchen light when button pressed"
+when
+    Item Contact_LivingRoomL changed from OPEN to CLOSED
+then
+	
+	
+if(Light_Kitchen.state == ON){
+	sendCommand(Light_Kitchen,OFF)
+	}
+	else {
+		sendCommand(Light_Kitchen,ON)
+	}
+end
+
+
+
+
+rule "Update bar light when button pressed"
+when
+    Item Contact_BalconyR changed from OPEN to CLOSED 
+then
+	
+	
+
+end
+
+
+rule "Update balcony light when button pressed"
+when
+    Item Contact_BalconyL changed from OPEN to CLOSED 
+then
+	
+	
+if(Light_Balcony.state == ON){
+	sendCommand(Light_Balcony,OFF)
+		
+	}
+	else {
+		sendCommand(Light_Balcony,ON)
+		
+	}
+end
+
+ 
+rule "Update bathroom light when motion happens"
+when
+    Item HueMotionBathroom changed from CLOSED to OPEN 
+then
+	if (Light_Hallway.state ==OFF) {
+		Light_Hallway.sendCommand(ON)
+	}
+	
+end
+
+rule "Update bathroom light when motion dissapears"
+when
+    Item HueMotionBathroom changed from OPEN to CLOSED 
+then
+	if (Light_Hallway.state ==ON) {
+		Light_Hallway.sendCommand(OFF)
+	}
+	
+end
+
+rule "Update bathroom light when button pressed"
+when
+    Item Contact_BathroomR changed from OPEN to CLOSED or 
+	Item Contact_BedroomR changed from OPEN to CLOSED
+then
+	
+ 	
+	if(Scene_BathRoom.state == 1){
+		Scene_BathRoom.sendCommand(2)
+	}
+	else {
+		Scene_BathRoom.sendCommand(1)
+	}
+	
+end
+
+
+
+rule "Update hallway light when button pressed"
+when
+    Item Contact_BathroomL changed from OPEN to CLOSED or 
+	Item Contact_BedroomL changed from OPEN to CLOSED
+then
+	
+	executeCommandLine("sudo@systemctl@restart@olad.service",5000)
+if(Light_Hallway.state == ON){
+	sendCommand(Light_Hallway,OFF)
+	}
+	else {
+		sendCommand(Light_Hallway,ON)
+	}
+end
+
+rule "Update living room light when button pressed"
+when
+    Item Contact_LivingRoomR changed from OPEN to CLOSED
+then
+	if(Scene_LivingRoom1.state > 1){
+		Scene_LivingRoom1.sendCommand(1)
+	}
+	else {
+		Scene_LivingRoom1.sendCommand(2)
+	}
+	 
+
+end
+
+
+rule "Update master bedroom light when button pressed"
+when
+    Item Contact_MasterBedroomL changed from OPEN to CLOSED
+then
+	if(Scene_MasterBedRoom.state == 1){
+		Scene_MasterBedRoom.sendCommand(2)
+	}
+	else {
+		Scene_MasterBedRoom.sendCommand(1)
+	}
+	
+
+end
+

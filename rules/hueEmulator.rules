@@ -1,0 +1,111 @@
+rule "Night On"
+when
+	Item Alexa_Night received command ON
+then
+		Light_All_Off.sendCommand(ON)
+		MoodSelector_LivingRoom.sendCommand(4)
+		Scene_MasterBedRoom.sendCommand(4)
+		Scene_BathRoom.sendCommand(4)
+end
+
+rule "Master Bedroom On"
+when
+	Item Alexa_MasterBedroom received command ON
+then
+		Scene_MasterBedRoom.sendCommand(2)
+end
+
+
+rule "Lights Off"
+when
+	Item Alexa_Off received command OFF
+then
+		Light_All_Off.sendCommand(ON)
+end
+
+rule "Living Room Off"
+when
+	Item Alexa_LivingRoomOff received command OFF
+then
+		Scene_LivingRoom1.sendCommand(1)
+end
+
+rule "Living Room On"
+when
+	Item Alexa_LivingRoomOff received command ON
+then
+		Scene_LivingRoom1.sendCommand(2)
+end
+
+rule "Dinner"
+when
+	Item Alexa_Dinner received command ON
+then
+		Scene_LivingRoom1.sendCommand(3) 
+end
+
+rule "Reading"
+when
+	Item Alexa_Reading received command ON
+then
+		Scene_LivingRoom1.sendCommand(4) 
+end
+
+rule "FirePlace"
+when
+	Item Alexa_FirePlace received command ON
+then
+		Scene_LivingRoom2.sendCommand(5) 
+end
+
+rule "Bar"
+when
+	Item Alexa_Bar received command ON
+then
+		Scene_LivingRoom2.sendCommand(6) 
+end
+
+rule "Party"
+when
+	Item Alexa_Party received command ON
+then
+		Scene_LivingRoom2.sendCommand(7) 
+end
+
+rule "TV"
+when
+	Item Alexa_Tv received command ON
+then
+		Scene_LivingRoom2.sendCommand(8) 
+end
+
+rule "Cooking"
+when
+	Item Alexa_Cooking received command ON
+then
+		Scene_LivingRoom3.sendCommand(9) 
+end
+
+rule "Wall"
+when
+	Item Alexa_Wall received command ON
+then
+		Scene_LivingRoom3.sendCommand(10) 
+end
+
+rule "Kitchen"
+when
+	Item Alexa_Kitchen received command ON
+then
+		Scene_LivingRoom3.sendCommand(11) 
+end
+
+rule "Lounge"
+when
+	Item Alexa_Lounge received command ON
+then
+		Scene_LivingRoom3.sendCommand(12) 
+end
+
+
+

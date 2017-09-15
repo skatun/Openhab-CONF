@@ -1,0 +1,45 @@
+import org.eclipse.smarthome.model.script.actions.Timer
+import org.joda.time.DateTime
+
+var Timer DoorTimer=null
+var Number changes = 0
+var DateTime timeFirstChange
+val Number changesPerRing = 4
+
+rule "Turn off door relay"
+when
+	Item Div_DoorOpener changed  to ON
+then
+	DoorTimer = createTimer(now.plusSeconds(6))[|
+	sendCommand(Div_DoorOpener, OFF)
+]
+end
+
+
+
+
+rule "Doorbell ringed"
+when
+    Item Contact_DoorBell changed from OPEN to CLOSED
+then
+	logInfo("Debug","changing on changes: " + changes.toString)//+ "  Time since first change: " + (now.getMillisOfSecond-timeFirstChange.getMillisOfSecond).toString )
+    if (changes ==0) {
+		changes = changes +1
+		timeFirstChange = now
+		}
+    else if ( changes == changesPerRing+1 && now.minusSeconds(3).isAfter(timeFirstChange) && now.minusSeconds(8).isBefore(timeFirstChange)){
+		//Div_DoorOpener.sendCommand(ON)
+		changes = changes +1
+	}
+    else if (changes==changesPerRing*2) {
+		changes = 0
+    }
+	else if (now.minusSeconds(10).isAfter(timeFirstChange)){
+		changes = 0
+	}
+	else{
+		changes = changes +1
+	}
+	DoorBellChanges.sendCommand(changes.toString)
+	
+end

@@ -1,0 +1,206 @@
+import org.eclipse.smarthome.core.items.GenericItem
+import org.eclipse.smarthome.core.library.types.DecimalType
+import org.eclipse.xtext.xbase.lib.Functions
+
+val Functions.Function3 heatings = [ GenericItem setPoint,GenericItem temperature,GenericItem relay |
+	// Turn on the heater if the temp gets more than 2 degrees below the Heating_LivingRoom_Setpoint to prevent rapid cycling
+	/* 
+    if(temperature.state as Number-1.0< setPoint.state as Number) {
+		//Items connected to NC, i.e sendcommand off is ON!!
+		if(relay.state != OFF) relay.sendCommand(OFF)
+	}
+	else {
+		//Items connected to NC, i.e sendcommand off is ON!!
+		if(relay.state != ON) relay.sendCommand(ON)
+	}
+	*/
+			
+]
+
+/* 
+val Functions.Function3  <Number, Number, SwitchItem> heatings2 = [ setPoint, temperature, relay |
+	// Turn on the heater if the temp gets more than 2 degrees below the Heating_LivingRoom_Setpoint to prevent rapid cycling
+	
+    if(temperature-1.0 < setPoint) {
+		//Items connected to NC, i.e sendcommand off is ON!!
+		if(relay.state != OFF) relay.sendCommand(OFF)
+	}
+	else {
+		//Items connected to NC, i.e sendcommand off is ON!!
+		if(relay.state != ON) relay.sendCommand(ON)
+	}
+    
+]
+
+ */
+// Rule to drive the Heater
+rule "Heater in living room"
+	when
+		Item Netatmo_Indoor_Temperature received update or
+		Item Heating_LivingRoom_Setpoint received update
+	then
+		heatings.apply(Heating_LivingRoom_Setpoint,Netatmo_Indoor_Temperature,Heating_LivingRoom)
+end
+
+
+/*
+rule "Heater in living room"
+when
+Item Netatmo_Indoor_Temperature received update or
+Item Heating_LivingRoom_Setpoint received update
+then
+// Turn on the heater if the temp gets more than 1 degrees below the Heating_LivingRoom_Setpoint to prevent rapid cycling
+	if((Netatmo_Indoor_Temperature.state as DecimalType)-1< (Heating_LivingRoom_Setpoint.state as DecimalType)) {
+		//Items connected to NC, i.e sendcommand off is ON!!
+		if(Heating_LivingRoom.state != OFF) Heating_LivingRoom.sendCommand(OFF)
+	}
+	else {
+		//Items connected to NC, i.e sendcommand off is ON!!
+		if(Heating_LivingRoom.state != ON) Heating_LivingRoom.sendCommand(ON)
+	}
+
+end
+
+rule "Heater in bedroom room"
+when
+Item Netatmo_BedRoom_Temperature received update or
+Item Heating_BedRoom_Setpoint received update
+then
+// Turn on the heater if the temp gets more than 1 degrees below the Heating_BedRoom_Setpoint to prevent rapid cycling
+	if((Netatmo_BedRoom_Temperature.state as DecimalType)-1< (Heating_BedRoom_Setpoint.state as DecimalType)) {
+		//Items connected to NC, i.e sendcommand off is ON!!
+		if(Heating_BedRoom.state != OFF) Heating_BedRoom.sendCommand(OFF)
+	}
+	else {
+		//Items connected to NC, i.e sendcommand off is ON!!
+		if(Heating_BedRoom.state != ON) Heating_BedRoom.sendCommand(ON)
+	}
+
+end
+
+rule "Heater in master bedroom room"
+when
+Item Netatmo_MasterBedRoom_Temperature received update or
+Item Heating_MasterBedRoom_Setpoint received update
+then
+// Turn on the heater if the temp gets more than 1 degrees below the Heating_MasterBedRoom_Setpoint to prevent rapid cycling
+	if((Netatmo_MasterBedRoom_Temperature.state as DecimalType)-1< (Heating_MasterBedRoom_Setpoint.state as DecimalType)) {
+		//Items connected to NC, i.e sendcommand off is ON!!
+		if(Heating_MasterBedRoom.state != OFF) Heating_MasterBedRoom.sendCommand(OFF)
+	}
+	else {
+		//Items connected to NC, i.e sendcommand off is ON!!
+		if(Heating_MasterBedRoom.state != ON) Heating_MasterBedRoom.sendCommand(ON)
+	}
+
+end
+
+
+
+//Items connected to NC, i.e sendcommand off is ON!!
+rule "Heat on weekdays"
+	when
+		Time cron "0 45 5 ? * MON-FRI"
+	then
+		sendCommand(Heating_LivingRoom, OFF)
+		sendCommand(Heating_Kitchen, OFF)
+		sendCommand(Heating_Bathroom, OFF)
+		sendCommand(Heating_MasterBedroom, OFF)
+		sendCommand(Heating_Bedroom, OFF)
+		sendCommand(Heating_Hallway,OFF)
+end
+
+
+//	Switch item=Scene_Presence label="Status" mappings=[1="HOME", 2="AWAY", 3="HOLIDYAS",4="SOON HOME"]
+rule "Activate Home"
+when
+	Item Scene_Presence received command 1
+then
+	Heating_LivingRoom_Setpoint=Heating_LivingRoom_Setpoint_Day
+	Heating_BedRoom_Setpoint=Heating_BedRoom_Setpoint_Day
+	Heating_MasterBedRoom_Setpoint=Heating_MasterBedRoom_Setpoint_Day
+	
+end
+
+//	Switch item=Scene_Presence label="Status" mappings=[1="HOME", 2="AWAY", 3="HOLIDAYS",4="SOON HOME"]
+rule "Activate Away"
+when
+	Item Scene_Presence received command 2
+then
+	Heating_LivingRoom_Setpoint=Heating_LivingRoom_Setpoint_Away
+	Heating_BedRoom_Setpoint=Heating_BedRoom_Setpoint_Away
+	Heating_MasterBedRoom_Setpoint=Heating_MasterBedRoom_Setpoint_Away
+	
+end
+
+
+//Items connected to NC, i.e sendcommand off is ON!!
+rule "Heat off weekdays"
+	when
+		Time cron "0 15 0 ? * MON-FRI"
+	then
+		sendCommand(Heating_LivingRoom, ON)
+		sendCommand(Heating_Kitchen, ON)
+		sendCommand(Heating_Bathroom, ON)
+		sendCommand(Heating_MasterBedroom, ON)
+		sendCommand(Heating_Bedroom, ON)
+		sendCommand(Heating_Hallway,ON)
+end
+
+//Items connected to NC, i.e sendcommand off is ON!!
+rule "Heat on weekends"
+	when
+		Time cron "0 45 6 ? * SAT,SUN"
+	then
+		sendCommand(Heating_LivingRoom, OFF)
+		sendCommand(Heating_Kitchen, OFF)
+		sendCommand(Heating_Bathroom, OFF)
+		sendCommand(Heating_MasterBedroom, OFF)
+		sendCommand(Heating_Bedroom, OFF)
+		sendCommand(Heating_Hallway,OFF)
+end
+
+//Items connected to NC, i.e sendcommand off is ON!!
+rule "Heat off weekends"
+	when
+		Time cron "0 15 0 ? * SAT,SUN"
+	then
+		sendCommand(Heating_LivingRoom, ON)
+		sendCommand(Heating_Kitchen, ON)
+		sendCommand(Heating_Bathroom, ON)
+		sendCommand(Heating_MasterBedroom, ON)
+		sendCommand(Heating_Bedroom, ON)
+		sendCommand(Heating_Hallway,ON)
+end
+* 
+*/
+
+/*
+rule "heat off when away"
+	when
+		Time cron "0 15 8 ? * MON-SUN"
+	then
+		sendCommand(timeState,OFF)
+end
+
+rule "heat ON when back"
+	when
+		Time cron "0 15 16 ? * MON-SUN"
+	then
+		sendCommand(timeState,ON)
+end
+
+rule "heat off when night"
+	when
+		Time cron "0 15 8 ? * MON-SUN"
+	then
+		sendCommand(timeState2,OFF)
+end
+
+rule "heat ON when its is day"
+	when
+		Time cron "0 15 0 ? * MON-SUN"
+	then
+		sendCommand(timeState2,ON)
+end
+*/
