@@ -19,21 +19,7 @@ var int greenValue
 var int blueValue
 var String RGBvalues
 
-//Items connected to NC, i.e sendcommand off is ON!!
-/* 
-rule "Restart ola"
-	when
-		Time cron "0 45 3 ? * *"
-	then
-		
-		executeCommandLine("olad@@-l@@3",5000)
-  
-end
-*/
-//executeCommandLine("curl@@-k@@-X@@POST@@https://us.wio.seeed.io/v1/node/GroveLedWs2812D0/clear/50/000000?access_token=3812ee2904de3f892d73b59b6d2c89a2",5000)
-    
 
-//curl -k -X POST https://us.wio.seeed.io/v1/node/GroveLedWs2812D0/clear/3/FFFFFF?access_token=3812ee2904de3f892d73b59b6d2c89a2
  
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////// Switch the different areas where LED-Lights should be switched on/off ////////////////7////////////
@@ -54,13 +40,11 @@ rule "Activate Scene LivingRoom"
 when
 	Item Scene_LivingRoom1 received command or Item Scene_LivingRoom2 received command or Item Scene_LivingRoom3 received command 
 then
-	//Div_PartySwitch.sendCommand(OFF)
 	Light_Kitchen.sendCommand(OFF)
 	Light_Wall_TV.sendCommand(OFF)
 	Light_Wall_Dinner.sendCommand(OFF)
 	Light_Wall_FirePlace.sendCommand(OFF)
-	executeCommandLine("curl@@-k@@-X@@POST@@https://us.wio.seeed.io/v1/node/GroveLedWs2812D0/clear/50/000000?access_token=3812ee2904de3f892d73b59b6d2c89a2",5000)
-    
+	
 
 	if ((receivedCommand>0) && (receivedCommand<5)) {
     	Scene_LivingRoom2.postUpdate(0)
@@ -173,17 +157,13 @@ then
         var Number fadeCounter 	
 	//RAPIDLY CHANGE HSB FOR ALL LIGHTS ON
 	
-	while( Scene_LivingRoom2.state == 7 && Div_PartySwitch.state == ON) {
+	while( Scene_LivingRoom2.state == 7) {
          //fadeCounter=fadeCounter+1
       	 Group_DMX_LivingRoom.members.forEach(light|
 		        light.sendCommand((HSBType::fromRGB((Math::random * 255).intValue , (Math::random * 255).intValue , (Math::random * 255).intValue)).toString())
 	 )  
          Thread::sleep(4000)
 	}
-
-	//Switch OFF and return to relaxing colors
-	postUpdate(Div_PartySwitch, OFF)
-	//sendCommand(Scene_LivingRoom1, 1)
 
 end
 
@@ -196,7 +176,7 @@ rule "Set RGB value Living Room"
     when
             Item Color_LivingRoom changed
     then
-    hsbValue = Color_LivingRoom.state as HSBType
+    	hsbValue = Color_LivingRoom.state as HSBType
     
 	Group_DMX_LivingRoom.members.filter[l|
 			logInfo("Debug","changing on lights: " + l.state.toString+ "  " + l.name )
@@ -223,7 +203,7 @@ then
 		hexValue ="00FF00"
 			
 	}
-    //white
+        //white
 	if (receivedCommand==2) {
 		redColor = 0
 		greenColor = 255
@@ -239,7 +219,6 @@ then
 	}
 	//night
 	if (receivedCommand==4) {
-		//255, 244, 229
 		redColor = 255
 		greenColor = 244
 		blueColor =229
@@ -249,9 +228,6 @@ then
 	hsbValue   = HSBType::fromRGB(redColor, greenColor,blueColor)
 	Color_LivingRoom.sendCommand(hsbValue.toString)
 	
-	
-    executeCommandLine("curl@@-k@@-X@@POST@@https://us.wio.seeed.io/v1/node/GroveLedWs2812D0/clear/60/000000?access_token=3812ee2904de3f892d73b59b6d2c89a2",5000)
-    executeCommandLine("curl@@-k@@-X@@POST@@https://us.wio.seeed.io/v1/node/GroveLedWs2812D0/clear/60/"+hexValue+"?access_token=3812ee2904de3f892d73b59b6d2c89a2",5000)
 end
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -265,18 +241,6 @@ then
 	Color_LivingRoom.sendCommand(Dimmer_LivingRoom.state)
 end
 
-/* 
-rule "Change dimming in Living Room"
-when
-	Item Dimmer_LivingRoom changed
-then
-
-	logInfo("Debug","Dimmer state: "  )
-	dimmerValue = 0.2//Dimmer_LivingRoom.state as DecimalType
-    Color_LivingRoom.sendCommand(hsbValue)
-end
-
-*/
 
 
 /***********************************************************************************************************
@@ -324,25 +288,25 @@ then
 	switch receivedCommand {
 		//OFF
 		case 1: {
-			hsbValueMasterBedRoom = HSBType::fromRGB(0, 0, 0)
-			Group_DMX_MasterBedRoom.members.forEach[l|l.sendCommand(hsbValueMasterBedRoom.toString())]	
-			Dimmer_MasterBedRoom.sendCommand(0)
+		    hsbValueMasterBedRoom = HSBType::fromRGB(0, 0, 0)
+		    Group_DMX_MasterBedRoom.members.forEach[l|l.sendCommand(hsbValueMasterBedRoom.toString())]	
+		    Dimmer_MasterBedRoom.sendCommand(0)
 		}
 		//ON
 		case 2:{
-			hsbValueMasterBedRoom = HSBType::fromRGB(255, 255, 255)
+		    hsbValueMasterBedRoom = HSBType::fromRGB(255, 255, 255)
 		    rgbLights.apply(Group_DMX_MasterBedRoom,Group_DMX_MasterBedRoom,hsbValueMasterBedRoom)
 		    Dimmer_MasterBedRoom.sendCommand(80)
 		}
 		//NIGHT
 		case 3:{
-			hsbValueMasterBedRoom = HSBType::fromRGB(50, 10, 10)
+		    hsbValueMasterBedRoom = HSBType::fromRGB(50, 10, 10)
 		    rgbLights.apply(Group_DMX_MasterBedRoom,Group_DMX_MasterBedRoom,hsbValueMasterBedRoom)
 		    Dimmer_MasterBedRoom.sendCommand(60)
 		}
 		//READING
 		case 4:{
-			hsbValueMasterBedRoom = HSBType::fromRGB(200, 200, 100)
+		    hsbValueMasterBedRoom = HSBType::fromRGB(200, 200, 100)
 		    rgbLights.apply(Group_DMX_MasterBedRoom,Group_DMX_MasterBedRoom,hsbValueMasterBedRoom)
 		    Dimmer_MasterBedRoom.sendCommand(100)
 		}
@@ -365,15 +329,8 @@ rule "Set RGB value BathRoom"
     then
     
     hsbValueBathRoom = Color_BathRoom.state as HSBType
-    
-    //redValue = (redColor*dimmerValue).intValue
-	//greenValue = (greenColor*dimmerValue).intValue
-	//blueValue= (blueColor*dimmerValue).intValue
-	
-    //hsbValue   = HSBType::fromRGB(redValue, greenValue,blueValue)
-	//logInfo("Info", "Set RGB value Living Room to : " +redValue.toString+ ":"  +greenValue.toString+ ":"  +blueValue.toString)
-   
-	Group_DMX_BathRoom.members.filter[l|
+  
+    Group_DMX_BathRoom.members.filter[l|
 			l.state.toString != hsbOff.toString
 		].forEach[l| l.sendCommand(hsbValueBathRoom.toString()) ]
 end
@@ -413,23 +370,3 @@ then
 	
 end
 
-rule "Set RGB value Kitchen"
-    when
-        Item Color_RGBKitchen changed
-    then
-    var HSBType hsbValueKitchen  
-    var String hexValue
-   
-   // val Color color = (Color_RGBKitchen.state as HSBType).toColor()
-    //val String rgb = String::format("%1$02x%2$02x%3$02x", hsbValueKitchen.red, hsbValueKitchen.green, hsbValueKitchen.blue)
-   
-    hsbValueKitchen =  Color_RGBKitchen.state as HSBType
-    //
-    //logInfo("Info", "Redvalue: "+ rgb)
-    
-    hexValue = Integer::toHexString( (hsbValueKitchen.blue*2.55).intValue ) + Integer::toHexString( (hsbValueKitchen.red*2.55).intValue ) + Integer::toHexString( (hsbValueKitchen.green*2.55).intValue )	
-    executeCommandLine("curl@@-k@@-X@@POST@@https://us.wio.seeed.io/v1/node/GroveLedWs2812D0/clear/60/000000?access_token=3812ee2904de3f892d73b59b6d2c89a2",5000)
-   
-    executeCommandLine("curl@@-k@@-X@@POST@@https://us.wio.seeed.io/v1/node/GroveLedWs2812D0/clear/60/"+hexValue+"?access_token=3812ee2904de3f892d73b59b6d2c89a2",5000)
-    logInfo("Info", "Hexvalue: "+ hexValue)
-end
