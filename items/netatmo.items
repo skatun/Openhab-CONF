@@ -35,7 +35,7 @@ homeID: 5859b11a2b2b46e32e8b584b
  */
 
 
-Number   Netatmo_Indoor_Temperature    "Indoor Temperature [%.2f °C]"  (Group_Netatmo, Group_Temperature) {netatmo="70:ee:50:1a:fc:b6#Temperature"}
+Number   Netatmo_Indoor_Temperature    "Indoor Temperature [%.2f °C]"  (Group_Netatmo, Group_Temperature,Group_Temperature_LivingRoom	) {netatmo="70:ee:50:1a:fc:b6#Temperature"}
 Number   Netatmo_Indoor_Humidity       "Indoor Humidity [%d %%]" (Group_Netatmo)  {netatmo="70:ee:50:1a:fc:b6#Humidity"}
 Number   Netatmo_Indoor_Pressure       "Indoor Pressure [%.2f mbar]" (Group_Netatmo)  {netatmo="70:ee:50:1a:fc:b6#Pressure"}
 Number   Netatmo_Indoor_Noise          "Indoor Noise [%d db]"  (Group_Netatmo)  {netatmo="70:ee:50:1a:fc:b6#Noise"}
