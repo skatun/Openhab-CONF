@@ -5,6 +5,7 @@ import org.eclipse.xtext.xbase.lib.Functions
 var HSBType hsbValue
 var HSBType hsbValueMasterBedRoom
 var HSBType hsbValueBathRoom
+
 val hsbOff = HSBType::fromRGB(0, 0, 0) 
 val hsbOn = HSBType::fromRGB(255, 255, 255)
 var boolean partyMode
@@ -26,14 +27,10 @@ var String RGBvalues
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
  val Functions.Function3 rgbLights= [ GroupItem mainGroup,GroupItem subGroup, HSBType hsbValueIn |
-	
-    val hsbOff = HSBType::fromRGB(0, 0, 0)
+    //val hsbOff = HSBType::fromRGB(0, 0, 0)
     
 	mainGroup.members.filter[l|l.state.toString != hsbOff.toString].forEach[l| l.sendCommand(hsbOff.toString()) ]
-	
-	subGroup.members.forEach[l2|l2.sendCommand(hsbValueIn)]
-	
-			
+	subGroup.members.forEach[l2|l2.sendCommand(hsbValueIn)]	
 ]
 
 rule "Activate Scene LivingRoom"
@@ -86,17 +83,18 @@ then
 	}
 	//Dinner
 	case 3:{
-		hsbValue = HSBType::fromRGB(255, 255, 153)
+		hsbValue = HSBType::fromRGB(255, 255, 153) //Set color
 		rgbLights.apply(Group_DMX_LivingRoom,Group_DMX_Dinner,hsbValue)
 	}
 	//Reading
 	case 4:{
+		hsbValue = HSBType::fromRGB(255, 255, 153) //Set color
 		rgbLights.apply(Group_DMX_LivingRoom,Group_DMX_Reading,hsbValue)
 	}
 	//FirePlace
 	case 5:{
 		Light_Wall_FirePlace.sendCommand(ON)
-		hsbValue = HSBType::fromRGB(127, 102, 25)
+		hsbValue = HSBType::fromRGB(127, 102, 25) //set color
 		rgbLights.apply(Group_DMX_LivingRoom,Group_DMX_FirePlace,hsbValue)
 	}
 	//Bar
@@ -107,7 +105,7 @@ then
 	}
 	//PARTY
 	case 7:{
-		executeCommandLine("curl@@-k@@-X@@POST@@https://us.wio.seeed.io/v1/node/GroveLedWs2812D0/start_rainbow_flow/60/80/1?access_token=3812ee2904de3f892d73b59b6d2c89a2",5000)
+		//executeCommandLine("curl@@-k@@-X@@POST@@https://us.wio.seeed.io/v1/node/GroveLedWs2812D0/start_rainbow_flow/60/80/1?access_token=3812ee2904de3f892d73b59b6d2c89a2",5000)
 		Div_PartySwitch.sendCommand(ON)
 	}
 	//TV
@@ -135,11 +133,11 @@ then
 	}
 	//Lounge
 	case 12:{
+		hsbValue = HSBType::fromRGB(255, 204, 51)
+		rgbLights.apply(Group_DMX_LivingRoom,Group_DMX_Lounge,hsbValue)
 		Light_Wall_Dinner.sendCommand(ON)
 		Light_Wall_TV.sendCommand(ON)
 		Light_Wall_FirePlace.sendCommand(ON)
-		hsbValue = HSBType::fromRGB(255, 204, 51)
-		rgbLights.apply(Group_DMX_LivingRoom,Group_DMX_Lounge,hsbValue)
 	}
 	
 	}
@@ -177,15 +175,22 @@ rule "Set RGB value Living Room"
             Item Color_LivingRoom changed
     then
     	hsbValue = Color_LivingRoom.state as HSBType
-    
-	Group_DMX_LivingRoom.members.filter[l|
-			logInfo("Debug","changing on lights: " + l.state.toString+ "  " + l.name )
+		Group_DMX_LivingRoom.members.filter[l|
 			l.state.toString != hsbOff
 		].forEach[l| l.sendCommand(hsbValue.toString) ]
 end
 
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////// Dim the lights //// ////////////////7//////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+rule "Change dimming in Living Room"
+when
+	Item Dimmer_LivingRoom changed
+then
+	Color_LivingRoom.sendCommand(Dimmer_LivingRoom.state)
+end
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////// Change the moodings of light, e.g. warm white, white, lounge and night ////////////////////////////
@@ -230,16 +235,7 @@ then
 	
 end
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////// Dim the lights //// ////////////////7//////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-rule "Change dimming in Living Room"
-when
-	Item Dimmer_LivingRoom changed
-then
-	Color_LivingRoom.sendCommand(Dimmer_LivingRoom.state)
-end
 
 
 
