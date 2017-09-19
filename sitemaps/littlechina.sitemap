@@ -27,6 +27,7 @@ sitemap littlechina label="LittleChina"
 			
 			Setpoint item=Heating_LivingRoom_Setpoint label="Living Room Temperature Set Point  [%.1f °C]" icon="temperature" minValue=1 maxValue=30 step=0.5
 			Text item=Group_Temperature_LivingRoom icon="temperature"
+			Switch item=Heating_LivingRoom  label="Heating status" icon="temperature" mappings=[ON="OFF", OFF="ON"]
 
 		}	
 		Text label="Hallway" icon="corridor"{
