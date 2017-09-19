@@ -25,13 +25,9 @@ sitemap littlechina label="LittleChina"
 			Switch item=Light_Wall_TV icon="light"
 			Switch item=Light_Wall_FirePlace icon="light"
 			
-			Setpoint item=Heating_LivingRoom_Setpoint label="Living Room Temperature Set Point  [%.1f °C]" icon="temperature" minValue=1 maxValue=30 step=0.5
-			Text item=Netatmo_Indoor_Temperature icon="temperature"
-			
-			
-			
-			
-	
+			Setpoint item=Heating_LivingRoom_Setpoint label="Living Room Temperature Set Point  [%.1f Â°C]" icon="temperature" minValue=1 maxValue=30 step=0.5
+			Text item=Group_Temperature_LivingRoom icon="temperature"
+
 		}	
 		Text label="Hallway" icon="corridor"{
 			Switch item=Div_DoorOpener icon="key" mappings=[ON="OPEN", OFF="CLOSED"]
@@ -69,10 +65,10 @@ sitemap littlechina label="LittleChina"
 		}
 		
 		Text label="Temperatures" icon="temperature"{
-			Text item=Netatmo_Outdoor_Temperature icon="temperature"
-			Text item=Netatmo_Indoor_Temperature icon="temperature"
-			Text item=Netatmo_Bedroom_Temperature icon="temperature"
-			Text item=Netatmo_MasterBedroom_Temperature icon="temperature"
+			Text item=Netatmo_Outdoor_Temperature  label="Balcony Temperature" icon="temperature"
+			Text item=Netatmo_Indoor_Temperature label="Netatmo Temperature in Livingroom" icon="temperature"
+			Text item=Netatmo_Bedroom_Temperature label="Netatmo Temperature in Bedroom" icon="temperature"
+			Text item=Netatmo_MasterBedroom_Temperature label="Netatmo Temperature in Master Bedroom" icon="temperature"
 			
 			Text item=Miflora_Sensor1_Temperature icon="temperature"
 			Text item=Miflora_Sensor2_Temperature icon="temperature"
