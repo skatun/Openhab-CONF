@@ -1,0 +1,11 @@
+String vTimeOfDay "Current Time of Day [%s]"
+
+DateTime vSunrise_Time "Sunrise [%1$tH:%1$tM]"
+    { channel="astro:sun:home:rise#start" }
+
+DateTime vSunset_Time "Sunset [%1$tH:%1$tM]"
+    { channel="astro:sun:home:set#start" }
+
+// TODO figure out how to do this with offsets instead of a new Thing
+DateTime vEvening_Time "Evening [%1$tH:%1$tM]"
+    { channel="astro:sun:minus90:set#start" }

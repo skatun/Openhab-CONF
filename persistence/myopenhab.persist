@@ -1,0 +1,7 @@
+Strategies {
+        default = everyUpdate
+}
+
+Items {
+        Group_MyOpenhab* : strategy = everyUpdate
+}

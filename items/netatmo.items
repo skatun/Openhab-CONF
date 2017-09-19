@@ -122,6 +122,15 @@ Switch   Welcome_Kim_AtHome     "Kim [%s]"                                      
 String   Welcome_Kim_FaceId     "Kim FaceId [%s]"                               {netatmo="camera=5859b11a2b2b46e32e8b584b#c23774ab-683b-4f7a-acc7-36b00e2a4f03#FaceId"}
 String   Welcome_Kim_FaceKey    "Kim FaceKey [%s]"                              {netatmo="camera=5859b11a2b2b46e32e8b584b#c23774ab-683b-4f7a-acc7-36b00e2a4f03#FaceKey"}
 
+
+Number Welcome_Unknown_Home       "Unknown @Home Count [%d]"    {netatmo="camera=5859b11a2b2b46e32e8b584b#UNKNOWN#HomeCount"}
+Number Welcome_Unknown_Away       "Unknown @Away Count [%d]"    {netatmo="camera=5859b11a2b2b46e32e8b584b#UNKNOWN#AwayCount"}
+String Welcome_Unknown_LastSeen   "Unknown lastSeenList [%s]"   {netatmo="camera=5859b11a2b2b46e32e8b584b#UNKNOWN#LastSeenList"}
+String Welcome_Unknown_OutOfSight "Unknown OutOfSightList [%s]" {netatmo="camera=5859b11a2b2b46e32e8b584b#UNKNOWN#OutOfSightList"}
+String Welcome_Unknown_FaceId     "Unknown FaceIdList [%s]"     {netatmo="camera=5859b11a2b2b46e32e8b584b#UNKNOWN#FaceIdList"}
+String Welcome_Unknown_FaceKey    "Unknown FaceKeyList [%s]"    {netatmo="camera=5859b11a2b2b46e32e8b584b#UNKNOWN#FaceKeyList"}
+Supported types for welcome camera unknown person
+
 * 
 * 
 */

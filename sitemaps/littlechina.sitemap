@@ -4,7 +4,9 @@ sitemap littlechina label="LittleChina"
 		Text label="Main Features" icon="groundfloor"{
 			Switch item=Light_All_Off label="All off"
 			Switch item=Scene_DayMode label="Day Mode" mappings=[1="AWAY", 2="HOME", 3="NIGHT", 4="ON WAY HOME"]
-			Switch item=Div_Ola label="Reset OLA(Lights)" 
+			Switch item=Div_Ola label="Reset OLA(Lights)"
+			//Selection item=Fans label="Fan Speed" icon="fan" mappings=[0="Off", 1="Low", 2="Medium", 3="Max"]
+     
 		}
 		
 		Text label="Living Room" icon="groundfloor"{
@@ -22,6 +24,11 @@ sitemap littlechina label="LittleChina"
 			Switch item=Light_Wall_Dinner icon="light"
 			Switch item=Light_Wall_TV icon="light"
 			Switch item=Light_Wall_FirePlace icon="light"
+			
+			Setpoint item=Heating_LivingRoom_Setpoint label="Living Room Temperature Set Point  [%.1f °C]" icon="temperature" minValue=1 maxValue=30 step=0.5
+			Text item=Netatmo_Indoor_Temperature icon="temperature"
+			
+			
 			
 			
 	
@@ -45,10 +52,38 @@ sitemap littlechina label="LittleChina"
 			Switch item=Light_Balcony icon="light"
 			Text item=Netatmo_Outdoor_Temperature icon="temperature"
 			Text item=Netatmo_Outdoor_Humidity icon="humidity"
+		
+		}
+		
+		Text label="Flowers" icon="garden"{
+			Text item=Miflora_Sensor1_Moisture label="Palm flower" icon="temperature"
+			Text item=Miflora_Sensor2_Moisture label="Orchide flower" icon="temperature"
+			Text item=Miflora_Sensor3_Moisture icon="temperature"
+			Text item=Miflora_Sensor4_Moisture icon="temperature"
+			
+			Text item=Miflora_Sensor1_Conductivity icon="temperature"
+			Text item=Miflora_Sensor2_Conductivity icon="temperature"
+			Text item=Miflora_Sensor3_Conductivity icon="temperature"
+			Text item=Miflora_Sensor4_Conductivity icon="temperature"
+		
+		}
+		
+		Text label="Temperatures" icon="temperature"{
+			Text item=Netatmo_Outdoor_Temperature icon="temperature"
+			Text item=Netatmo_Indoor_Temperature icon="temperature"
+			Text item=Netatmo_Bedroom_Temperature icon="temperature"
+			Text item=Netatmo_MasterBedroom_Temperature icon="temperature"
+			
+			Text item=Miflora_Sensor1_Temperature icon="temperature"
+			Text item=Miflora_Sensor2_Temperature icon="temperature"
+			Text item=Miflora_Sensor3_Temperature icon="temperature"
+			Text item=Miflora_Sensor4_Temperature icon="temperature"
+		
 		}
 		Text label="Presence" icon="motion"{
 			Switch item=Scene_Presence_Kim label="Kim's status" icon="light" mappings=[1="AWAY", 2="NETATMO", 3="WIFI", 4="BLUETOOTH"]
 			Text item=Welcome_Kim_LastSeen label="Kim last seen" icon="motion"
+			Switch item= MOBKIM_WLAN
 		
 		  	Switch item=Scene_Presence_Yulia label="Yulia's status" icon="light" mappings=[1="AWAY", 2="NETATMO", 3="WIFI", 4="BLUETOOTH"]
 			Text item=Welcome_Yulia_LastSeen label="Yulia last seen" icon="motion"

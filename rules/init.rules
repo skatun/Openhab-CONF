@@ -6,7 +6,7 @@ then
 
 
     createTimer(now.plusSeconds(45)) [|
-
+		sendMail("skatun@gmail.com","OpenHAB","System started")
         logInfo("Initializer", "... initializing!")
         //Wir warten 45 Sekunden, dann initalisieren wir alle die nicht aus der Datenbank bef�llt wurden
        // Group_LightLogging.members.filter( x | x.state == Uninitialized).forEach[ item |
@@ -15,11 +15,11 @@ then
         //]
 		
 		Group_Temperature.allMembers.filter( x | x.state == Uninitialized || x.state == Undefined).forEach[ item |
-			item.postUpdate( 21)
+			item.postUpdate(21)
 		]
 
 		Group_SetPoint.allMembers.filter( x | x.state == Uninitialized || x.state == Undefined).forEach[ item |
-			item.postUpdate( 21)
+			item.postUpdate(21)
 		]
     ]
 end

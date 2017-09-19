@@ -1,11 +1,12 @@
 import org.eclipse.smarthome.core.items.GenericItem
+import org.eclipse.smarthome.core.items.NumberItem
 import org.eclipse.smarthome.core.library.types.DecimalType
 import org.eclipse.xtext.xbase.lib.Functions
 
-val Functions.Function3 heatings = [ GenericItem setPoint,GenericItem temperature,GenericItem relay |
+val Functions.Function3 heatings = [ NumberItem setPoint,NumberItem temperature,GenericItem relay |
 	// Turn on the heater if the temp gets more than 2 degrees below the Heating_LivingRoom_Setpoint to prevent rapid cycling
-	/* 
-    if(temperature.state as Number-1.0< setPoint.state as Number) {
+	
+    if((temperature.state as Number)-1.0< (setPoint.state as Number) ) {
 		//Items connected to NC, i.e sendcommand off is ON!!
 		if(relay.state != OFF) relay.sendCommand(OFF)
 	}
@@ -13,26 +14,11 @@ val Functions.Function3 heatings = [ GenericItem setPoint,GenericItem temperatur
 		//Items connected to NC, i.e sendcommand off is ON!!
 		if(relay.state != ON) relay.sendCommand(ON)
 	}
-	*/
+	
 			
 ]
 
-/* 
-val Functions.Function3  <Number, Number, SwitchItem> heatings2 = [ setPoint, temperature, relay |
-	// Turn on the heater if the temp gets more than 2 degrees below the Heating_LivingRoom_Setpoint to prevent rapid cycling
-	
-    if(temperature-1.0 < setPoint) {
-		//Items connected to NC, i.e sendcommand off is ON!!
-		if(relay.state != OFF) relay.sendCommand(OFF)
-	}
-	else {
-		//Items connected to NC, i.e sendcommand off is ON!!
-		if(relay.state != ON) relay.sendCommand(ON)
-	}
-    
-]
 
- */
 // Rule to drive the Heater
 rule "Heater in living room"
 	when

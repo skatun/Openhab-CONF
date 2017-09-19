@@ -1,0 +1,22 @@
+rule "Process fan commands"
+when
+    Item Fans received command
+then
+    logInfo("FansRules", "Processing Fans command")
+    if(receivedCommand != null) {
+        switch(receivedCommand) {
+            case "0" : sendCommand(Fans, 0)
+            case "1" : sendCommand(Fans, 1)
+            case "2" : sendCommand(Fans, 2)
+            case "3" : sendCommand(Fans, 3)
+        }
+    }
+end
+rule "Update Fan speed"
+when
+    Item Fans changed
+then
+    logInfo("FansRules", "Processing speed update")
+    var currentSpeed = Fans.state as DecimalType
+    postUpdate(Fans, currentSpeed)
+end

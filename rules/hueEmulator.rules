@@ -15,6 +15,12 @@ then
 		Scene_MasterBedRoom.sendCommand(2)
 end
 
+rule "Master Bedroom Off"
+when
+	Item Alexa_MasterBedroom received command OFF
+then
+		Scene_MasterBedRoom.sendCommand(1)
+end
 
 rule "Lights Off"
 when

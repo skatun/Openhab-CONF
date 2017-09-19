@@ -26,3 +26,5 @@ Number Heating_LivingRoom_Setpoint_Away (Group_SetPoint, Group_LivingRoom)
 Number Heating_BedRoom_Setpoint_Away 	(Group_SetPoint, Group_BedRoom)
 Number Heating_MasterBedRoom_Setpoint_Away 	(Group_SetPoint, Group_MasterBedRoom)
 Number Heating_BathRoom_Setpoint_Away 	(Group_SetPoint, Group_BathRoom)
+
+Number Fans { modbus="fan:0" }
