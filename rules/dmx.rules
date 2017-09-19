@@ -27,7 +27,7 @@ var String RGBvalues
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
  val Functions.Function3 rgbLights= [ GroupItem mainGroup,GroupItem subGroup, HSBType hsbValueIn |
-    //val hsbOff = HSBType::fromRGB(0, 0, 0)
+    val hsbOff = HSBType::fromRGB(0, 0, 0)
     
 	mainGroup.members.filter[l|l.state.toString != hsbOff.toString].forEach[l| l.sendCommand(hsbOff.toString()) ]
 	subGroup.members.forEach[l2|l2.sendCommand(hsbValueIn)]	
@@ -189,7 +189,8 @@ rule "Change dimming in Living Room"
 when
 	Item Dimmer_LivingRoom changed
 then
-	Color_LivingRoom.sendCommand(Dimmer_LivingRoom.state)
+	logInfo("Debug","Received command is " + Dimmer_LivingRoom.Percent.toString() + " SHOULD NEVER HAPPEN")
+	Color_LivingRoom.sendCommand(Dimmer_LivingRoom)
 end
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
