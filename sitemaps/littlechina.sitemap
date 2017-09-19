@@ -5,6 +5,7 @@ sitemap littlechina label="LittleChina"
 			Switch item=Light_All_Off label="All off"
 			Switch item=Scene_DayMode label="Day Mode" mappings=[1="AWAY", 2="HOME", 3="NIGHT", 4="ON WAY HOME"]
 			Switch item=Div_Ola label="Reset OLA(Lights)"
+			Text item=vTimeOfDay label="Time of the day [%s]"
 			//Selection item=Fans label="Fan Speed" icon="fan" mappings=[0="Off", 1="Low", 2="Medium", 3="Max"]
      
 		}
