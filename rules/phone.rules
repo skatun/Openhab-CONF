@@ -11,12 +11,7 @@ rule "Welcome changed"
 		}
 end
 
-rule "Mode change"
-	when
-		Item Scene_DayMode changed
-	then
-		Heating_LivingRoom_Setpoint = Heating_LivingRoom_Setpoint_Day
-end	
+
 
 
 

@@ -20,3 +20,7 @@ Group Group_DMX_BathRoom
 Group Group_Temperature
 Group Group_SetPoint
 Group Group_Heating
+
+Group Group_MyOpenhab // for Items that are exposed to IFTTT
+Group Group_Chart     // for Items to persist for charting
+Group Group_History   // for Items to preserve their history

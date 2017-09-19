@@ -4,7 +4,7 @@ import org.joda.time.DateTime
 var Timer DoorTimer=null
 var Number changes = 0
 var DateTime timeFirstChange
-val Number changesPerRing = 4
+val Number changesPerRing = 5
 
 rule "Turn off door relay"
 when
@@ -12,6 +12,7 @@ when
 then
 	DoorTimer = createTimer(now.plusSeconds(6))[|
 	sendCommand(Div_DoorOpener, OFF)
+	sendMail("skatun@gmail.com","Door open with alexa or android","AirBnb guest arrived")
 ]
 end
 
@@ -28,8 +29,11 @@ then
 		timeFirstChange = now
 		}
     else if ( changes == changesPerRing+1 && now.minusSeconds(3).isAfter(timeFirstChange) && now.minusSeconds(8).isBefore(timeFirstChange)){
-		//Div_DoorOpener.sendCommand(ON)
-		changes = changes +1
+		Div_DoorOpener.sendCommand(ON)
+		
+		changes = 0
+		sendMail("skatun@gmail.com","Doorbell rang","AirBnb guest arrived")
+		pushover("Doorbell rang")
 	}
     else if (changes==changesPerRing*2) {
 		changes = 0

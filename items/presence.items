@@ -9,14 +9,11 @@ Switch Presence_Guest "Guests"
 
 
 //Mobilfunktelefone
-Switch MOBKIM_WLAN "Cell Kim" (grp_PRAESENZ) { nh="192.168.1.158" }
-Switch MOBYULIA_WLAN "Cell Liv Unni" (grp_PRAESENZ) { nh="192.168.1.159" }
+Switch MOBKIM_WLAN "Cell Kim"  
+Switch MOBYULIA_WLAN "Cell Yulia" 
 
 
 
-//Mobilfunktelefone
-//Switch MOB188_BT "Handy Daniel" (grp_PRAESENZ) { exec="<[/scripts/bt.sh 1:60000:REGEX((.*?))]" }
-//Switch MOB137_BT "Handy Tina" (grp_PRAESENZ) { exec="<[/scripts/bt.sh 2:60000:REGEX((.*?))]" }
 
 
 //String UnknownDevices    "Unknown Devices in Range: [%s]" { bluetooth="?" }
