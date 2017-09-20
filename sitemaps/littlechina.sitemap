@@ -11,25 +11,39 @@ sitemap littlechina label="LittleChina"
 		}
 		
 		Text label="Living Room" icon="groundfloor"{
-			Switch item=Scene_LivingRoom1 label="Group 1" mappings=[1="OFF", 2="ON", 3="DINNER", 4="READING"]
-			Switch item=Scene_LivingRoom2 label="Group 2" mappings=[5="FIREPLACE", 6="BAR", 7="PARTY", 8="TV"]
-			Switch item=Scene_LivingRoom3 label="Group 3" mappings=[9="COOKING", 10="WALL", 11="KITCHEN", 12="LOUNGE"]
+			Frame label="Lights" {
+				Switch item=Scene_LivingRoom1 label="Group 1" mappings=[1="OFF", 2="ON", 3="DINNER", 4="READING"]
+				Switch item=Scene_LivingRoom2 label="Group 2" mappings=[5="FIREPLACE", 6="BAR", 7="PARTY", 8="TV"]
+				Switch item=Scene_LivingRoom3 label="Group 3" mappings=[9="COOKING", 10="WALL", 11="KITCHEN", 12="LOUNGE"]
 
 
-			Switch item=MoodSelector_LivingRoom label="Mood" mappings=[1="Red", 2="Green", 3="Blue",4="White"]
-			//Switch item=MoodSelector_LivingRoom label="Mood" mappings=[1="WharmWhite", 2="White", 3="Lounge",4="Night"]
-			Slider item=Dimmer_LivingRoom label="Dimmer" icon="slider"
-			Colorpicker item=Color_LivingRoom label="Color Wheel" icon="colorwheel" 
+				//Switch item=MoodSelector_LivingRoom label="Mood" mappings=[1="Red", 2="Green", 3="Blue",4="White"]
+				Switch item=MoodSelector_LivingRoom label="Mood" mappings=[1="WharmWhite", 2="White", 3="Lounge",4="Night"]
+				Slider item=Dimmer_LivingRoom label="Dimmer" icon="slider"
+				Colorpicker item=Color_LivingRoom label="Color Wheel" icon="colorwheel" 
+				
+				Switch item=Light_Kitchen icon="light"
+				Switch item=Light_Wall_Dinner icon="light"
+				Switch item=Light_Wall_TV icon="light"
+				Switch item=Light_Wall_FirePlace icon="light"
+			}
+			Frame label="Temperature" {
+				Setpoint item=Heating_LivingRoom_Setpoint label="Living Room Temperature Set Point  [%.1f °C]" icon="temperature" minValue=1 maxValue=30 step=0.5
+				Text item=Group_Temperature_LivingRoom icon="temperature"
+				Switch item=Heating_LivingRoom  label="Heating status" icon="temperature" mappings=[ON="OFF", OFF="ON"]
+			}
 			
-			Switch item=Light_Kitchen icon="light"
-			Switch item=Light_Wall_Dinner icon="light"
-			Switch item=Light_Wall_TV icon="light"
-			Switch item=Light_Wall_FirePlace icon="light"
+			Frame label="Air/Living Quality" {
+				Text item=Netatmo_Indoor_Humidity icon="temperature"
+				Text item=Netatmo_Indoor_CO2 icon="temperature"
+				Text item=Netatmo_Indoor_Max_CO2 icon="temperature"
+				Text item=Netatmo_Indoor_Noise icon="temperature"
+			}
 			
-			Setpoint item=Heating_LivingRoom_Setpoint label="Living Room Temperature Set Point  [%.1f °C]" icon="temperature" minValue=1 maxValue=30 step=0.5
-			Text item=Group_Temperature_LivingRoom icon="temperature"
-			Switch item=Heating_LivingRoom  label="Heating status" icon="temperature" mappings=[ON="OFF", OFF="ON"]
-
+			Frame label="Plants" {
+				Text item=Group_Moisture_LivingRoom
+			}
+			
 		}	
 		Text label="Hallway" icon="corridor"{
 			Switch item=Div_DoorOpener icon="key" mappings=[ON="OPEN", OFF="CLOSED"]

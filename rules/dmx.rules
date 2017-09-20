@@ -29,7 +29,8 @@ var String RGBvalues
  val Functions.Function3 rgbLights= [ GroupItem mainGroup,GroupItem subGroup, HSBType hsbValueIn |
     val hsbOff = HSBType::fromRGB(0, 0, 0)
     
-	mainGroup.members.filter[l|l.state.toString != hsbOff.toString].forEach[l| l.sendCommand(hsbOff.toString()) ]
+	//mainGroup.members.filter[l|l.state.toString != hsbOff.toString].forEach[l| l.sendCommand(hsbOff.toString()) ]
+	mainGroup.members.filter[l|(l.state as HSBType).value != 0].forEach[l| l.sendCommand(hsbOff.toString()) ]
 	subGroup.members.forEach[l2|l2.sendCommand(hsbValueIn)]	
 ]
 
@@ -142,8 +143,9 @@ then
 	
 	}
 	
-	
-	//
+	Color_LivingRoom.postUpdate(hsbValue.toString)
+	Dimmer_LivingRoom.postUpdate((Color_LivingRoom.state as HSBType).value)
+
 end
 
 
@@ -154,11 +156,12 @@ when
 then
         var Number fadeCounter 	
 	//RAPIDLY CHANGE HSB FOR ALL LIGHTS ON
+	val int brightness = 30//Dimmer_LivingRoom.state as PercenType
 	
 	while( Scene_LivingRoom2.state == 7) {
          //fadeCounter=fadeCounter+1
       	 Group_DMX_LivingRoom.members.forEach(light|
-		        light.sendCommand((HSBType::fromRGB((Math::random * 255).intValue , (Math::random * 255).intValue , (Math::random * 255).intValue)).toString())
+		        light.sendCommand((HSBType::fromRGB((Math::random * 255*brightness/100).intValue , (Math::random * 255*brightness/100).intValue , (Math::random * 255*brightness/100).intValue)).toString())
 	 )  
          Thread::sleep(4000)
 	}
@@ -175,9 +178,13 @@ rule "Set RGB value Living Room"
             Item Color_LivingRoom changed
     then
     	hsbValue = Color_LivingRoom.state as HSBType
+
 		Group_DMX_LivingRoom.members.filter[l|
-			l.state.toString != hsbOff
+			//logInfo("Debug","Light brightness for  " +l.name + " is  "  + (l.state as HSBType).value)
+			(l.state as HSBType).value!= 0
 		].forEach[l| l.sendCommand(hsbValue.toString) ]
+		
+		Dimmer_LivingRoom.postUpdate((Color_LivingRoom.state as HSBType).value)
 end
 
 
@@ -189,8 +196,8 @@ rule "Change dimming in Living Room"
 when
 	Item Dimmer_LivingRoom changed
 then
-	logInfo("Debug","Received command is " + Dimmer_LivingRoom.Percent.toString() + " SHOULD NEVER HAPPEN")
-	Color_LivingRoom.sendCommand(Dimmer_LivingRoom)
+	logInfo("Debug","Received command is " + Dimmer_LivingRoom.state.toString + " SHOULD NEVER HAPPEN")
+	Color_LivingRoom.sendCommand(Dimmer_LivingRoom.state as PercentType)
 end
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
