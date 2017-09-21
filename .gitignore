@@ -1,5 +1,5 @@
 # Openhab config files
-.cfg
+*.cfg
 
 
 # Windows image file caches
