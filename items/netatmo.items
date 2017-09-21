@@ -1,22 +1,4 @@
-
 /*
-  # The Netatmo client id (see http://dev.netatmo.com/dev/listapps)
-netatmo:clientid=569d3b194bda1d629f8c962f 
-
-# The Netatmo client secret (see http://dev.netatmo.com/dev/listapps)
-netatmo:clientsecret=WdO2Ig6VtlO3HFhiddB9l84zIlxWU5o3F
-
-# The Netatmo refresh token (see http://dev.netatmo.com/doc/authentication/usercred)
-netatmo:refreshtoken= 5689941269f7405b8cf3b889|f07f8fe0eb969bc05a383fa98572582a
-  
-  https://api.netatmo.com/oauth2/authorize?client_id=569d3b194bda1d629f8c962f&redirect_uri=http%3Alocalhost%3A8080%2Ftest%2F&scope=read_station%20read_camera%20access_camera&state=42"
-  sudo curl -d 'grant_type=password&client_id=569d3b194bda1d629f8c962f&client_secret=WdO2Ig6VtlO3HFhiddB9l84zIlxWU5o3F&username=skatun@gmail.com&password=Pauh7597&scope=read_station%20read_camera%20access_camera' 'https://api.netatmo.net/oauth2/token'
- 
-homeID: 5859b11a2b2b46e32e8b584b
-* 
-* 
-* acsess token 5689941269f7405b8cf3b889|49afca2f62c9c35a9efbe784973bdfec
-* refresh token 5689941269f7405b8cf3b889|fb1e0c5d33f8e822ba4e121cd02209c6
 
          PERSON: 5859b11a2b2b46e32e8b584b#9937ebeb-c11b-4ec4-82ac-fc62783d486e (Sigurd)
          PERSON: 5859b11a2b2b46e32e8b584b#20797265-be20-4683-8ed1-60aae53a38c6 (Mathias)
@@ -35,7 +17,7 @@ homeID: 5859b11a2b2b46e32e8b584b
  */
 
 
-Number   Netatmo_Indoor_Temperature    "Indoor Temperature [%.2f °C]"  (Group_Netatmo, Group_Temperature) {netatmo="70:ee:50:1a:fc:b6#Temperature"}
+Number   Netatmo_Indoor_Temperature    "Indoor Temperature [%.2f °C]"  (Group_Netatmo, Group_Temperature,Group_Temperature_LivingRoom	) {netatmo="70:ee:50:1a:fc:b6#Temperature"}
 Number   Netatmo_Indoor_Humidity       "Indoor Humidity [%d %%]" (Group_Netatmo)  {netatmo="70:ee:50:1a:fc:b6#Humidity"}
 Number   Netatmo_Indoor_Pressure       "Indoor Pressure [%.2f mbar]" (Group_Netatmo)  {netatmo="70:ee:50:1a:fc:b6#Pressure"}
 Number   Netatmo_Indoor_Noise          "Indoor Noise [%d db]"  (Group_Netatmo)  {netatmo="70:ee:50:1a:fc:b6#Noise"}

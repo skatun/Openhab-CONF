@@ -8,33 +8,34 @@ Group gLight "Mi Flora Sunlight Intensity elements" (gAll)
 Group gConductivity "Mi Flora Soil Conductivity/Fertility elements" (gAll)
 Group gBattery "Mi Flora Sensor Battery Level elements" (gAll)
 Group gTemperature "Mi Flora Air Temperature elements" (gAll)
-Group gMoisture "Mi Flora Soil Moisture elements" (gAll)g
+Group Group_Moisture "Mi Flora Soil Moisture elements" (gAll)
+ 
 Group gMiflora
 
 // Mi Flora "Sensor4" (C4:7C:8D:62:51:42)
 Number Miflora_Sensor4_Light "Sensor4 Sunlight Intensity [%d lux]" <text> (gMiflora, gLight) {mqtt="<[mosquitto:miflora/sensor4:state:JSONPATH($.light)]"}
 Number Miflora_Sensor4_Conductivity "Sensor4 Soil Conductivity/Fertility [%d µS/cm]" <text> (gMiflora, gConductivity) {mqtt="<[mosquitto:miflora/sensor4:state:JSONPATH($.conductivity)]"}
 Number Miflora_Sensor4_Battery "Sensor4 Sensor Battery Level [%d %%]" <text> (gMiflora, gBattery) {mqtt="<[mosquitto:miflora/sensor4:state:JSONPATH($.battery)]"}
-Number Miflora_Sensor4_Temperature "Sensor4 Air Temperature [%.1f °C]" <text> (gMiflora, gTemperature) {mqtt="<[mosquitto:miflora/sensor4:state:JSONPATH($.temperature)]"}
-Number Miflora_Sensor4_Moisture "Sensor4 Soil Moisture [%d %%]" <text> (gMiflora, gMoisture) {mqtt="<[mosquitto:miflora/sensor4:state:JSONPATH($.moisture)]"}
+Number Miflora_Sensor4_Temperature "Sensor4 Air Temperature [%.1f °C]" <text> (gMiflora, gTemperature,Group_Temperature_LivingRoom) {mqtt="<[mosquitto:miflora/sensor4:state:JSONPATH($.temperature)]"}
+Number Miflora_Sensor4_Moisture "Sensor4 Soil Moisture [%d %%]" <text> (gMiflora, Group_Moisture,Group_Moisture_LivingRoom) {mqtt="<[mosquitto:miflora/sensor4:state:JSONPATH($.moisture)]"}
 
 // Mi Flora "Sensor3" (C4:7C:8D:62:51:52)
 Number Miflora_Sensor3_Light "Sensor3 Sunlight Intensity [%d lux]" <text> (gMiflora, gLight) {mqtt="<[mosquitto:miflora/sensor3:state:JSONPATH($.light)]"}
 Number Miflora_Sensor3_Conductivity "Sensor3 Soil Conductivity/Fertility [%d µS/cm]" <text> (gMiflora, gConductivity) {mqtt="<[mosquitto:miflora/sensor3:state:JSONPATH($.conductivity)]"}
 Number Miflora_Sensor3_Battery "Sensor3 Sensor Battery Level [%d %%]" <text> (gMiflora, gBattery) {mqtt="<[mosquitto:miflora/sensor3:state:JSONPATH($.battery)]"}
-Number Miflora_Sensor3_Temperature "Sensor3 Air Temperature [%.1f °C]" <text> (gMiflora, gTemperature) {mqtt="<[mosquitto:miflora/sensor3:state:JSONPATH($.temperature)]"}
-Number Miflora_Sensor3_Moisture "Sensor3 Soil Moisture [%d %%]" <text> (gMiflora, gMoisture) {mqtt="<[mosquitto:miflora/sensor3:state:JSONPATH($.moisture)]"}
+Number Miflora_Sensor3_Temperature "Sensor3 Air Temperature [%.1f °C]" <text> (gMiflora, gTemperature,Group_Temperature_LivingRoom) {mqtt="<[mosquitto:miflora/sensor3:state:JSONPATH($.temperature)]"}
+Number Miflora_Sensor3_Moisture "Sensor3 Soil Moisture [%d %%]" <text> (gMiflora, Group_Moisture,Group_Moisture_LivingRoom) {mqtt="<[mosquitto:miflora/sensor3:state:JSONPATH($.moisture)]"}
 
 // Mi Flora "Sensor2" (C4:7C:8D:62:50:EC)
 Number Miflora_Sensor2_Light "Sensor2 Sunlight Intensity [%d lux]" <text> (gMiflora, gLight) {mqtt="<[mosquitto:miflora/sensor2:state:JSONPATH($.light)]"}
 Number Miflora_Sensor2_Conductivity "Sensor2 Soil Conductivity/Fertility [%d µS/cm]" <text> (gMiflora, gConductivity) {mqtt="<[mosquitto:miflora/sensor2:state:JSONPATH($.conductivity)]"}
 Number Miflora_Sensor2_Battery "Sensor2 Sensor Battery Level [%d %%]" <text> (gMiflora, gBattery) {mqtt="<[mosquitto:miflora/sensor2:state:JSONPATH($.battery)]"}
-Number Miflora_Sensor2_Temperature "Sensor2 Air Temperature [%.1f °C]" <text> (gMiflora, gTemperature) {mqtt="<[mosquitto:miflora/sensor2:state:JSONPATH($.temperature)]"}
-Number Miflora_Sensor2_Moisture "Sensor2 Soil Moisture [%d %%]" <text> (gMiflora, gMoisture) {mqtt="<[mosquitto:miflora/sensor2:state:JSONPATH($.moisture)]"}
+Number Miflora_Sensor2_Temperature "Sensor2 Air Temperature [%.1f °C]" <text> (gMiflora, gTemperature,Group_Temperature_LivingRoom) {mqtt="<[mosquitto:miflora/sensor2:state:JSONPATH($.temperature)]"}
+Number Miflora_Sensor2_Moisture "Sensor2 Soil Moisture [%d %%]" <text> (gMiflora, Group_Moisture,Group_Moisture_LivingRoom) {mqtt="<[mosquitto:miflora/sensor2:state:JSONPATH($.moisture)]"}
 
 // Mi Flora "Sensor1" (C4:7C:8D:61:A5:7D)
 Number Miflora_Sensor1_Light "Sensor1 Sunlight Intensity [%d lux]" <text> (gMiflora, gLight) {mqtt="<[mosquitto:miflora/sensor1:state:JSONPATH($.light)]"}
 Number Miflora_Sensor1_Conductivity "Sensor1 Soil Conductivity/Fertility [%d µS/cm]" <text> (gMiflora, gConductivity) {mqtt="<[mosquitto:miflora/sensor1:state:JSONPATH($.conductivity)]"}
 Number Miflora_Sensor1_Battery "Sensor1 Sensor Battery Level [%d %%]" <text> (gMiflora, gBattery) {mqtt="<[mosquitto:miflora/sensor1:state:JSONPATH($.battery)]"}
-Number Miflora_Sensor1_Temperature "Sensor1 Air Temperature [%.1f °C]" <text> (gMiflora, gTemperature) {mqtt="<[mosquitto:miflora/sensor1:state:JSONPATH($.temperature)]"}
-Number Miflora_Sensor1_Moisture "Sensor1 Soil Moisture [%d %%]" <text> (gMiflora, gMoisture) {mqtt="<[mosquitto:miflora/sensor1:state:JSONPATH($.moisture)]"}
+Number Miflora_Sensor1_Temperature "Sensor1 Air Temperature [%.1f °C]" <text> (gMiflora, gTemperature,Group_Temperature_LivingRoom) {mqtt="<[mosquitto:miflora/sensor1:state:JSONPATH($.temperature)]"}
+Number Miflora_Sensor1_Moisture "Sensor1 Soil Moisture [%d %%]" <text> (gMiflora, Group_Moisture,Group_Moisture_LivingRoom) {mqtt="<[mosquitto:miflora/sensor1:state:JSONPATH($.moisture)]"}

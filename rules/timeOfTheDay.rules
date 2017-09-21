@@ -35,9 +35,37 @@ then
 
 end
 
-rule "Mode change"
-	when
-		Item vTimeOfDay changed to "MORNING"
-	then
-		Heating_LivingRoom_Setpoint = Heating_LivingRoom_Setpoint_Day
-end	
+rule StateRule
+when
+    Item TimeOfDay received command
+then
+	//if WORKMODE.state.toString == "NORMAL") 
+		if(TimeOfDay.state.toString == "MORNING") {
+			//heatUp to 18C in bedrooms, 21C in livingroom,23C in bathroom
+			Heating_LivingRoom_Setpoint = Heating_LivingRoom_Setpoint_Day
+		}
+		else if(TimeOfDay.state.toString == "DAY") {
+			//Dim lights for 15 minutes from 0% to 100% 
+			//dimLights(Group_LivingRoom,100,15*60).apply	
+			//dimLights(Group_MasterBedRoom,70,15*60).apply
+			//dimLights(Group_Hallway,85,15*60).apply	
+			//heatConstant to 18C in bedrooms, 21C in livingroom,23C in bathroom
+		}
+		else if (TimeOfDay.state.toString == "WORK") {
+			//heatDown to 10C in bedrooms, 12C in livingroom,16C in bathroom
+		}
+		else if (TimeOfDay.state.toString == "AFTERNOON") {
+			//heatUp to 18C in bedrooms, 19C in livingroom,23C in bathroom
+		}
+		else if TimeOfDay.state.toString == "EVENING") {
+			//Dim lights for 60 minutes from 100% to 40% 
+			//dimLights(Group_LivingRoom,40,60*60).apply	
+			//dimLights(Group_Hallway,40,60*60).apply
+			//heatup to 21C in living Room
+			
+		else if TimeOfDay.state.toString == "NIGHT")	
+			//heatDown to 14C in bedrooms, 10C in livingroom,18C in bathroom
+			Heating_LivingRoom_Setpoint = Heating_LivingRoom_Setpoint_Night
+		}
+	//}
+end
