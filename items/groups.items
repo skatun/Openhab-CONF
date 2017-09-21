@@ -21,11 +21,11 @@ Group Group_DMX_BathRoom
 Group Group_Temperature
 Group Group_SetPoint
 Group Group_Heating
-Group:Number:AVG Group_Temperature_LivingRoom	"Avg. Indoor Temperature [%.1f °C]" 	<temperature>	(Status)
+Group:Number:AVG Group_Temperature_LivingRoom	"Avg. Indoor Temperature [%.1f °C]" 	<temperature>	
 
 
 // Moisture
-Group:Number:MIN Group_Moisture_LivingRoom	"Minimum Moisture [%.1f °C]" 	<temperature>	(Status)
+Group:Number:MIN Group_Moisture_LivingRoom	"Minimum Moisture [%.1f °C]" 	<temperature>	
 
 Group Group_MyOpenhab // for Items that are exposed to IFTTT
 Group Group_Chart     // for Items to persist for charting
