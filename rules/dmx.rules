@@ -28,9 +28,8 @@ var String RGBvalues
 
  val Functions.Function3 rgbLights= [ GroupItem mainGroup,GroupItem subGroup, HSBType hsbValueIn |
     val hsbOff = HSBType::fromRGB(0, 0, 0)
-    
-	//mainGroup.members.filter[l|l.state.toString != hsbOff.toString].forEach[l| l.sendCommand(hsbOff.toString()) ]
-	mainGroup.members.filter[l|(l.state as HSBType).value != 0].forEach[l| l.sendCommand(hsbOff.toString()) ]
+    mainGroup.members.filter[l|l.state.toString != hsbOff.toString].forEach[l| l.sendCommand(hsbOff.toString()) ]
+	//mainGroup.members.filter[l|(l.state as HSBType).value != 0].forEach[l| l.sendCommand(hsbOff.toString()) ]
 	subGroup.members.forEach[l2|l2.sendCommand(hsbValueIn)]	
 ]
 
@@ -196,7 +195,6 @@ rule "Change dimming in Living Room"
 when
 	Item Dimmer_LivingRoom changed
 then
-	logInfo("Debug","Received command is " + Dimmer_LivingRoom.state.toString + " SHOULD NEVER HAPPEN")
 	Color_LivingRoom.sendCommand(Dimmer_LivingRoom.state as PercentType)
 end
 
@@ -208,33 +206,33 @@ when
 	Item MoodSelector_LivingRoom received command
 then
 	var String hexValue
-	//warm white
+	//warm white 255, 172, 68
 	if (receivedCommand==1) {
 		redColor = 255
-		greenColor = 0
-		blueColor =0
+		greenColor = 172
+		blueColor = 68
 		hexValue ="00FF00"
 			
 	}
         //white
 	if (receivedCommand==2) {
-		redColor = 0
+		redColor = 255
 		greenColor = 255
-		blueColor =0
+		blueColor =255
 		hexValue ="0000FF" 
 	}
 	//lounge
 	if (receivedCommand==3) {
-		redColor = 0
-		greenColor = 0
-		blueColor =255	 
+		redColor = 255
+		greenColor = 244
+		blueColor =229	 
 		hexValue ="FF0000" 
 	}
 	//night
 	if (receivedCommand==4) {
-		redColor = 255
-		greenColor = 244
-		blueColor =229
+		redColor = 100
+		greenColor = 0
+		blueColor =10
 		hexValue ="FFFFFF" 
 	}
 	
@@ -263,7 +261,7 @@ rule "Set RGB value MasterBedRoom"
     hsbValueMasterBedRoom = Color_MasterBedRoom.state as HSBType
     
 	Group_DMX_MasterBedRoom.members.filter[l|
-			l.state.toString != hsbOff.toString
+			(l.state as HSBType).value!= 0
 		].forEach[l| l.sendCommand(hsbValueMasterBedRoom.toString()) ]
 end
 
@@ -275,7 +273,7 @@ rule "Change dimming in Master BedRoom"
 when
 	Item Dimmer_MasterBedRoom changed
 then
-	Color_MasterBedRoom.sendCommand(Dimmer_MasterBedRoom.state)
+	Color_MasterBedRoom.sendCommand(Dimmer_MasterBedRoom.state as PercentType)
 end
 
 
