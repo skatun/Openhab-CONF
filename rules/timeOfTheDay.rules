@@ -56,6 +56,9 @@ then
 		}
 		else if (TimeOfDay.state.toString == "WORK") {
 			//heatDown to 10C in bedrooms, 12C in livingroom,16C in bathroom
+			Heating_LivingRoom_Setpoint.sendCommand(Heating_LivingRoom_Setpoint_Away)
+			Heating_BedRoom_Setpoint.sendCommand(Heating_BedRoom_Setpoint_Away)
+			Heating_BathRoom_Setpoint.sendCommand(Heating_BathRoom_Setpoint_Away)
 		}
 		else if (TimeOfDay.state.toString == "AFTERNOON") {
 			//heatUp to 18C in bedrooms, 19C in livingroom,23C in bathroom
