@@ -1,3 +1,10 @@
+rule "debug my rule"
+when
+	Item Scene_DayMode received command
+then
+	timeOfDay.sendCommand("MORNING")
+	logInfo("DEBUG","Halla")
+end 
 
 rule "turn off all lights"
 when
@@ -73,7 +80,7 @@ when
     Item HueMotionBathroom changed from OPEN to CLOSED 
 then
 	if (Light_Hallway.state ==ON) {
-		Light_Hallway.sendCommand(OFF)
+		//Light_Hallway.sendCommand(OFF)
 	}
 	
 end

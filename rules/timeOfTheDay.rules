@@ -6,16 +6,16 @@ when
   Channel 'astro:sun:home:rise#event' triggered START or
   Channel 'astro:sun:home:set#event' triggered START or
   Channel 'astro:sun:minus90:set#event' triggered START or
-  Time cron "0 0 6,23,0 * * ? *" // there is currently a bug where only one cron is triggered per rule so I've combined all three into one
+  Time cron "0 0 7,22,0 * * ? *" // there is currently a bug where only one cron is triggered per rule so I've combined all three into one
 then
   Thread::sleep(1000) // make sure we are a tad past midnight to give Astro a chance to recalculate DateTimes for today
 
-  val long morning_start = now.withTimeAtStartOfDay.plusHours(6).millis
+  val long morning_start = now.withTimeAtStartOfDay.plusHours(7).millis
   val long day_start = (vSunrise_Time.state as DateTimeType).calendar.timeInMillis
   val long afternoon_start = (vEvening_Time.state as DateTimeType).calendar.timeInMillis
   val long evening_start = (vSunset_Time.state as DateTimeType).calendar.timeInMillis
   val long night_start = now.withTimeAtStartOfDay.plusHours(23).millis
-  val long bed_start = now.withTimeAtStartOfDay.millis
+  val long bed_start = now.withTimeAtStartOfDay.plusHours(23.5).millis
 
   var curr = "UNKNOWN"
 
@@ -35,16 +35,16 @@ then
 
 end
 
-rule StateRule
+rule "State Rule"
 when
     Item TimeOfDay received command
 then
 	//if WORKMODE.state.toString == "NORMAL") 
 		if(TimeOfDay.state.toString == "MORNING") {
 			//heatUp to 18C in bedrooms, 21C in livingroom,23C in bathroom
-			Heating_LivingRoom_Setpoint.sendCommand(Heating_LivingRoom_Setpoint_Day)
-			Heating_BedRoom_Setpoint.sendCommand(Heating_BedRoom_Setpoint_Day)
-			Heating_BathRoom_Setpoint.sendCommand(Heating_BathRoom_Setpoint_Day)
+			Heating_LivingRoom_Setpoint.sendCommand(Heating_LivingRoom_Setpoint_Day.state)
+			Heating_BedRoom_Setpoint.sendCommand(Heating_BedRoom_Setpoint_Day.state)
+			Heating_BathRoom_Setpoint.sendCommand(Heating_BathRoom_Setpoint_Day.state)
 
 		}
 		else if(TimeOfDay.state.toString == "DAY") {
