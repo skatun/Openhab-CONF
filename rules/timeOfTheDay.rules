@@ -42,7 +42,10 @@ then
 	//if WORKMODE.state.toString == "NORMAL") 
 		if(TimeOfDay.state.toString == "MORNING") {
 			//heatUp to 18C in bedrooms, 21C in livingroom,23C in bathroom
-			Heating_LivingRoom_Setpoint = Heating_LivingRoom_Setpoint_Day
+			Heating_LivingRoom_Setpoint.sendCommand(Heating_LivingRoom_Setpoint_Day)
+			Heating_BedRoom_Setpoint.sendCommand(Heating_BedRoom_Setpoint_Day)
+			Heating_BathRoom_Setpoint.sendCommand(Heating_BathRoom_Setpoint_Day)
+
 		}
 		else if(TimeOfDay.state.toString == "DAY") {
 			//Dim lights for 15 minutes from 0% to 100% 
@@ -62,10 +65,12 @@ then
 			//dimLights(Group_LivingRoom,40,60*60).apply	
 			//dimLights(Group_Hallway,40,60*60).apply
 			//heatup to 21C in living Room
+			Dimmer_LivingRoom.sendcommand(40)
 			
 		else if TimeOfDay.state.toString == "NIGHT")	
 			//heatDown to 14C in bedrooms, 10C in livingroom,18C in bathroom
-			Heating_LivingRoom_Setpoint = Heating_LivingRoom_Setpoint_Night
+			Heating_BathRoom_Setpoint.sendCommand(Heating_BathRoom_Setpoint_Night)
+			Heating_LivingRoom_Setpoint.sendCommand(Heating_LivingRoom_Setpoint_Night)
 		}
 	//}
 end

@@ -2,20 +2,29 @@ sitemap admin label="Admin"
 {
 	Frame label="Temperatures" {
 		Text label="Set Points" icon="groundfloor"{
-		  	Setpoint item=Heating_LivingRoom_Setpoint_Day label="Living Room Temperature Set Point Day [%.1f °C]" icon="temperature" minValue=1 maxValue=30 step=0.5
-			Setpoint item=Heating_BedRoom_Setpoint_Day label="Bedroom Temperature Set Point Day [%.1f °C]" icon="temperature" minValue=1 maxValue=30 step=0.5
-			Setpoint item=Heating_MasterBedRoom_Setpoint_Day label="Master Bedroom Temperature Set Point Day [%.1f °C]" icon="temperature" minValue=1 maxValue=30 step=0.5
-			Setpoint item=Heating_BathRoom_Setpoint_Day label="Bathroom Temperature Set Point Day [%.1f °C]" icon="temperature" minValue=1 maxValue=30 step=0.5
+			//Group item=Group_LivingRoom label="Living Room Temperature Set Point Day [%.1f °C]" icon="temperature" minValue=1 maxValue=30 step=0.5
+		  	Frame label="LivingRoom"{
+				Setpoint item=Heating_LivingRoom_Setpoint_Day label="Living Room Temperature Set Point Day [%.1f °C]" icon="temperature" minValue=1 maxValue=30 step=0.5
+				Setpoint item=Heating_LivingRoom_Setpoint_Night label="Living Room Temperature Set Point Night [%.1f °C]" icon="temperature" minValue=1 maxValue=30 step=0.5
+				Setpoint item=Heating_LivingRoom_Setpoint_Away label="Living Room Temperature Set Point Away [%.1f °C]" icon="temperature" minValue=1 maxValue=30 step=0.5
+			}
 
-			Setpoint item=Heating_LivingRoom_Setpoint_Night label="Living Room Temperature Set Point Night [%.1f °C]" icon="temperature" minValue=1 maxValue=30 step=0.5
-			Setpoint item=Heating_BedRoom_Setpoint_Night label="Bedroom Temperature Set Point Night [%.1f °C]" icon="temperature" minValue=1 maxValue=30 step=0.5
-			Setpoint item=Heating_MasterBedRoom_Setpoint_Night label="Master Bedroom Temperature Set Point Night [%.1f °C]" icon="temperature" minValue=1 maxValue=30 step=0.5
-			Setpoint item=Heating_BathRoom_Setpoint_Night label="Bathroom Temperature Set Point Night [%.1f °C]" icon="temperature" minValue=1 maxValue=30 step=0.5
-			
-			Setpoint item=Heating_LivingRoom_Setpoint_Away label="Living Room Temperature Set Point Away [%.1f °C]" icon="temperature" minValue=1 maxValue=30 step=0.5
-			Setpoint item=Heating_BedRoom_Setpoint_Away label="Bedroom Temperature Set Point Away [%.1f °C]" icon="temperature" minValue=1 maxValue=30 step=0.5
-			Setpoint item=Heating_MasterBedRoom_Setpoint_Away label="Master Bedroom Temperature Set Point Away [%.1f °C]" icon="temperature" minValue=1 maxValue=30 step=0.5
-			Setpoint item=Heating_BathRoom_Setpoint_Away label="Bathroom Temperature Set Point Away [%.1f °C]" icon="temperature" minValue=1 maxValue=30 step=0.5			
+			Frame label="Bedroom"{
+				Setpoint item=Heating_BedRoom_Setpoint_Day label="Bedroom Temperature Set Point Day [%.1f °C]" icon="temperature" minValue=1 maxValue=30 step=0.5
+				Setpoint item=Heating_BedRoom_Setpoint_Night label="Bedroom Temperature Set Point Night [%.1f °C]" icon="temperature" minValue=1 maxValue=30 step=0.5
+				Setpoint item=Heating_BedRoom_Setpoint_Away label="Bedroom Temperature Set Point Away [%.1f °C]" icon="temperature" minValue=1 maxValue=30 step=0.5
+			}
+
+			Frame label="Master Bedroom"{
+				Setpoint item=Heating_MasterBedRoom_Setpoint_Day label="Master Bedroom Temperature Set Point Day [%.1f °C]" icon="temperature" minValue=1 maxValue=30 step=0.5
+				Setpoint item=Heating_MasterBedRoom_Setpoint_Night label="Master Bedroom Temperature Set Point Night [%.1f °C]" icon="temperature" minValue=1 maxValue=30 step=0.5
+				Setpoint item=Heating_MasterBedRoom_Setpoint_Away label="Master Bedroom Temperature Set Point Away [%.1f °C]" icon="temperature" minValue=1 maxValue=30 step=0.5
+			}
+			Framel label="Bathroom"{
+				Setpoint item=Heating_BathRoom_Setpoint_Day label="Bathroom Temperature Set Point Day [%.1f °C]" icon="temperature" minValue=1 maxValue=30 step=0.5
+				Setpoint item=Heating_BathRoom_Setpoint_Night label="Bathroom Temperature Set Point Night [%.1f °C]" icon="temperature" minValue=1 maxValue=30 step=0.5
+				Setpoint item=Heating_BathRoom_Setpoint_Away label="Bathroom Temperature Set Point Away [%.1f °C]" icon="temperature" minValue=1 maxValue=30 step=0.5			
+			}
 		}
 	}
 	Frame label="Wifi/RF signals" {
