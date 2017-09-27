@@ -50,13 +50,15 @@ Number   Netatmo_SportsBod_Humidity       "Sports Bod Humidity [%d %%]" (Group_N
 Number   Netatmo_SnikkerBod_Temperature    "Snikker Bod Temperature [%.2f °C]"  (Group_Netatmo, Group_Temperature) {netatmo="70:ee:50:27:30:a8#Temperature"}
 Number   Netatmo_SnikkerBod_Humidity       "Snikker Bod Humidity [%d %%]" (Group_Netatmo)  {netatmo="70:ee:50:27:30:a8#Humidity"}
 Number   Netatmo_SnikkerBod_CO2    "Snikker Bod Carbon Dioxide [%d ppm]"  (Group_Netatmo)   {netatmo="70:ee:50:27:30:a8#Co2"}
-
+/*
 String Welcome_Home                "Home [%s]"          {netatmo="camera=5859b11a2b2b46e32e8b584b#Name"}
 DateTime Welcome_Kim_LastSeen   "Kim last seen [%1$ta, %1$td.%1$tm.%1$tY %1$tR]" (GF_Living) {netatmo="camera=5859b11a2b2b46e32e8b584b#c23774ab-683b-4f7a-acc7-36b00e2a4f03#LastSeen"}
 Switch   Welcome_Kim_AtHome     "Person [%s]" {netatmo="camera=5859b11a2b2b46e32e8b584b#c23774ab-683b-4f7a-acc7-36b00e2a4f03#OutOfSight"}
 
 DateTime Welcome_Yulia_LastSeen   "Kim last seen [%1$ta, %1$td.%1$tm.%1$tY %1$tR]" (GF_Living) {netatmo="camera=5859b11a2b2b46e32e8b584b#d1595c2d-419a-4a81-badc-23e144caca7c#LastSeen"}
 Switch   Welcome_Yulia_AtHome     "Person [%s]" {netatmo="camera=5859b11a2b2b46e32e8b584b#d1595c2d-419a-4a81-badc-23e144caca7c#OutOfSight"}
+
+*/
 /*
 
 DateTime Welcome_E_LastSeen   "E... zuletzt gesehen [%1$ta, %1$td.%1$tm.%1$tY %1$tR]" (GF_Living) {netatmo="camera=xxxxxxxxxxxxxxxxxxxxxxxxxx#ef4b886e-41ef-4e60-bf17-5b1f7799544b#LastSeen"}
