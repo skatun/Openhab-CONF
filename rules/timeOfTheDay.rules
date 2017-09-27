@@ -37,30 +37,32 @@ end
 
 rule "State Rule"
 when
-    Item TimeOfDay received command
+    Item vTimeOfDay received command
 then
 	//if WORKMODE.state.toString == "NORMAL") 
-		if(TimeOfDay.state.toString == "MORNING") {
+		
+		if(vTimeOfDay.state.toString == "MORNING") {
+		logInfo("DEBUG","Its morning " + vTimeOfDay.state.toString)
 			//heatUp to 18C in bedrooms, 21C in livingroom,23C in bathroom
-			Heating_LivingRoom_Setpoint.sendCommand(Heating_LivingRoom_Setpoint_Day.state)
-			Heating_BedRoom_Setpoint.sendCommand(Heating_BedRoom_Setpoint_Day.state)
-			Heating_BathRoom_Setpoint.sendCommand(Heating_BathRoom_Setpoint_Day.state)
+			Heating_LivingRoom_Setpoint.sendCommand(Heating_LivingRoom_Setpoint_Day)
+			Heating_BedRoom_Setpoint.sendCommand(Heating_BedRoom_Setpoint_Day)
+			Heating_BathRoom_Setpoint.sendCommand(Heating_BathRoom_Setpoint_Day)
 
 		}
-		else if(TimeOfDay.state.toString == "DAY") {
+		else if(vTimeOfDay.state.toString == "DAY") {
 			//Dim lights for 15 minutes from 0% to 100% 
 			//dimLights(Group_LivingRoom,100,15*60).apply	
 			//dimLights(Group_MasterBedRoom,70,15*60).apply
 			//dimLights(Group_Hallway,85,15*60).apply	
 			//heatConstant to 18C in bedrooms, 21C in livingroom,23C in bathroom
 		}
-		else if (TimeOfDay.state.toString == "WORK") {
+		else if (vTimeOfDay.state.toString == "WORK") {
 			//heatDown to 10C in bedrooms, 12C in livingroom,16C in bathroom
 			Heating_LivingRoom_Setpoint.sendCommand(Heating_LivingRoom_Setpoint_Away)
 			Heating_BedRoom_Setpoint.sendCommand(Heating_BedRoom_Setpoint_Away)
 			Heating_BathRoom_Setpoint.sendCommand(Heating_BathRoom_Setpoint_Away)
 		}
-		else if (TimeOfDay.state.toString == "AFTERNOON") {
+		else if (vTimeOfDay.state.toString == "AFTERNOON") {
 			//heatUp to 18C in bedrooms, 19C in livingroom,23C in bathroom
 		}
 		else if TimeOfDay.state.toString == "EVENING") {
@@ -70,10 +72,10 @@ then
 			//heatup to 21C in living Room
 			Dimmer_LivingRoom.sendcommand(40)
 			
-		else if TimeOfDay.state.toString == "NIGHT")	
+		else if vTimeOfDay.state.toString == "NIGHT")	
 			//heatDown to 14C in bedrooms, 10C in livingroom,18C in bathroom
-			Heating_BathRoom_Setpoint.sendCommand(Heating_BathRoom_Setpoint_Night)
-			Heating_LivingRoom_Setpoint.sendCommand(Heating_LivingRoom_Setpoint_Night)
+			Heating_BathRoom_Setpoint.sendCommand(Heating_BathRoom_Setpoint_Night.state)
+			Heating_LivingRoom_Setpoint.sendCommand(Heating_LivingRoom_Setpoint_Night.state)
 		}
 	//}
 end

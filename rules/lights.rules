@@ -2,8 +2,16 @@ rule "debug my rule"
 when
 	Item Scene_DayMode received command
 then
-	timeOfDay.sendCommand("MORNING")
-	logInfo("DEBUG","Halla")
+	if (receivedCommand==1) {
+		vTimeOfDay.sendCommand("MORNING")
+	}
+	if (receivedCommand==4) {
+		vTimeOfDay.sendCommand("BED")
+	}
+	
+	if (receivedCommand==3) {
+		vTimeOfDay.sendCommand("NIGHT")
+	}
 end 
 
 rule "turn off all lights"
@@ -14,6 +22,10 @@ then
 	Scene_BathRoom.sendCommand(1)
 	Scene_MasterBedRoom.sendCommand(1)
 	Light_Hallway.sendCommand(OFF)
+	if (vTimeOfDay.state.toString=="BED"){
+		MoodSelector_LivingRoom.sendCommand(4)
+		Scene_LivingRoom1.sendCommand(6)
+	}
 	
 end
 
