@@ -41,38 +41,38 @@ when
 then
 	//if WORKMODE.state.toString == "NORMAL") 
 		
-		if(vTimeOfDay.state.toString == "MORNING") {
-		logInfo("DEBUG","Its morning " + vTimeOfDay.state.toString)
+		if(vTimeOfDay.state.contains("MORNING")){
+			logInfo("DEBUG","Its morning " + vTimeOfDay.state.toString)
 			//heatUp to 18C in bedrooms, 21C in livingroom,23C in bathroom
 			Heating_LivingRoom_Setpoint.sendCommand(Heating_LivingRoom_Setpoint_Day)
 			Heating_BedRoom_Setpoint.sendCommand(Heating_BedRoom_Setpoint_Day)
 			Heating_BathRoom_Setpoint.sendCommand(Heating_BathRoom_Setpoint_Day)
 
 		}
-		else if(vTimeOfDay.state.toString == "DAY") {
+		else if(vTimeOfDay.state.contains("DAY")) {
 			//Dim lights for 15 minutes from 0% to 100% 
 			//dimLights(Group_LivingRoom,100,15*60).apply	
 			//dimLights(Group_MasterBedRoom,70,15*60).apply
 			//dimLights(Group_Hallway,85,15*60).apply	
 			//heatConstant to 18C in bedrooms, 21C in livingroom,23C in bathroom
 		}
-		else if (vTimeOfDay.state.toString == "WORK") {
+		else if (vTimeOfDay.state.contains("WORK")) {
 			//heatDown to 10C in bedrooms, 12C in livingroom,16C in bathroom
 			Heating_LivingRoom_Setpoint.sendCommand(Heating_LivingRoom_Setpoint_Away)
 			Heating_BedRoom_Setpoint.sendCommand(Heating_BedRoom_Setpoint_Away)
 			Heating_BathRoom_Setpoint.sendCommand(Heating_BathRoom_Setpoint_Away)
 		}
-		else if (vTimeOfDay.state.toString == "AFTERNOON") {
+		else if (vTimeOfDay.state.contains("AFTERNOON")) {
 			//heatUp to 18C in bedrooms, 19C in livingroom,23C in bathroom
 		}
-		else if TimeOfDay.state.toString == "EVENING") {
+		else if (vTimeOfDay.state.contains("EVENING")){
 			//Dim lights for 60 minutes from 100% to 40% 
 			//dimLights(Group_LivingRoom,40,60*60).apply	
 			//dimLights(Group_Hallway,40,60*60).apply
 			//heatup to 21C in living Room
 			Dimmer_LivingRoom.sendcommand(40)
-			
-		else if vTimeOfDay.state.toString == "NIGHT")	
+		}	
+		else if (vTimeOfDay.state.contains("NIGHT")){	
 			//heatDown to 14C in bedrooms, 10C in livingroom,18C in bathroom
 			Heating_BathRoom_Setpoint.sendCommand(Heating_BathRoom_Setpoint_Night.state)
 			Heating_LivingRoom_Setpoint.sendCommand(Heating_LivingRoom_Setpoint_Night.state)
