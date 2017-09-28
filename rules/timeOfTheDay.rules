@@ -1,4 +1,3 @@
-
 val logName = "time of day"
 val morningWeekdays = 7
 val morningWeekends = 8
