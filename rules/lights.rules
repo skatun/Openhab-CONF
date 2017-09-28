@@ -3,12 +3,14 @@ when
 	Item Scene_DayMode received command
 then
 	if (receivedCommand==1) {
-		vTimeOfDay.sendCommand("MORNING")
+		vTimeOfDay.sendCommand("PREHEAT")
 	}
 	if (receivedCommand==4) {
-		vTimeOfDay.sendCommand("BED")
+		vTimeOfDay.sendCommand("AFTERNOON")
 	}
-	
+	if (receivedCommand==2) {
+		vTimeOfDay.sendCommand("EVENING")
+	}
 	if (receivedCommand==3) {
 		vTimeOfDay.sendCommand("NIGHT")
 	}
@@ -43,7 +45,8 @@ if(Light_Kitchen.state == ON){
 	sendCommand(Light_Kitchen,OFF)
 	}
 	else {
-		sendCommand(Light_Kitchen,ON)
+		Scene_LivingRoom1.sendCommand(3)
+		
 	}
 end
 
@@ -105,11 +108,17 @@ then
 	
  	
 	if(Scene_BathRoom.state == 1){
-		Scene_BathRoom.sendCommand(2)
+		if (vTimeOfDay.state.toString.contains("NIGHT")){
+			Scene_BathRoom.sendCommand(3)
+		}
+		else{
+			Scene_BathRoom.sendCommand(2)
+		}
 	}
 	else {
 		Scene_BathRoom.sendCommand(1)
 	}
+
 	
 end
 
@@ -121,7 +130,7 @@ when
 	Item Contact_BedroomL changed from OPEN to CLOSED
 then
 	
-	executeCommandLine("sudo@systemctl@restart@olad.service",5000)
+	//executeCommandLine("sudo@systemctl@restart@olad.service",5000)
 if(Light_Hallway.state == ON){
 	sendCommand(Light_Hallway,OFF)
 	}
@@ -150,7 +159,12 @@ when
     Item Contact_MasterBedroomL changed from OPEN to CLOSED
 then
 	if(Scene_MasterBedRoom.state == 1){
-		Scene_MasterBedRoom.sendCommand(2)
+		if (vTimeOfDay.state.toString.contains("NIGHT")){
+			Scene_MasterBedRoom.sendCommand(4)
+		}
+		else{
+			Scene_MasterBedRoom.sendCommand(2)
+		}
 	}
 	else {
 		Scene_MasterBedRoom.sendCommand(1)

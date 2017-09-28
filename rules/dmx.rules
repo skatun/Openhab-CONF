@@ -7,7 +7,7 @@ var HSBType hsbValueMasterBedRoom
 var HSBType hsbValueBathRoom
 
 val hsbOff = HSBType::fromRGB(0, 0, 0) 
-val hsbOn = HSBType::fromRGB(255, 255, 255)
+val hsbOn = HSBType::fromRGB(255, 172, 68)
 var boolean partyMode
 	
 var int redColor
