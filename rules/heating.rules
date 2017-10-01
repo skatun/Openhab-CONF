@@ -25,6 +25,8 @@ rule "Heater in living room"
 		Item Heating_LivingRoom_Setpoint received update
 	then
 		heatings.apply(Heating_LivingRoom_Setpoint,Group_Temperature_LivingRoom,Heating_LivingRoom)
+		heatings.apply(Heating_LivingRoom_Setpoint,Group_Temperature_LivingRoom,Heating_Kitchen)
+		heatings.apply(Heating_LivingRoom_Setpoint,Group_Temperature_LivingRoom,Heating_Hallway)
 end
 
 
@@ -41,7 +43,7 @@ rule "Heater in master bedroom room"
 		Item Netatmo_MasterBedRoom_Temperature received update or
 		Item Heating_MasterBedRoom_Setpoint received update
 	then
-		heatings.apply(Heating_MasterBedRoom_Setpoint,Netatmo_MasterBedRoom_Temperature,Heating_MasterBedRoom)
+		heatings.apply(Heating_MasterBedRoom_Setpoint,Netatmo_MasterBedroom_Temperature,Heating_MasterBedRoom)
 end
 
 

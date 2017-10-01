@@ -2,19 +2,33 @@ rule "debug my rule"
 when
 	Item Scene_DayMode received command
 then
-	if (receivedCommand==1) {
-		vTimeOfDay.sendCommand("PREHEAT")
+switch receivedCommand {
+    case 1:   vTimeOfDay.sendCommand("PREHEAT")
+	case 2:   vTimeOfDay.sendCommand("SUNRISE")
+	case 3:   vTimeOfDay.sendCommand("MORNING")
+	case 4:   vTimeOfDay.sendCommand("DAY")
+	case 5:   vTimeOfDay.sendCommand("WORK")
+	case 6:   vTimeOfDay.sendCommand("AFTERNOON")
+	case 7:   vTimeOfDay.sendCommand("EVENING")
+	case 8:   vTimeOfDay.sendCommand("SUNSET")
+	case 9:   vTimeOfDay.sendCommand("NIGHT")
 	}
-	if (receivedCommand==4) {
-		vTimeOfDay.sendCommand("AFTERNOON")
-	}
-	if (receivedCommand==2) {
-		vTimeOfDay.sendCommand("EVENING")
-	}
-	if (receivedCommand==3) {
-		vTimeOfDay.sendCommand("NIGHT")
-	}
+		
 end 
+
+rule "Workmode"
+when
+	Item Scene_Workmode received command
+then
+switch receivedCommand {
+    case 0:   vWorkMode.sendCommand("OFF")
+	case 1:   vWorkMode.sendCommand("NORMAL")
+	case 2:   vWorkMode.sendCommand("GUESTS")
+	case 3:   vWorkMode.sendCommand("HOLIDAY")
+	}
+		
+end 
+
 
 rule "turn off all lights"
 when

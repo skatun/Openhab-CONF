@@ -14,22 +14,15 @@ when
   Channel 'astro:sun:minus90:set#event' triggered START or
   Item Alexa_Off received command OFF or
   Time cron "0 0 7 * * ? *" or // Morning weekdays
-  Time cron "0 0 8 * * ? *" or // Morning weekends
+  Time cron "0 0 9 * * ? *" or // Morning weekends
   Time cron "0 45 6 * * ? *" or // Preheat weekdays
-  Time cron "0 45 7 * * ? *" or // Preheat weekends
+  Time cron "0 45 8 * * ? *" or // Preheat weekends
   Time cron "0 0 23 * * ? *" or // Night weekdays
-  Time cron "1 0 0 * * ? *" or // Night weekends 
+  Time cron "1 0 0 * * ? *"  // Night weekends 
  
 then
 
-	/*
-	 Time cron "0 0 7 * * ? *" or // Morning weekdays
-  Time cron "0 0 8 * * ? *" or // Morning weekends
-  Time cron "0 45 6 * * ? *" or // Preheat weekdays
-  Time cron "0 45 7 * * ? *" or // Preheat weekends
-  Time cron "0 0 23 * * ? *" or // Night weekdays
-  Time cron "1 0 0 * * ? *" or // Night weekends
-  */
+
   // Now that we can use more than one cron trigger we don't need the sleep and can trigger the rule to occur one second after midnight
 
   // Is it the weekend?
@@ -77,19 +70,41 @@ end
 
 rule "State Rule"
 when
-    Item vTimeOfDay received command
+    Item vTimeOfDay received command or
+	Item vWorkMode received command
 then
-	//if WORKMODE.state.toString == "NORMAL") 
-	
+
+	if (vWorkMode.state.toString.contains("OFF")) {
+			logInfo(logName, "Workmode is now " + vWorkMode.state.toString)
+			Heating_LivingRoom_Setpoint.sendCommand(Heating_Setpoint_Day.state as DecimalType)
+			Heating_MasterBedRoom_Setpoint.sendCommand(Heating_Setpoint_Day.state as DecimalType)
+			Heating_BathRoom_Setpoint.sendCommand(Heating_Setpoint_Day.state as DecimalType)
+			Heating_BedRoom_Setpoint.sendCommand(Heating_Setpoint_Day.state as DecimalType)
+	}
+
+
+	if (vWorkMode.state.toString.contains("HOLIDAY")) {
+			logInfo(logName, "Workmode is now " + vWorkMode.state.toString)
+			Heating_LivingRoom_Setpoint.sendCommand(Heating_Setpoint_Holiday.state as DecimalType)
+			Heating_MasterBedRoom_Setpoint.sendCommand(Heating_Setpoint_Holiday.state as DecimalType)
+			Heating_BathRoom_Setpoint.sendCommand(Heating_Setpoint_Holiday.state as DecimalType)
+			Heating_BedRoom_Setpoint.sendCommand(Heating_Setpoint_Holiday.state as DecimalType)
+	}
+
+	if ((vWorkMode.state.toString.contains("NORMAL"))||(vWorkMode.state.toString.contains("GUESTS")){
+		logInfo(logName, "Workmode is now " + vWorkMode.state.toString)
 		logInfo(logName, "Current time of day is now " + vTimeOfDay.state.toString)
 		
 		if(vTimeOfDay.state.toString.contains("PREHEAT")){
 			logInfo("DEBUG","Its morning " + vTimeOfDay.state.toString)
 			//heatUp to 18C in bedrooms, 21C in livingroom,23C in bathroom
 			Heating_LivingRoom_Setpoint.sendCommand(Heating_LivingRoom_Setpoint_Day.state as DecimalType)
-			Heating_BedRoom_Setpoint.sendCommand(Heating_BedRoom_Setpoint_Day.state as DecimalType)
+			Heating_MasterBedRoom_Setpoint.sendCommand(Heating_MasterBedRoom_Setpoint_Day.state as DecimalType)
 			Heating_BathRoom_Setpoint.sendCommand(Heating_BathRoom_Setpoint_Day.state as DecimalType)
 
+			if (vWorkMode.state.toString.contains("GUESTS"))
+				Heating_BedRoom_Setpoint.sendCommand(Heating_BedRoom_Setpoint_Day.state as DecimalType)
+			}
 		}
 		
 		
@@ -108,9 +123,13 @@ then
 		if (vTimeOfDay.state.toString.contains("WORK")) {
 			//heatDown to 10C in bedrooms, 12C in livingroom,16C in bathroom
 			Heating_LivingRoom_Setpoint.sendCommand(Heating_LivingRoom_Setpoint_Away.state as DecimalType)
-			Heating_BedRoom_Setpoint.sendCommand(Heating_BedRoom_Setpoint_Away.state as DecimalType)
+			Heating_MasterBedRoom_Setpoint.sendCommand(Heating_MasterBedRoom_Setpoint_Away.state as DecimalType)
 			Heating_BathRoom_Setpoint.sendCommand(Heating_BathRoom_Setpoint_Away.state as DecimalType)
-			
+
+			if (vWorkMode.state.toString.contains("GUESTS")){
+				Heating_BedRoom_Setpoint.sendCommand(Heating_BedRoom_Setpoint_Away.state as DecimalType)
+			}
+
 			Scene_LivingRoom1.sendCommand(1)
 			Scene_BathRoom.sendCommand(1)
 			Scene_MasterBedRoom.sendCommand(1)
@@ -120,9 +139,12 @@ then
 		if (vTimeOfDay.state.toString.contains("AFTERNOON")) {
 			//heatUp to 18C in bedrooms, 19C in livingroom,23C in bathroom
 			Heating_LivingRoom_Setpoint.sendCommand(Heating_LivingRoom_Setpoint_Day.state as DecimalType)
-			Heating_BedRoom_Setpoint.sendCommand(Heating_BedRoom_Setpoint_Day.state as DecimalType)
+			Heating_MasterBedRoom_Setpoint.sendCommand(Heating_MasterBedRoom_Setpoint_Day.state as DecimalType)
 			Heating_BathRoom_Setpoint.sendCommand(Heating_BathRoom_Setpoint_Day.state as DecimalType)
-			
+
+			if (vWorkMode.state.toString.contains("GUESTS")){
+				Heating_BedRoom_Setpoint.sendCommand(Heating_BedRoom_Setpoint_Day.state as DecimalType)
+			}
 		}
 		
 		if (vTimeOfDay.state.toString.contains("EVENING")){
@@ -130,14 +152,21 @@ then
 			//dimLights(Group_LivingRoom,40,60*60).apply	
 			//dimLights(Group_Hallway,40,60*60).apply
 			//heatup to 21C in living Room
+			Heating_LivingRoom_Setpoint.sendCommand(Heating_LivingRoom_Setpoint_Evening.state as DecimalType)
+
 			Dimmer_LivingRoom.sendCommand(40)
 		}	
 		
 		if (vTimeOfDay.state.toString.contains("NIGHT")){	
 			//heatDown to 14C in bedrooms, 10C in livingroom,18C in bathroom
 			Heating_LivingRoom_Setpoint.sendCommand(Heating_LivingRoom_Setpoint_Night.state as DecimalType)
+			Heating_MasterBedRoom_Setpoint.sendCommand(Heating_MasterBedRoom_Setpoint_Night.state as DecimalType)
 			Heating_BathRoom_Setpoint.sendCommand(Heating_BathRoom_Setpoint_Night.state as DecimalType)
 			
+			if (vWorkMode.state.toString.contains("GUESTS")){
+				Heating_BedRoom_Setpoint.sendCommand(Heating_BedRoom_Setpoint_Night.state as DecimalType)
+			}
+
 
 			Scene_BathRoom.sendCommand(1)
 			Scene_MasterBedRoom.sendCommand(1)
@@ -148,7 +177,8 @@ then
 			Thread::sleep(10) 
 			MoodSelector_LivingRoom.sendCommand(4)
 		
-		}
-		
-	//}
+		}	
+	}
+
+
 end

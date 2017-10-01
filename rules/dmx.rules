@@ -35,7 +35,7 @@ var String RGBvalues
 
 rule "Activate Scene LivingRoom"
 when
-	Item Scene_LivingRoom1 received command or Item Scene_LivingRoom2 received command or Item Scene_LivingRoom3 received command 
+	Item Scene_LivingRoom received command or Item Scene_LivingRoom1 received command or Item Scene_LivingRoom2 received command or Item Scene_LivingRoom3 received command 
 then
 	Light_Kitchen.sendCommand(OFF)
 	Light_Wall_TV.sendCommand(OFF)

@@ -3,11 +3,12 @@ sitemap littlechina label="LittleChina"
 	Frame label="Main" {
 		Text label="Main Features" icon="groundfloor"{
 			Switch item=Light_All_Off label="All off"
-			Switch item=Scene_DayMode label="Day Mode" mappings=[1="AWAY", 2="HOME", 3="NIGHT", 4="ON WAY HOME"]
+			Selection item=Scene_DayMode label="Day Mode" mappings=[1="PREHEAT", 2="SUNRISE", 3="MORNING", 4="DAY",5="WORK", 6="AFTERNOON", 7="EVNING", 8="SUNSET",9="NIGHT"]
 			Switch item=Div_Ola label="Reset OLA(Lights)"
 			Text item=vTimeOfDay label="Time of the day [%s]"
 			//Selection item=Fans label="Fan Speed" icon="fan" mappings=[0="Off", 1="Low", 2="Medium", 3="Max"]
-     
+			Selection item=Scene_LivingRoom label="Scene Selector" mappings=[1="OFF", 2="ON", 3="DINNER", 4="READING",5="FIREPLACE", 6="BAR", 7="PARTY", 8="TV",9="COOKING", 10="WALL", 11="KITCHEN", 12="LOUNGE"]
+			Selection item=Scene_Workmode label="Work Mode" icon="fan" mappings=[0="OFF", 1="NORMAL", 2="GUESTS", 3="HOLIDAY"]
 		}
 		
 		Text label="Living Room" icon="groundfloor"{
@@ -52,13 +53,37 @@ sitemap littlechina label="LittleChina"
 		}
 		
 		Text label="Master Bedroom" icon="bedroom"{
-			Switch item=Scene_MasterBedRoom label="Scenes" mappings=[1="OFF", 2="ON", 3="NIGHT", 4="READING"]
-			Slider item=Dimmer_MasterBedRoom label="Dimmer" icon="slider"
-			Colorpicker item=Color_MasterBedRoom label="Color Wheel" icon="colorwheel"
+			Frame label="Lights" {
+				Switch item=Scene_MasterBedRoom label="Scenes" mappings=[1="OFF", 2="ON", 3="NIGHT", 4="READING"]
+				Slider item=Dimmer_MasterBedRoom label="Dimmer" icon="slider"
+				Colorpicker item=Color_MasterBedRoom label="Color Wheel" icon="colorwheel"
+			}
+			Frame label="Temperature" {
+				Setpoint item=Heating_MasterBedRoom_Setpoint label="Temperature Set Point  [%.1f °C]" icon="temperature" minValue=1 maxValue=30 step=0.5
+				Text item=Netatmo_MasterBedroom_Temperature icon="temperature"
+				Switch item=Heating_MasterBedRoom  label="Heating status" icon="temperature" mappings=[ON="OFF", OFF="ON"]
+			}
 		}
+
+		Text label="Bedroom" icon="bedroom"{
+			/*
+			Frame label="Lights" {
+				Switch item=Scene_MasterBedRoom label="Scenes" mappings=[1="OFF", 2="ON", 3="NIGHT", 4="READING"]
+				Slider item=Dimmer_MasterBedRoom label="Dimmer" icon="slider"
+				Colorpicker item=Color_MasterBedRoom label="Color Wheel" icon="colorwheel"
+			}
+			*/
+			Frame label="Temperature" {
+				Setpoint item=Heating_BedRoom_Setpoint label="Temperature Set Point  [%.1f °C]" icon="temperature" minValue=1 maxValue=30 step=0.5
+				Text item=Netatmo_Bedroom_Temperature icon="temperature"
+				Switch item=Heating_BedRoom  label="Heating status" icon="temperature" mappings=[ON="OFF", OFF="ON"]
+			}
+		}
+		
 		Text label="Bathroom" icon="bath"{
 			Switch item=Scene_BathRoom label="Scenes" mappings=[1="OFF", 2="ON", 3="NIGHT", 4="SHOWER"]
 			Colorpicker item=Color_BathRoom label="Color Wheel" icon="colorwheel"
+			//Switch item=Fans label="FAN" mappings=[1="OFF", 2="LOW", 3="MEDIUM", 4="HIGH"]
 		}
 		Text label="Balcony" icon="garden"{
 			Switch item=Light_Balcony icon="light"
@@ -68,10 +93,10 @@ sitemap littlechina label="LittleChina"
 		}
 		
 		Text label="Flowers" icon="garden"{
-			Text item=Miflora_Sensor1_Moisture label="Palm flower" icon="temperature"
-			Text item=Miflora_Sensor2_Moisture label="Orchide flower" icon="temperature"
-			Text item=Miflora_Sensor3_Moisture icon="temperature"
-			Text item=Miflora_Sensor4_Moisture icon="temperature"
+			Text item=Miflora_Sensor1_Moisture label="Palm flower" icon="humidity"
+			Text item=Miflora_Sensor2_Moisture label="Orchide flower" icon="humidity"
+			Text item=Miflora_Sensor3_Moisture label="sensor3" icon="temperature"
+			Text item=Miflora_Sensor4_Moisture label="sensor4" icon="temperature"
 			
 			Text item=Miflora_Sensor1_Conductivity icon="temperature"
 			Text item=Miflora_Sensor2_Conductivity icon="temperature"

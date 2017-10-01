@@ -1,4 +1,7 @@
-String vTimeOfDay "Current Time of Day [%s]"
+String vTimeOfDay "Current Time of Day [%s]" (Group_MyOpenhab)
+String vWorkMode "Current work Mode [%s]" (Group_MyOpenhab)
+
+
 
 DateTime vSunrise_Time "Sunrise [%1$tH:%1$tM]"
     { channel="astro:sun:home:rise#start" }
