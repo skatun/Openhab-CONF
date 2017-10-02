@@ -5,6 +5,7 @@ val nightWeekdays = 23
 val nightWeekends = 0
 val preHeatMinutes = 15
 
+
 rule "Calculate time of day state"
 when
   // There MUST be a trigger for every time of day start time
@@ -12,6 +13,7 @@ when
   Channel 'astro:sun:home:rise#event' triggered START or
   Channel 'astro:sun:home:set#event' triggered START or
   Channel 'astro:sun:minus90:set#event' triggered START or
+
   Item Alexa_Off received command OFF or
   Time cron "0 0 7 * * ? *" or // Morning weekdays
   Time cron "0 0 9 * * ? *" or // Morning weekends
@@ -65,6 +67,50 @@ then
     logInfo(logName, "Current time of day is now " + curr)
     vTimeOfDay.sendCommand(curr)
   //}
+=======
+  Alexa_Off received command OFF or 
+  Time cron "0 0 6,7,22,23,0 * * ? *" // there is currently a bug where only one cron is triggered per rule so I've combined all three into one
+then
+
+  Thread::sleep(1000) // make sure we are a tad past midnight to give Astro a chance to recalculate DateTimes for today
+
+	val boolean isWeekend = if(now.dayOfWeek == 6 || now.dayOfWeek == 7) true else false
+	if isWeekend{
+		val long morning_start = now.withTimeAtStartOfDay.plusHours(morningWeekdays).millis
+		val long night_start = now.withTimeAtStartOfDay.plusHours(nightWeekdays).millis
+	}
+	else{
+		val long morning_start = now.withTimeAtStartOfDay.plusHours(morningWeekends).millis
+		val long night_start = now.withTimeAtStartOfDay.plusHours(nightWeekends).millis
+	}
+
+	val long preHeat_start= morning_start.minusMinutes(preHeatMinutes).millis
+	val long day_start = (vSunrise_Time.state as DateTimeType).calendar.timeInMillis
+	val long afternoon_start = (vEvening_Time.state as DateTimeType).calendar.timeInMillis
+	val long evening_start = (vSunset_Time.state as DateTimeType).calendar.timeInMillis
+	val long night_start = now.withTimeAtStartOfDay.plusHours(23).millis
+	
+
+	var curr = "UNKNOWN"
+
+	switch now {
+			case now.isAfter(night_start) && now.isBefore(morning_start):     curr = "PREHEAT"
+			case now.isAfter(morning_start) && now.isBefore(day_start):       curr = "MORNING"
+			case now.isAfter(day_start) && now.isBefore(afternoon_start):     curr = "DAY"
+			case now.isAfter(afternoon_start) && now.isBefore(evening_start): curr = "AFTERNOON"
+			case now.isAfter(evening_start) && now.isBefore(night_start):     curr = "EVENING"
+			case now.isAfter(night_start):                                    curr = "NIGHT"
+		
+	}
+
+	if Alexa_Off.state==OFF and now.isAfter(morning_start) && now.isBefore(afternoon_start) curr = "WORK"
+	if Alexa_Off.state==OFF and now.isAfter(evening_start) && now.isBefore(night_start) curr = "NIGHT" //Going earlier to bed
+
+	//if(vTimeOfDay.state.toString != curr) {
+		logInfo(logName, "Current time of day is now " + curr)
+		vTimeOfDay.sendCommand(curr)
+	//}
+
 
 end
 
@@ -73,6 +119,7 @@ when
     Item vTimeOfDay received command or
 	Item vWorkMode received command
 then
+
 
 	if (vWorkMode.state.toString.contains("OFF")) {
 			logInfo(logName, "Workmode is now " + vWorkMode.state.toString)
@@ -115,8 +162,7 @@ then
 			//dimLights(Group_Hallway,85,15*60).apply	
 			//heatConstant to 18C in bedrooms, 21C in livingroom,23C in bathroom
 				
-			Scene_LivingRoom1.sendCommand(2)
-			
+			Scene_LivingRoom1.sendCommand(2)			
 		}
 		
 		
@@ -145,6 +191,11 @@ then
 			if (vWorkMode.state.toString.contains("GUESTS")){
 				Heating_BedRoom_Setpoint.sendCommand(Heating_BedRoom_Setpoint_Day.state as DecimalType)
 			}
+
+			Heating_LivingRoom_Setpoint.sendCommand(Heating_LivingRoom_Setpoint_Day)
+			Heating_BedRoom_Setpoint.sendCommand(Heating_BedRoom_Setpoint_Day)
+			Heating_BathRoom_Setpoint.sendCommand(Heating_BathRoom_Setpoint_Day)
+
 		}
 		
 		if (vTimeOfDay.state.toString.contains("EVENING")){
@@ -152,13 +203,16 @@ then
 			//dimLights(Group_LivingRoom,40,60*60).apply	
 			//dimLights(Group_Hallway,40,60*60).apply
 			//heatup to 21C in living Room
+
 			Heating_LivingRoom_Setpoint.sendCommand(Heating_LivingRoom_Setpoint_Evening.state as DecimalType)
 
 			Dimmer_LivingRoom.sendCommand(40)
+
 		}	
 		
 		if (vTimeOfDay.state.toString.contains("NIGHT")){	
 			//heatDown to 14C in bedrooms, 10C in livingroom,18C in bathroom
+
 			Heating_LivingRoom_Setpoint.sendCommand(Heating_LivingRoom_Setpoint_Night.state as DecimalType)
 			Heating_MasterBedRoom_Setpoint.sendCommand(Heating_MasterBedRoom_Setpoint_Night.state as DecimalType)
 			Heating_BathRoom_Setpoint.sendCommand(Heating_BathRoom_Setpoint_Night.state as DecimalType)
@@ -179,6 +233,7 @@ then
 		
 		}	
 	}
+
 
 
 end
