@@ -22,12 +22,14 @@ then
 		Scene_MasterBedRoom.sendCommand(1)
 end
 
+/*
 rule "Lights Off"
 when
 	Item Alexa_Off received command OFF
 then
 		Light_All_Off.sendCommand(ON)
 end
+*/
 
 rule "Living Room Off"
 when

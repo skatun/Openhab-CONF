@@ -7,7 +7,7 @@ var HSBType hsbValueMasterBedRoom
 var HSBType hsbValueBathRoom
 
 val hsbOff = HSBType::fromRGB(0, 0, 0) 
-val hsbOn = HSBType::fromRGB(255, 255, 255)
+val hsbOn = HSBType::fromRGB(255, 172, 68)
 var boolean partyMode
 	
 var int redColor
@@ -35,7 +35,7 @@ var String RGBvalues
 
 rule "Activate Scene LivingRoom"
 when
-	Item Scene_LivingRoom1 received command or Item Scene_LivingRoom2 received command or Item Scene_LivingRoom3 received command 
+	Item Scene_LivingRoom received command or Item Scene_LivingRoom1 received command or Item Scene_LivingRoom2 received command or Item Scene_LivingRoom3 received command 
 then
 	Light_Kitchen.sendCommand(OFF)
 	Light_Wall_TV.sendCommand(OFF)

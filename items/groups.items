@@ -27,6 +27,7 @@ Group:Number:AVG Group_Temperature_LivingRoom	"Avg. Indoor Temperature [%.1f °C
 // Moisture
 Group:Number:MIN Group_Moisture_LivingRoom	"Minimum Moisture [%.1f °C]" 	<temperature>	
 
+
 Group Group_MyOpenhab // for Items that are exposed to IFTTT
 Group Group_Chart     // for Items to persist for charting
 Group Group_History   // for Items to preserve their history
