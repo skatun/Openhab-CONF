@@ -288,6 +288,8 @@ then
 	
 	//warm white
 	switch receivedCommand {
+
+		
 		//OFF
 		case 1: {
 		    hsbValueMasterBedRoom = HSBType::fromRGB(0, 0, 0)
@@ -297,12 +299,14 @@ then
 		//ON
 		case 2:{
 		    hsbValueMasterBedRoom = HSBType::fromRGB(255, 255, 255)
+			//hsbValueMasterBedRoom=Color_MasterBedRoom.state as HSBType
 		    rgbLights.apply(Group_DMX_MasterBedRoom,Group_DMX_MasterBedRoom,hsbValueMasterBedRoom)
 		    Dimmer_MasterBedRoom.sendCommand(80)
 		}
 		//NIGHT
 		case 3:{
-		    hsbValueMasterBedRoom = HSBType::fromRGB(50, 10, 10)
+		    //hsbValueMasterBedRoom = HSBType::fromRGB(50, 10, 10)
+			hsbValueMasterBedRoom=Color_MasterBedRoom.state as HSBType
 		    rgbLights.apply(Group_DMX_MasterBedRoom,Group_DMX_MasterBedRoom,hsbValueMasterBedRoom)
 		    Dimmer_MasterBedRoom.sendCommand(60)
 		}

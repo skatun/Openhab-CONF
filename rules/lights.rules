@@ -59,7 +59,7 @@ if(Light_Kitchen.state == ON){
 	sendCommand(Light_Kitchen,OFF)
 	}
 	else {
-		Scene_LivingRoom1.sendCommand(3)
+		Scene_LivingRoom1.sendCommand(9)
 		
 	}
 end
