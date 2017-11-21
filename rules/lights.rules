@@ -1,3 +1,34 @@
+rule "debug my rule"
+when
+	Item Scene_DayMode received command
+then
+switch receivedCommand {
+    case 1:   vTimeOfDay.sendCommand("PREHEAT")
+	case 2:   vTimeOfDay.sendCommand("SUNRISE")
+	case 3:   vTimeOfDay.sendCommand("MORNING")
+	case 4:   vTimeOfDay.sendCommand("DAY")
+	case 5:   vTimeOfDay.sendCommand("WORK")
+	case 6:   vTimeOfDay.sendCommand("AFTERNOON")
+	case 7:   vTimeOfDay.sendCommand("EVENING")
+	case 8:   vTimeOfDay.sendCommand("SUNSET")
+	case 9:   vTimeOfDay.sendCommand("NIGHT")
+	}
+		
+end 
+
+rule "Workmode"
+when
+	Item Scene_Workmode received command
+then
+switch receivedCommand {
+    case 0:   vWorkMode.sendCommand("OFF")
+	case 1:   vWorkMode.sendCommand("NORMAL")
+	case 2:   vWorkMode.sendCommand("GUESTS")
+	case 3:   vWorkMode.sendCommand("HOLIDAY")
+	}
+		
+end 
+
 
 rule "turn off all lights"
 when
@@ -7,6 +38,10 @@ then
 	Scene_BathRoom.sendCommand(1)
 	Scene_MasterBedRoom.sendCommand(1)
 	Light_Hallway.sendCommand(OFF)
+	if (vTimeOfDay.state.toString=="BED"){
+		MoodSelector_LivingRoom.sendCommand(4)
+		Scene_LivingRoom1.sendCommand(6)
+	}
 	
 end
 
@@ -24,7 +59,8 @@ if(Light_Kitchen.state == ON){
 	sendCommand(Light_Kitchen,OFF)
 	}
 	else {
-		sendCommand(Light_Kitchen,ON)
+		Scene_LivingRoom1.sendCommand(3)
+		
 	}
 end
 
@@ -73,7 +109,7 @@ when
     Item HueMotionBathroom changed from OPEN to CLOSED 
 then
 	if (Light_Hallway.state ==ON) {
-		Light_Hallway.sendCommand(OFF)
+		//Light_Hallway.sendCommand(OFF)
 	}
 	
 end
@@ -86,11 +122,17 @@ then
 	
  	
 	if(Scene_BathRoom.state == 1){
-		Scene_BathRoom.sendCommand(2)
+		if (vTimeOfDay.state.toString.contains("NIGHT")){
+			Scene_BathRoom.sendCommand(3)
+		}
+		else{
+			Scene_BathRoom.sendCommand(2)
+		}
 	}
 	else {
 		Scene_BathRoom.sendCommand(1)
 	}
+
 	
 end
 
@@ -102,7 +144,7 @@ when
 	Item Contact_BedroomL changed from OPEN to CLOSED
 then
 	
-	executeCommandLine("sudo@systemctl@restart@olad.service",5000)
+	//executeCommandLine("sudo@systemctl@restart@olad.service",5000)
 if(Light_Hallway.state == ON){
 	sendCommand(Light_Hallway,OFF)
 	}
@@ -131,7 +173,12 @@ when
     Item Contact_MasterBedroomL changed from OPEN to CLOSED
 then
 	if(Scene_MasterBedRoom.state == 1){
-		Scene_MasterBedRoom.sendCommand(2)
+		if (vTimeOfDay.state.toString.contains("NIGHT")){
+			Scene_MasterBedRoom.sendCommand(4)
+		}
+		else{
+			Scene_MasterBedRoom.sendCommand(2)
+		}
 	}
 	else {
 		Scene_MasterBedRoom.sendCommand(1)

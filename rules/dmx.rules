@@ -7,7 +7,7 @@ var HSBType hsbValueMasterBedRoom
 var HSBType hsbValueBathRoom
 
 val hsbOff = HSBType::fromRGB(0, 0, 0) 
-val hsbOn = HSBType::fromRGB(255, 255, 255)
+val hsbOn = HSBType::fromRGB(255, 172, 68)
 var boolean partyMode
 	
 var int redColor
@@ -35,7 +35,7 @@ var String RGBvalues
 
 rule "Activate Scene LivingRoom"
 when
-	Item Scene_LivingRoom1 received command or Item Scene_LivingRoom2 received command or Item Scene_LivingRoom3 received command 
+	Item Scene_LivingRoom received command or Item Scene_LivingRoom1 received command or Item Scene_LivingRoom2 received command or Item Scene_LivingRoom3 received command 
 then
 	Light_Kitchen.sendCommand(OFF)
 	Light_Wall_TV.sendCommand(OFF)
@@ -142,8 +142,9 @@ then
 	
 	}
 	
-	
-	//
+	Color_LivingRoom.postUpdate(hsbValue.toString)
+	Dimmer_LivingRoom.postUpdate((Color_LivingRoom.state as HSBType).value)
+
 end
 
 
@@ -154,11 +155,12 @@ when
 then
         var Number fadeCounter 	
 	//RAPIDLY CHANGE HSB FOR ALL LIGHTS ON
+	val int brightness = 30//Dimmer_LivingRoom.state as PercenType
 	
 	while( Scene_LivingRoom2.state == 7) {
          //fadeCounter=fadeCounter+1
       	 Group_DMX_LivingRoom.members.forEach(light|
-		        light.sendCommand((HSBType::fromRGB((Math::random * 255).intValue , (Math::random * 255).intValue , (Math::random * 255).intValue)).toString())
+		        light.sendCommand((HSBType::fromRGB((Math::random * 255*brightness/100).intValue , (Math::random * 255*brightness/100).intValue , (Math::random * 255*brightness/100).intValue)).toString())
 	 )  
          Thread::sleep(4000)
 	}
@@ -178,6 +180,8 @@ rule "Set RGB value Living Room"
 		Group_DMX_LivingRoom.members.filter[l|
 			l.state.toString != hsbOff
 		].forEach[l| l.sendCommand(hsbValue.toString) ]
+		
+		Dimmer_LivingRoom.postUpdate((Color_LivingRoom.state as HSBType).value)
 end
 
 
@@ -200,33 +204,33 @@ when
 	Item MoodSelector_LivingRoom received command
 then
 	var String hexValue
-	//warm white
+	//warm white 255, 172, 68
 	if (receivedCommand==1) {
 		redColor = 255
-		greenColor = 0
-		blueColor =0
+		greenColor = 172
+		blueColor = 68
 		hexValue ="00FF00"
 			
 	}
         //white
 	if (receivedCommand==2) {
-		redColor = 0
+		redColor = 255
 		greenColor = 255
-		blueColor =0
+		blueColor =255
 		hexValue ="0000FF" 
 	}
 	//lounge
 	if (receivedCommand==3) {
-		redColor = 0
-		greenColor = 0
-		blueColor =255	 
+		redColor = 255
+		greenColor = 244
+		blueColor =229	 
 		hexValue ="FF0000" 
 	}
 	//night
 	if (receivedCommand==4) {
-		redColor = 255
-		greenColor = 244
-		blueColor =229
+		redColor = 100
+		greenColor = 0
+		blueColor =10
 		hexValue ="FFFFFF" 
 	}
 	
@@ -255,7 +259,7 @@ rule "Set RGB value MasterBedRoom"
     hsbValueMasterBedRoom = Color_MasterBedRoom.state as HSBType
     
 	Group_DMX_MasterBedRoom.members.filter[l|
-			l.state.toString != hsbOff.toString
+			(l.state as HSBType).value!= 0
 		].forEach[l| l.sendCommand(hsbValueMasterBedRoom.toString()) ]
 end
 
@@ -267,7 +271,7 @@ rule "Change dimming in Master BedRoom"
 when
 	Item Dimmer_MasterBedRoom changed
 then
-	Color_MasterBedRoom.sendCommand(Dimmer_MasterBedRoom.state)
+	Color_MasterBedRoom.sendCommand(Dimmer_MasterBedRoom.state as PercentType)
 end
 
 

@@ -1,6 +1,6 @@
 Number MoodSelector_LivingRoom "Mood" <sofa>
 
-
+Number Scene_LivingRoom "Scene" <sofa>
 Number Scene_LivingRoom1 "Scene" <sofa>
 Number Scene_LivingRoom2 "Scene" <sofa>
 Number Scene_LivingRoom3 "Scene" <sofa>
@@ -8,7 +8,8 @@ Number Scene_LivingRoom3 "Scene" <sofa>
 Number Scene_MasterBedRoom "Scene" <sofa>
 Number Scene_BathRoom "Scene" <sofa>
 
-Number Scene_DayMode 
+Number Scene_DayMode
+Number Scene_Workmode 
 
 Number Scene_Presence_Kim
 Number Scene_Presence_Yulia
