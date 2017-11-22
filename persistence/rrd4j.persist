@@ -8,4 +8,6 @@ Strategies {
 Items {
         // additionally persist weather info every minute
         Group_History* : strategy = everyUpdate, everyMinute
+        Group_Chart* : strategy = everyUpdate
 }
+

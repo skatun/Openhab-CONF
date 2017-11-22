@@ -38,7 +38,7 @@ then
 	Scene_BathRoom.sendCommand(1)
 	Scene_MasterBedRoom.sendCommand(1)
 	Light_Hallway.sendCommand(OFF)
-	if (vTimeOfDay.state.toString=="BED"){
+	if (vTimeOfDay.state.toString=="NIGHT"){
 		MoodSelector_LivingRoom.sendCommand(4)
 		Scene_LivingRoom1.sendCommand(6)
 	}
@@ -94,22 +94,25 @@ if(Light_Balcony.state == ON){
 end
 
  
-rule "Update bathroom light when motion happens"
+rule "Update hallway light when motion happens"
 when
     Item HueMotionBathroom changed from CLOSED to OPEN 
 then
+	Light_Hallway_Timer.sendCommand(ON)
 	if (Light_Hallway.state ==OFF) {
-		Light_Hallway.sendCommand(ON)
+		Light_Hallway.sendCommand(ON)		
 	}
 	
 end
 
+
 rule "Update bathroom light when motion dissapears"
 when
-    Item HueMotionBathroom changed from OPEN to CLOSED 
+	Item Light_Hallway_Timer received command OFF
+    //Item HueMotionBathroom changed from OPEN to CLOSED 
 then
 	if (Light_Hallway.state ==ON) {
-		//Light_Hallway.sendCommand(OFF)
+		Light_Hallway.sendCommand(OFF)
 	}
 	
 end
@@ -144,7 +147,7 @@ when
 	Item Contact_BedroomL changed from OPEN to CLOSED
 then
 	
-	//executeCommandLine("sudo@systemctl@restart@olad.service",5000)
+
 if(Light_Hallway.state == ON){
 	sendCommand(Light_Hallway,OFF)
 	}

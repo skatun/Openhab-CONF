@@ -17,16 +17,33 @@ Group Group_DMX_Reading
 Group Group_DMX_Lounge 
 Group Group_DMX_BathRoom 
 
+
+Group Group_MasterBedRoom_Reading
+
 // Temperature
 Group Group_Temperature
-Group Group_SetPoint
 Group Group_Heating
-Group:Number:AVG Group_Temperature_LivingRoom	"Avg. Indoor Temperature [%.1f °C]" 	<temperature>	
+Group Group_SetPoint
+Group Group_SetPoint_Command
+Group Group_SetPoint_Night (Group_SetPoint)
+Group Group_SetPoint_Morning (Group_SetPoint)
+Group Group_SetPoint_Day (Group_SetPoint)
+Group Group_SetPoint_PreHeat (Group_SetPoint)
+Group Group_SetPoint_Work (Group_SetPoint)
+Group Group_SetPoint_Evening (Group_SetPoint)
+Group Group_SetPoint_Special (Group_SetPoint)
+Group Group_SetPoint_Special_PreHeat_Guests (Group_SetPoint_Special)
+Group Group_SetPoint_Special_Morning_Guests (Group_SetPoint_Special)
+Group Group_SetPoint_Special_Day_Guests (Group_SetPoint_Special)
+Group Group_SetPoint_Special_Night_Guests (Group_SetPoint_Special)
+Group Group_SetPoint_Special_Work_Guests (Group_SetPoint_Special)
+Group Group_SetPoint_Special_Holiday (Group_SetPoint_Special)
+
+Group:Number:AVG Group_Temperature_LivingRoom(Group_Chart)	"Avg. Indoor Temperature [%.1f °C]" 	<temperature>	
 
 
 // Moisture
-Group:Number:MIN Group_Moisture_LivingRoom	"Minimum Moisture [%.1f °C]" 	<temperature>	
-
+Group:Number:MIN Group_Moisture_LivingRoom	"Minimum Moisture [%.1f ]" 	<temperature>	
 
 Group Group_MyOpenhab // for Items that are exposed to IFTTT
 Group Group_Chart     // for Items to persist for charting

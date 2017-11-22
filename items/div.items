@@ -1,9 +1,10 @@
-Switch Div_DoorOpener "Door"  	(Group_Hallway)	[ "Lighting" ] { gpio="pin:22" }  //Relay 5
+Switch Div_DoorOpener "Door" (Group_Hallway)[ "Lighting" ] { gpio="pin:22" }  //Relay 5
 Contact Contact_DoorBell {gpio="pin:9 debounce:50 activelow:no"}
 Number DoorBellChanges
 
 
 Switch Div_PartySwitch "Part" 
 Switch Div_Ola {exec="ON:sudo systemctl restart olad.service"}
+Switch Div_Openhab {exec="ON:sudo systemctl restart opeanhab2.service"}
 
 Color Color_RGBKitchen 
