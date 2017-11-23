@@ -4,7 +4,7 @@ val morningWeekends = 8
 val nightWeekdays = 23
 val nightWeekends = 0
 val preHeatMinutes = 15
-
+val evenings = 20
 
 rule "Calculate time of day state"
 when
@@ -13,13 +13,13 @@ when
   Channel 'astro:sun:home:rise#event' triggered START or
   Channel 'astro:sun:home:set#event' triggered START or
   Channel 'astro:sun:minus90:set#event' triggered START or
-
   Item Alexa_Off received command OFF or
   Time cron "0 0 7 * * ? *" or // Morning weekdays
   Time cron "0 0 9 * * ? *" or // Morning weekends
   Time cron "0 45 6 * * ? *" or // Preheat weekdays
   Time cron "0 45 8 * * ? *" or // Preheat weekends
   Time cron "0 0 23 * * ? *" or // Night weekdays
+  Time cron "0 0 20 * * ? *" or // Evenings
   Time cron "1 0 0 * * ? *"  // Night weekends 
  
 then
@@ -42,9 +42,13 @@ then
   val long morning_start   = now.withTimeAtStartOfDay.plusHours(morning_hour).millis // morning_hour based on isWeekend
   val long day_start       = (vSunrise_Time.state as DateTimeType).calendar.timeInMillis // Astro
   val long afternoon_start = (vEvening_Time.state as DateTimeType).calendar.timeInMillis // Astro
-  val long evening_start   = (vSunset_Time.state as DateTimeType).calendar.timeInMillis // Astro
+  //val long evening_start   = (vSunset_Time.state as DateTimeType).calendar.timeInMillis // Astro
   val long night_start     = now.withTimeAtStartOfDay.plusHours(night_hour).millis // night_hour based on isWeekend
-	
+  val long sunset_start = (vSunrise_Time.state as DateTimeType).calendar.timeInMillis
+  val long evening_start = now.withTimeAtStartOfDay.plusHours(evenings).millis
+  val long tomorrow_start = now.withTimeAtStartOfDay.plusHours(evenings).millis
+
+
   var curr = "UNKNOWN"
 
   switch now {
@@ -52,8 +56,10 @@ then
     case now.isAfter(morning_start) && now.isBefore(day_start):       curr = "MORNING"
     case now.isAfter(day_start) && now.isBefore(afternoon_start):     curr = "DAY"
     case now.isAfter(afternoon_start) && now.isBefore(evening_start): curr = "AFTERNOON"
-    case now.isAfter(evening_start) && now.isBefore(night_start):     curr = "EVENING"
-    case now.isAfter(night_start) && now.isBefore(preHeat_start):     curr = "NIGHT"
+    case now.isBefore(sunset_start) && now.isAfter(evening_start) && now.isBefore(tomorrow_start) : curr = curr
+    case now.isAfter(sunset_start)  && now.isAfter(evening_start) && now.isBefore(tomorrow_start) : curr = "EVENING"
+    case now.isAfter(night_start) : curr = "NIGHT"
+ 
   }
 
   // These could probably be made a part of the switch statement but seems OK here
@@ -67,6 +73,7 @@ then
     logInfo(logName, "Current time of day is now " + curr)
     vTimeOfDay.sendCommand(curr)
   //}
+<<<<<<< HEAD
 
   Alexa_Off received command OFF or 
   Time cron "0 0 6,7,22,23,0 * * ? *" // there is currently a bug where only one cron is triggered per rule so I've combined all three into one
@@ -111,129 +118,96 @@ then
 		vTimeOfDay.sendCommand(curr)
 	//}
 
+=======
+>>>>>>> c3e61af2758892d10ec9aa11b55734cc52ff5476
 
 end
 
-rule "State Rule"
+rule "State Heating Rule"
 when
     Item vTimeOfDay received command or
 	Item vWorkMode received command
 then
 
+ 	// ---------------------- Create some initial variables ----------------------------
+    val mode = vWorkMode.state.toString.toUpperCase()
+    val tod = vTimeOfDay.state.toString.toUpperCase()
 
-	if (vWorkMode.state.toString.contains("OFF")) {
-			logInfo(logName, "Workmode is now " + vWorkMode.state.toString)
-			Heating_LivingRoom_Setpoint.sendCommand(Heating_Setpoint_Day.state as DecimalType)
-			Heating_MasterBedRoom_Setpoint.sendCommand(Heating_Setpoint_Day.state as DecimalType)
-			Heating_BathRoom_Setpoint.sendCommand(Heating_Setpoint_Day.state as DecimalType)
-			Heating_BedRoom_Setpoint.sendCommand(Heating_Setpoint_Day.state as DecimalType)
-	}
+    logInfo(logName, "Workmode is now " + mode + " TOD is now " + tod)
 
+    Group_SetPoint_Command.members.forEach[ room |
 
-	if (vWorkMode.state.toString.contains("HOLIDAY")) {
-			logInfo(logName, "Workmode is now " + vWorkMode.state.toString)
-			Heating_LivingRoom_Setpoint.sendCommand(Heating_Setpoint_Holiday.state as DecimalType)
-			Heating_MasterBedRoom_Setpoint.sendCommand(Heating_Setpoint_Holiday.state as DecimalType)
-			Heating_BathRoom_Setpoint.sendCommand(Heating_Setpoint_Holiday.state as DecimalType)
-			Heating_BedRoom_Setpoint.sendCommand(Heating_Setpoint_Holiday.state as DecimalType)
-	}
+        val todGroup= Group_SetPoint.members.findFirst[g | g.name.equalsIgnoreCase("Group_SetPoint_"+tod)] as GroupItem
+      
+        // Get the setpoint name for this TOD
+		val setpoint = todGroup.members.findFirst[sptod |sptod.name.contains(room.name)] as NumberItem      
+     
+        // Get the special setpoint if there isn't a normal one or we are not in normal mode, how to handle these ones????
+        if(setpoint == null || mode != "NORMAL"){ 
+            val specialTod = Group_SetPoint_Special.members.findFirst[specTod | specTod.name.equalsIgnoreCase("Group_SetPoint_Special_"+tod+"_"+mode)] as GroupItem
+            //logInfo(logName, "SpecialTodGroup is now " + specialTod.toString)
 
-	if ((vWorkMode.state.toString.contains("NORMAL"))||(vWorkMode.state.toString.contains("GUESTS")){
-		logInfo(logName, "Workmode is now " + vWorkMode.state.toString)
-		logInfo(logName, "Current time of day is now " + vTimeOfDay.state.toString)
-		
-		if(vTimeOfDay.state.toString.contains("PREHEAT")){
-			logInfo("DEBUG","Its morning " + vTimeOfDay.state.toString)
-			//heatUp to 18C in bedrooms, 21C in livingroom,23C in bathroom
-			Heating_LivingRoom_Setpoint.sendCommand(Heating_LivingRoom_Setpoint_Day.state as DecimalType)
-			Heating_MasterBedRoom_Setpoint.sendCommand(Heating_MasterBedRoom_Setpoint_Day.state as DecimalType)
-			Heating_BathRoom_Setpoint.sendCommand(Heating_BathRoom_Setpoint_Day.state as DecimalType)
+            specialTod.members.forEach[spec|
+                    if (spec.name.contains(room.name)){
+                        val setpoint = spec as NumberItem
+                    }
+            ]
 
-			if (vWorkMode.state.toString.contains("GUESTS"))
-				Heating_BedRoom_Setpoint.sendCommand(Heating_BedRoom_Setpoint_Day.state as DecimalType)
-			}
+            if(setpoint == null){
+                val specialWorkMode = Group_SetPoint_Special.members.findFirst[specWorkMode | specWorkMode.name.equalsIgnoreCase("Group_SetPoint_Special_"+mode)] as GroupItem
+                    specialWorkMode.members.forEach[specMode|
+                        val setpoint = specMode as NumberItem
+                    ]
+            }
+            //val setpoint2 = specialTod.members.findFirst[spec | spec.name.contains(room.name)] as NumberItem     
+            //logInfo(logName, "setpoint 43:---  " + setpoint2.state.toString)
+
+        }
+        
+
+        // if setpoint is null we do not change the heater's setting and let it stay the same as it was before How to rewrite this?????
+        if(setpoint != null) {
+			room.sendCommand(setpoint.state as Number)
+			logInfo(logName, "Setpoint is now " + setpoint.state + " in room " + room.name.toString)
 		}
-		
-		
-		if(vTimeOfDay.state.toString.contains("MORNING")) {
-			//Dim lights for 15 minutes from 0% to 100% 
-			//dimLights(Group_LivingRoom,100,15*60).apply	
-			//dimLights(Group_MasterBedRoom,70,15*60).apply
-			//dimLights(Group_Hallway,85,15*60).apply	
-			//heatConstant to 18C in bedrooms, 21C in livingroom,23C in bathroom
-				
-			Scene_LivingRoom1.sendCommand(2)			
-		}
-		
-		
-		if (vTimeOfDay.state.toString.contains("WORK")) {
-			//heatDown to 10C in bedrooms, 12C in livingroom,16C in bathroom
-			Heating_LivingRoom_Setpoint.sendCommand(Heating_LivingRoom_Setpoint_Away.state as DecimalType)
-			Heating_MasterBedRoom_Setpoint.sendCommand(Heating_MasterBedRoom_Setpoint_Away.state as DecimalType)
-			Heating_BathRoom_Setpoint.sendCommand(Heating_BathRoom_Setpoint_Away.state as DecimalType)
+        
+    ]
 
-			if (vWorkMode.state.toString.contains("GUESTS")){
-				Heating_BedRoom_Setpoint.sendCommand(Heating_BedRoom_Setpoint_Away.state as DecimalType)
-			}
+end
 
-			Scene_LivingRoom1.sendCommand(1)
-			Scene_BathRoom.sendCommand(1)
-			Scene_MasterBedRoom.sendCommand(1)
-			Light_Hallway.sendCommand(OFF)
-		}
-		
-		if (vTimeOfDay.state.toString.contains("AFTERNOON")) {
-			//heatUp to 18C in bedrooms, 19C in livingroom,23C in bathroom
-			Heating_LivingRoom_Setpoint.sendCommand(Heating_LivingRoom_Setpoint_Day.state as DecimalType)
-			Heating_MasterBedRoom_Setpoint.sendCommand(Heating_MasterBedRoom_Setpoint_Day.state as DecimalType)
-			Heating_BathRoom_Setpoint.sendCommand(Heating_BathRoom_Setpoint_Day.state as DecimalType)
-
-			if (vWorkMode.state.toString.contains("GUESTS")){
-				Heating_BedRoom_Setpoint.sendCommand(Heating_BedRoom_Setpoint_Day.state as DecimalType)
-			}
-
-			Heating_LivingRoom_Setpoint.sendCommand(Heating_LivingRoom_Setpoint_Day)
-			Heating_BedRoom_Setpoint.sendCommand(Heating_BedRoom_Setpoint_Day)
-			Heating_BathRoom_Setpoint.sendCommand(Heating_BathRoom_Setpoint_Day)
-
-		}
-		
-		if (vTimeOfDay.state.toString.contains("EVENING")){
-			//Dim lights for 60 minutes from 100% to 40% 
-			//dimLights(Group_LivingRoom,40,60*60).apply	
-			//dimLights(Group_Hallway,40,60*60).apply
-			//heatup to 21C in living Room
-
-			Heating_LivingRoom_Setpoint.sendCommand(Heating_LivingRoom_Setpoint_Evening.state as DecimalType)
-
-			Dimmer_LivingRoom.sendCommand(40)
-
-		}	
-		
-		if (vTimeOfDay.state.toString.contains("NIGHT")){	
-			//heatDown to 14C in bedrooms, 10C in livingroom,18C in bathroom
-
-			Heating_LivingRoom_Setpoint.sendCommand(Heating_LivingRoom_Setpoint_Night.state as DecimalType)
-			Heating_MasterBedRoom_Setpoint.sendCommand(Heating_MasterBedRoom_Setpoint_Night.state as DecimalType)
-			Heating_BathRoom_Setpoint.sendCommand(Heating_BathRoom_Setpoint_Night.state as DecimalType)
-			
-			if (vWorkMode.state.toString.contains("GUESTS")){
-				Heating_BedRoom_Setpoint.sendCommand(Heating_BedRoom_Setpoint_Night.state as DecimalType)
-			}
-
-
-			Scene_BathRoom.sendCommand(1)
-			Scene_MasterBedRoom.sendCommand(1)
-			Light_Hallway.sendCommand(OFF)
-			Thread::sleep(10) 
-
-			Scene_LivingRoom1.sendCommand(6)
-			Thread::sleep(10) 
-			MoodSelector_LivingRoom.sendCommand(4)
-		
-		}	
-	}
-
-
+rule "State Lighting Rule"
+when
+    Item vTimeOfDay received command or
+	Item vWorkMode received command
+then
+	// ---------------------- Create some initial variables ----------------------------
+    val mode = vWorkMode.state.toString.toUpperCase()
+    val tod = vTimeOfDay.state.toString.toUpperCase()
+    // ---------------------- Non-heating tasks to perform based on time of day ----------------------------
+    if(mode == "NORMAL") {
+        switch(tod){
+            case tod.contains("MORNING"): {
+                Scene_LivingRoom1.sendCommand(2)
+            }
+            case tod.contains("WORK"): {
+                Scene_LivingRoom1.sendCommand(1)
+                Scene_Bathroom.sendCommand(1)
+                Scene_MasterBedRoom.sendCommand(1)
+                Light_Hallway.sendCommand(OFF)
+            }
+            case tod.contains("EVENING"): {
+                Dimmer_LivingRoom.sendCommand(40)
+            }
+            case tod.contains("NIGHT"): {
+                Scene_BathRoom.sendCommand(1)
+                Scene_MasterBedRoom.sendCommand(1)
+                Light_Hallway.sendCommand(OFF)
+                Thread::sleep(10)
+                Scene_LivingRoom1.sendCommand(6)
+                Thread::sleep(10)
+                MoodSelector_LivingRoom.sendCommand(4)
+            }
+        }
+    }
 
 end

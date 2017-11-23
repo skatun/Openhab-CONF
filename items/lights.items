@@ -16,6 +16,7 @@
 	
 	/*Hallway*/
 	Switch Light_Hallway 	"Hallway"  		(Group_Hallway) [ "Lighting" ] { gpio="pin:20" } //Relay 12
+	Switch Light_Hallway_Timer { expire="3m,command=OFF" }
 	
 	
 	Switch Light_Balcony "Outdoor" 		(Group_Balcony) [ "Lighting" ] { gpio="pin:10" } //relay  3

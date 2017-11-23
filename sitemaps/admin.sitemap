@@ -89,6 +89,19 @@ sitemap admin label="Admin"
 			  }
 		}	
 	}
+
+	Frame {
+		Switch item=chart_period label="Graph Interval" mappings=[0="Day", 1="Week", 2="Month", 3="Year"]
+		//Chart item=Group_Temperature_LivingRoom period=D refresh=30000 visibility=[chart_period==0, chart_period=="Uninitialized"]
+		//Chart item=Group_Temperature_LivingRoom period=W refresh=30000 visibility=[chart_period==1]
+		//Chart item=Group_Temperature_LivingRoom period=M refresh=30000 visibility=[chart_period==2]
+		//Chart item=Group_Temperature_LivingRoom period=Y refresh=30000 visibility=[chart_period==3]
+
+		Chart item=Heating_LivingRoom_Setpoint period=D refresh=30000 visibility=[chart_period==0, chart_period=="Uninitialized"]
+		Chart item=Heating_LivingRoom_Setpoint period=W refresh=30000 visibility=[chart_period==1]
+		Chart item=Heating_LivingRoom_Setpoint period=M refresh=30000 visibility=[chart_period==2]
+		Chart item=Heating_LivingRoom_Setpoint period=Y refresh=30000 visibility=[chart_period==3]
+	}
 		
 	
 		

@@ -110,8 +110,9 @@ then
 	}
 	//TV
 	case 8:{
-		hsbValue = HSBType::fromRGB(200, 200, 255)
+		hsbValue = HSBType::fromRGB(125, 100, 25)
 		rgbLights.apply(Group_DMX_LivingRoom,Group_DMX_TV,hsbValue)
+		//Light_Wall_TV.sendCommand(ON)
 	}
 	//Cooking
 	case 9:{
@@ -286,6 +287,8 @@ then
 	
 	//warm white
 	switch receivedCommand {
+
+		
 		//OFF
 		case 1: {
 		    hsbValueMasterBedRoom = HSBType::fromRGB(0, 0, 0)
@@ -295,19 +298,21 @@ then
 		//ON
 		case 2:{
 		    hsbValueMasterBedRoom = HSBType::fromRGB(255, 255, 255)
+			//hsbValueMasterBedRoom=Color_MasterBedRoom.state as HSBType
 		    rgbLights.apply(Group_DMX_MasterBedRoom,Group_DMX_MasterBedRoom,hsbValueMasterBedRoom)
 		    Dimmer_MasterBedRoom.sendCommand(80)
 		}
 		//NIGHT
 		case 3:{
-		    hsbValueMasterBedRoom = HSBType::fromRGB(50, 10, 10)
+		    hsbValueMasterBedRoom = HSBType::fromRGB(50, 0, 10)
+			//hsbValueMasterBedRoom=Color_MasterBedRoom.state as HSBType
 		    rgbLights.apply(Group_DMX_MasterBedRoom,Group_DMX_MasterBedRoom,hsbValueMasterBedRoom)
 		    Dimmer_MasterBedRoom.sendCommand(60)
 		}
 		//READING
 		case 4:{
-		    hsbValueMasterBedRoom = HSBType::fromRGB(200, 200, 100)
-		    rgbLights.apply(Group_DMX_MasterBedRoom,Group_DMX_MasterBedRoom,hsbValueMasterBedRoom)
+		    hsbValueMasterBedRoom = HSBType::fromRGB(255, 204, 51)
+		    rgbLights.apply(Group_DMX_MasterBedRoom,Group_MasterBedRoom_Reading,hsbValueMasterBedRoom)
 		    Dimmer_MasterBedRoom.sendCommand(100)
 		}
 	}		

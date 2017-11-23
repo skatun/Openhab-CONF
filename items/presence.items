@@ -1,12 +1,17 @@
 
 
-Switch Presence_Kim "Kim"
-Switch Presence_Yulia "Yulia"
-Switch Presence_Family "Family"
-Switch Presence_Guest "Guests"
-
+Switch Presence_Kim "Kim" (Group_MyOpenhab)
+Switch Presence_Yulia "Yulia" (Group_MyOpenhab)
+Switch Presence_Family "Family" (Group_MyOpenhab)
+Switch Presence_Guest "Guests" (Group_MyOpenhab)
+Switch Presence_Home "Somebody is at home" (Group_MyOpenhab)
+Switch Precense_Intruders "Someone uknown is home" (Group_MyOpenhab)
 //Camera
 
+
+Switch Location_Leaving_Work_Kim "Kim is Leaving work" (Group_MyOpenhab)
+Switch Location_Arriving_Home_Kim "Kim arrived home" (Group_MyOpenhab)
+Switch Location_Leaving_Home_Kim "Kim left home" (Group_MyOpenhab)
 
 //Mobilfunktelefone
 Switch MOBKIM_WLAN "Cell Kim"  
