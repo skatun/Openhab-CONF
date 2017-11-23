@@ -8,6 +8,18 @@ then
 		Scene_BathRoom.sendCommand(4)
 end
 
+rule "Alexa Bathroom"
+when
+	Item Alexa_Bathroom received command
+then
+	if (receivedCommand==ON) {
+		Scene_BathRoom.sendCommand(2)
+	}
+	else{
+		Scene_BathRoom.sendCommand(1)
+	}
+end
+
 rule "Master Bedroom On"
 when
 	Item Alexa_MasterBedroom received command ON
@@ -22,14 +34,20 @@ then
 		Scene_MasterBedRoom.sendCommand(1)
 end
 
-/*
+rule "Master Bedroom Reading"
+when
+	Item Alexa_MasterBedroom_Reading received command ON
+then
+		Scene_MasterBedRoom.sendCommand(4)
+end
+
 rule "Lights Off"
 when
 	Item Alexa_Off received command OFF
 then
 		Light_All_Off.sendCommand(ON)
 end
-*/
+
 
 rule "Living Room Off"
 when

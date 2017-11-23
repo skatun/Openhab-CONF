@@ -35,7 +35,7 @@ rule "Heater in bedroom room"
 		Item Netatmo_BedRoom_Temperature received update or
 		Item Heating_BedRoom_Setpoint received update
 	then
-		heatings.apply(Heating_Bedroom_SetPoint,Netatmo_BedRoom_Temperature,Heating_BedRoom)
+		heatings.apply(Heating_Bedroom_Setpoint,Netatmo_BedRoom_Temperature,Heating_BedRoom)
 end
 
 rule "Heater in master bedroom room"
