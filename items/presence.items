@@ -14,7 +14,8 @@ Switch Location_Arriving_Home_Kim "Kim arrived home" (Group_MyOpenhab)
 Switch Location_Leaving_Home_Kim "Kim left home" (Group_MyOpenhab)
 
 //Mobilfunktelefone
-Switch MOBKIM_WLAN "Cell Kim"  
+Switch Mobile_Wlan_Kim "Cell Kim" <network> {channel="network:device:phone_kim:online"} 
+DateTime Kim_LastSeen "Kim Last seen" <network> {channel="network:device:phone_kim:lastseen"} 
 Switch MOBYULIA_WLAN "Cell Yulia" 
 
 

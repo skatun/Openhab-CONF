@@ -1,3 +1,4 @@
+
 Strategies {
         // for rrd charts, we need a cron strategy
         everyMinute : "0 * * * * ?"
@@ -8,6 +9,6 @@ Strategies {
 Items {
         // additionally persist weather info every minute
         Group_History* : strategy = everyUpdate, everyMinute
-        Group_Chart* : strategy = everyUpdate
+        Group_Chart* : strategy = everyUpdate, everyMinute
 }
 

@@ -71,18 +71,35 @@ sitemap admin label="Admin"
 			  }
 		}	
 	}
+	Frame label="LIGHTS" {	  
+		Group item=Group_DMX_MasterBedRoom	
+	}
 
 	Frame {
 		Switch item=chart_period label="Graph Interval" mappings=[0="Day", 1="Week", 2="Month", 3="Year"]
-		//Chart item=Group_Temperature_LivingRoom period=D refresh=30000 visibility=[chart_period==0, chart_period=="Uninitialized"]
-		//Chart item=Group_Temperature_LivingRoom period=W refresh=30000 visibility=[chart_period==1]
-		//Chart item=Group_Temperature_LivingRoom period=M refresh=30000 visibility=[chart_period==2]
-		//Chart item=Group_Temperature_LivingRoom period=Y refresh=30000 visibility=[chart_period==3]
+		
+		Chart item=Group_Chart_Temperature_LivingRoom period=D refresh=30000  visibility=[chart_visible==10, chart_period=="Uninitialized"] 
+		Chart item=Group_Chart_Temperature_LivingRoom period=W refresh=30000 visibility=[chart_visible==11]
+		Chart item=Group_Chart_Temperature_LivingRoom period=M refresh=30000 visibility=[chart_visible==12]
+		Chart item=Group_Chart_Temperature_LivingRoom period=Y refresh=30000 visibility=[chart_visible==13]
 
-		Chart item=Heating_LivingRoom_Setpoint period=D refresh=30000 visibility=[chart_period==0, chart_period=="Uninitialized"]
-		Chart item=Heating_LivingRoom_Setpoint period=W refresh=30000 visibility=[chart_period==1]
-		Chart item=Heating_LivingRoom_Setpoint period=M refresh=30000 visibility=[chart_period==2]
-		Chart item=Heating_LivingRoom_Setpoint period=Y refresh=30000 visibility=[chart_period==3]
+		Chart item=Group_Chart_Temperature_MasterBedRoom period=D refresh=30000 visibility=[chart_visible==20]
+		Chart item=Group_Chart_Temperature_MasterBedRoom period=W refresh=30000 visibility=[chart_visible==21]
+		Chart item=Group_Chart_Temperature_MasterBedRoom period=M refresh=30000 visibility=[chart_visible==22]
+		Chart item=Group_Chart_Temperature_MasterBedRoom period=Y refresh=30000 visibility=[chart_visible==23]
+
+		Chart item=Chart_Scene_DayMode period=D refresh=30000 visibility=[chart_visible==90]
+		Chart item=Chart_Scene_DayMode period=W refresh=30000 visibility=[chart_visible==91]
+		Chart item=Chart_Scene_DayMode period=M refresh=30000 visibility=[chart_visible==92]
+		Chart item=Chart_Scene_DayMode period=Y refresh=30000 visibility=[chart_visible==93]
+		
+		
+		Selection item=chart_selection label="Charting Item" mappings=[10="Living Room", 20="Master Bedroom", 30="Guest Bedroom", 40="Bathroom", 50="Hallway", 60="Kitchen",90="Time of Day"]
+		
+		//Chart item=Heating_LivingRoom_Setpoint period=D refresh=30000 visibility=[chart_period==0, chart_period=="Uninitialized"]
+		//Chart item=Heating_LivingRoom_Setpoint period=W refresh=30000 ]
+		//Chart item=Heating_LivingRoom_Setpoint period=M refresh=30000 visibility=[chart_period==2]
+		//Chart item=Heating_LivingRoom_Setpoint period=Y refresh=30000 visibility=[chart_period==3]
 	}
 		
 	

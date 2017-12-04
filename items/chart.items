@@ -1,3 +1,7 @@
 // To choose a proper cahrt period in a sitemap
 // mappings=[0="Tag", 1="Woche", 2="Monat", 3="Jahr"]
 Number chart_period "Graph Interval"
+Number chart_selection "Graph Selection"
+Number chart_visible
+
+Number Chart_Scene_DayMode(Group_Chart)

@@ -78,6 +78,7 @@ then
 	//ON
 	case 2:{
 		Group_DMX_LivingRoom.members.filter[l|l.state.toString != hsbValue.toString].forEach[l| l.sendCommand(hsbOn.toString()) ]
+		Light_Kitchen.sendCommand(ON)
 		logInfo("Debug","turning on lights" )
 		
 	}
@@ -302,20 +303,20 @@ then
 		    hsbValueMasterBedRoom = HSBType::fromRGB(255, 255, 255)
 			//hsbValueMasterBedRoom=Color_MasterBedRoom.state as HSBType
 		    rgbLights.apply(Group_DMX_MasterBedRoom,Group_DMX_MasterBedRoom,hsbValueMasterBedRoom)
-		    Dimmer_MasterBedRoom.sendCommand(80)
+		    //Dimmer_MasterBedRoom.sendCommand(80)
 		}
 		//NIGHT
 		case 3:{
 		    hsbValueMasterBedRoom = HSBType::fromRGB(50, 0, 10)
 			//hsbValueMasterBedRoom=Color_MasterBedRoom.state as HSBType
 		    rgbLights.apply(Group_DMX_MasterBedRoom,Group_DMX_MasterBedRoom,hsbValueMasterBedRoom)
-		    Dimmer_MasterBedRoom.sendCommand(60)
+		    //Dimmer_MasterBedRoom.sendCommand(60)
 		}
 		//READING
 		case 4:{
 		    hsbValueMasterBedRoom = HSBType::fromRGB(255, 204, 51)
 		    rgbLights.apply(Group_DMX_MasterBedRoom,Group_MasterBedRoom_Reading,hsbValueMasterBedRoom)
-		    Dimmer_MasterBedRoom.sendCommand(100)
+		    //Dimmer_MasterBedRoom.sendCommand(100)
 		}
 	}		
 	

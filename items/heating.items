@@ -7,9 +7,9 @@ Switch Heating_Bathroom (Group_Heating){gpio="pin:5" }//Relay 6
 Switch Heating_MasterBedRoom (Group_Heating){gpio="pin:21" }//Relay 1
 Switch Heating_BedRoom (Group_Heating){gpio="pin:4" }//Relay 11
 	
-Number Heating_LivingRoom_Setpoint (Group_SetPoint,Group_SetPoint_Command,Group_LivingRoom,Group_Chart)
-Number Heating_BedRoom_Setpoint (Group_SetPoint,Group_SetPoint_Command,Group_BedRoom)
-Number Heating_MasterBedRoom_Setpoint (Group_SetPoint,Group_SetPoint_Command,Group_MasterBedRoom)
+Number Heating_LivingRoom_Setpoint (Group_SetPoint,Group_SetPoint_Command,Group_LivingRoom,Group_Chart,Group_Chart_Temperature_LivingRoom)
+Number Heating_BedRoom_Setpoint (Group_SetPoint,Group_SetPoint_Command,Group_BedRoom,Group_Chart,Group_Chart_Temperature_BedRoom)
+Number Heating_MasterBedRoom_Setpoint (Group_SetPoint,Group_SetPoint_Command,Group_MasterBedRoom,Group_Chart,Group_Chart_Temperature_MasterBedRoom)
 Number Heating_BathRoom_Setpoint (Group_SetPoint,Group_SetPoint_Command,Group_BathRoom)
 
 Number Heating_LivingRoom_Setpoint_Night (Group_SetPoint,Group_SetPoint_Night,Group_LivingRoom)
