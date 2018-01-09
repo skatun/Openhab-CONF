@@ -1,19 +1,19 @@
 	/*Contact*/
 	
-	Contact Contact_LivingRoomL {gpio="pin:23 debounce:0 activelow:yes"} //SW1
-	Contact Contact_LivingRoomR {gpio="pin:18 debounce:0 activelow:yes"}//SW2
+	Contact Contact_LivingRoomL (Group_LightSwitches) {gpio="pin:23 debounce:0 activelow:yes"}  //SW1
+	Contact Contact_LivingRoomR (Group_LightSwitches) {gpio="pin:18 debounce:0 activelow:yes"} //SW2
 	
 	//Contact Contact_HallwayL {gpio="pin:7 debounce:0 activelow:yes"}//SW5
 	//Contact Contact_HallwayR {gpio="pin:8 debounce:0 activelow:yes"}//SW6
 	
-	Contact Contact_BathroomL {gpio="pin:24 debounce:0 activelow:yes"}//SW3
-	Contact Contact_BathroomR {gpio="pin:25 debounce:0 activelow:yes"}//SW4
+	Contact Contact_BathroomL (Group_LightSwitches) {gpio="pin:24 debounce:0 activelow:yes"}  //SW3
+	Contact Contact_BathroomR (Group_LightSwitches) {gpio="pin:25 debounce:0 activelow:yes"} //SW4
 	
-	Contact Contact_MasterBedroomL {gpio="pin:15 debounce:0 activelow:yes"}//SW3A
+	Contact Contact_MasterBedroomL (Group_LightSwitches) {gpio="pin:15 debounce:0 activelow:yes"} //SW3A
 	//Contact Contact_MasterBedroomR {gpio="pin:3 debounce:0 activelow:yes"}//SW8
 	
-	Contact Contact_BedroomL {gpio="pin:7 debounce:0 activelow:yes"}//SW7
-	Contact Contact_BedroomR {gpio="pin:8 debounce:0 activelow:yes"}//SW8
+	Contact Contact_BedroomL (Group_LightSwitches) {gpio="pin:7 debounce:0 activelow:yes"} //SW7
+	Contact Contact_BedroomR (Group_LightSwitches) {gpio="pin:8 debounce:0 activelow:yes"} //SW8
 	
-	Contact Contact_BalconyL {gpio="pin:3 debounce:0 activelow:yes"}//SW7
-	Contact Contact_BalconyR {gpio="pin:1 debounce:0 activelow:yes"}//SW8
+	Contact Contact_BalconyL (Group_LightSwitches) {gpio="pin:3 debounce:0 activelow:yes"} //SW7
+	Contact Contact_BalconyR (Group_LightSwitches) {gpio="pin:1 debounce:0 activelow:yes"} //SW8

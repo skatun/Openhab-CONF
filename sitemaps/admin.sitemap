@@ -88,7 +88,7 @@ sitemap admin label="Admin"
 		Chart item=Group_Chart_Temperature_MasterBedRoom period=M refresh=30000 visibility=[chart_visible==22]
 		Chart item=Group_Chart_Temperature_MasterBedRoom period=Y refresh=30000 visibility=[chart_visible==23]
 
-		Chart item=Chart_Scene_DayMode period=D refresh=30000 visibility=[chart_visible==90]
+		 Chart item=Chart_Scene_DayMode period=D refresh=30000 visibility=[chart_visible==90]
 		Chart item=Chart_Scene_DayMode period=W refresh=30000 visibility=[chart_visible==91]
 		Chart item=Chart_Scene_DayMode period=M refresh=30000 visibility=[chart_visible==92]
 		Chart item=Chart_Scene_DayMode period=Y refresh=30000 visibility=[chart_visible==93]

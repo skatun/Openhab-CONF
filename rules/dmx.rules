@@ -27,6 +27,7 @@ var String RGBvalues
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
  val Functions.Function3 rgbLights= [ GroupItem mainGroup,GroupItem subGroup, HSBType hsbValueIn |
+	Presence_Home.sendCommand(ON)
     val hsbOff = HSBType::fromRGB(0, 0, 0)
     mainGroup.members.filter[l|l.state.toString != hsbOff.toString].forEach[l| l.sendCommand(hsbOff.toString()) ]
 	//mainGroup.members.filter[l|(l.state as HSBType).value != 0].forEach[l| l.sendCommand(hsbOff.toString()) ]

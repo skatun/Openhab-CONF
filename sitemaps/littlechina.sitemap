@@ -129,6 +129,7 @@ sitemap littlechina label="LittleChina"
 			Text item=Welcome_Kim_LastSeen label="Kim last seen" icon="motion"
 			Text item=Kim_LastSeen label="Kim last seen" icon="motion"
 			Switch item= Mobile_Wlan_Kim
+			Switch Presence_Home
 		
 		  	Switch item=Scene_Presence_Yulia label="Yulia's status" icon="light" mappings=[1="AWAY", 2="NETATMO", 3="WIFI", 4="BLUETOOTH"]
 			Text item=Welcome_Yulia_LastSeen label="Yulia last seen" icon="motion"

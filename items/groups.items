@@ -41,6 +41,7 @@ Group Group_SetPoint_Special_Holiday (Group_SetPoint_Special)
 
 Group:Number:AVG Group_Temperature_LivingRoom	"Avg. Indoor Temperature [%.1f °C]" 	<temperature>	
 
+Group:Contact:OR(OPEN, CLOSED)  Group_LightSwitches     "Pressed Light Switches [(%d)]"   <contact>
 
 // Moisture
 Group:Number:MIN Group_Moisture_LivingRoom	"Minimum Moisture [%.1f ]" 	<temperature>	

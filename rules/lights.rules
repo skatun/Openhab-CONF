@@ -29,6 +29,13 @@ switch receivedCommand {
 		
 end 
 
+rule "Switch pressed"
+when
+    Item Group_LightSwitches received command CLOSED
+then 
+	Presence_Home.sendCommand(ON)
+end
+
 
 rule "turn off all lights"
 when

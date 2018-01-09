@@ -4,7 +4,7 @@ Switch Presence_Kim "Kim" (Group_MyOpenhab)
 Switch Presence_Yulia "Yulia" (Group_MyOpenhab)
 Switch Presence_Family "Family" (Group_MyOpenhab)
 Switch Presence_Guest "Guests" (Group_MyOpenhab)
-Switch Presence_Home "Somebody is at home" (Group_MyOpenhab)
+Switch Presence_Home "Somebody is at home" (Group_MyOpenhab) { expire="25m,command=OFF" }
 Switch Precense_Intruders "Someone uknown is home" (Group_MyOpenhab)
 //Camera
 
