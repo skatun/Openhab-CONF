@@ -37,12 +37,31 @@ sitemap admin label="Admin"
 	Frame label="Wifi/RF signals" {
 		Text label="Netatmo Signals" icon="network"{
 			Text item=Netatmo_Indoor_wifi icon="signal"
-			Text item=Netatmo_Outdoor_BatteryVP icon="battery"
 			Text item=Netatmo_Outdoor_RfStatus icon="rf"
 			Text item=nRainBatteryStatus icon="battery"
 			Text item=nRainRfstatus icon="rf"
 			
 		}
+	
+
+	Text label="Battery" icon="temperature"{
+			Text item=Netatmo_Outdoor_Battery label="Netatmo Bedroom Battery status [JS(netatmo_battery.js):%s %%]" icon="battery" 
+			Text item=Netatmo_Bedroom_Battery label="Netatmo Bedroom Battery status [JS(netatmo_battery.js):%s]" icon="battery"
+			Text item=Netatmo_MasterBedroom_Battery label="Netatmo Master Bedroom Battery Battery status [JS(netatmo_battery.js):%f]" icon="battery"
+
+			Text item=Miflora_Sensor1_Battery icon="battery"
+			Text item=Miflora_Sensor2_Battery icon="battery"
+			Text item=Miflora_Sensor3_Battery icon="battery"
+			Text item=Miflora_Sensor4_Battery icon="battery"
+			Text item=Miflora_Sensor5_Battery icon="battery"
+			Text item=Miflora_Sensor6_Battery icon="battery"
+			Text item=Miflora_Sensor7_Battery icon="battery"
+			Text item=Miflora_Sensor8_Battery icon="battery"
+			Text item=Miflora_Sensor9_Battery icon="battery"
+			Text item=Miflora_Sensor10_Battery icon="battery"
+		
+		}
+
 	}
 	
 	Frame label="Alarms" {

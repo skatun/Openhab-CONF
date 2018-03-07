@@ -34,6 +34,14 @@ var String RGBvalues
 	subGroup.members.forEach[l2|l2.sendCommand(hsbValueIn)]	
 ]
 
+
+val Functions.Function2 lightChanger= [ GroupItem mainGroup,GroupItem subGroup |
+	
+    mainGroup.members.filter[l|l.state.toString != "OFF"].forEach[l| l.sendCommand(OFF) ]
+	//mainGroup.members.filter[l|(l.state as HSBType).value != 0].forEach[l| l.sendCommand(hsbOff.toString()) ]
+	//subGroup.members.forEach[l2|l2.sendCommand(ON)]	
+]
+
 rule "Activate Scene LivingRoom"
 when
 	Item Scene_LivingRoom received command or Item Scene_LivingRoom1 received command or Item Scene_LivingRoom2 received command or Item Scene_LivingRoom3 received command 
@@ -68,16 +76,14 @@ then
 	
 	
 	switch receivedCommand  {
-	//Default
-	case 0: {
-		}
+
 	//OFF
-	case 1:{
+	case 0:{
 		Group_DMX_LivingRoom.members.filter[l|l.state.toString != hsbOff.toString].forEach[l| l.sendCommand(hsbOff.toString()) ]
 		logInfo("Debug","turning off lights" )
 	}
 	//ON
-	case 2:{
+	case 1:{
 		Group_DMX_LivingRoom.members.filter[l|l.state.toString != hsbValue.toString].forEach[l| l.sendCommand(hsbOn.toString()) ]
 		Light_Kitchen.sendCommand(ON)
 		logInfo("Debug","turning on lights" )
@@ -288,33 +294,35 @@ rule "Change the scene in Master Bedroom"
 when
 	Item Scene_MasterBedRoom received command
 then
-	
-	//warm white
+	logInfo("Debug", "Scene is master bedroom " + receivedCommand.toString())
+	var String textstring = transform("MAP", "masterBedRoom.map",receivedCommand.toString())
+	logInfo("Debug", "map command" + textstring)
 	switch receivedCommand {
 
 		
 		//OFF
-		case 1: {
-		    hsbValueMasterBedRoom = HSBType::fromRGB(0, 0, 0)
-		    Group_DMX_MasterBedRoom.members.forEach[l|l.sendCommand(hsbValueMasterBedRoom.toString())]	
-		    Dimmer_MasterBedRoom.sendCommand(0)
+		case 0: {
+			lightChanger.apply(Group_DMX_MasterBedRoom,Group_DMX_MasterBedRoom)
+		    //hsbValueMasterBedRoom = HSBType::fromRGB(0, 0, 0)
+		    //Group_DMX_MasterBedRoom.members.forEach[l|l.sendCommand(hsbValueMasterBedRoom.toString())]	
+		    //Dimmer_MasterBedRoom.sendCommand(0)
 		}
 		//ON
-		case 2:{
+		case 1:{
 		    hsbValueMasterBedRoom = HSBType::fromRGB(255, 255, 255)
 			//hsbValueMasterBedRoom=Color_MasterBedRoom.state as HSBType
 		    rgbLights.apply(Group_DMX_MasterBedRoom,Group_DMX_MasterBedRoom,hsbValueMasterBedRoom)
 		    //Dimmer_MasterBedRoom.sendCommand(80)
 		}
 		//NIGHT
-		case 3:{
+		case 2:{
 		    hsbValueMasterBedRoom = HSBType::fromRGB(50, 0, 10)
 			//hsbValueMasterBedRoom=Color_MasterBedRoom.state as HSBType
 		    rgbLights.apply(Group_DMX_MasterBedRoom,Group_DMX_MasterBedRoom,hsbValueMasterBedRoom)
 		    //Dimmer_MasterBedRoom.sendCommand(60)
 		}
 		//READING
-		case 4:{
+		case 3:{
 		    hsbValueMasterBedRoom = HSBType::fromRGB(255, 204, 51)
 		    rgbLights.apply(Group_DMX_MasterBedRoom,Group_MasterBedRoom_Reading,hsbValueMasterBedRoom)
 		    //Dimmer_MasterBedRoom.sendCommand(100)
@@ -346,7 +354,7 @@ end
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////// Change the scene of light, e.g. warm white, white, lounge and night ////////////////////////////
-//
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 rule "Change the scene in Bathroom"
 when
@@ -356,22 +364,22 @@ then
 	//warm white
 	switch receivedCommand {
 		//OFF
-		case 1: {
+		case 0: {
 			hsbValueBathRoom   = HSBType::fromRGB(0, 0, 0)
 			Group_DMX_BathRoom.members.forEach[l|l.sendCommand(hsbValueBathRoom.toString())]	
 		}
 		//ON
-		case 2:{
+		case 1:{
 			hsbValueBathRoom = HSBType::fromRGB(255, 255, 255)
 		    rgbLights.apply(Group_DMX_BathRoom,Group_DMX_BathRoom,hsbValueBathRoom)
 		}
 		//NIGHT
-		case 3:{
+		case 2:{
 			hsbValueBathRoom = HSBType::fromRGB(50, 10, 10)
 		    rgbLights.apply(Group_DMX_BathRoom,Group_DMX_BathRoom,hsbValueBathRoom)
 		}
 		//SHOWER
-		case 4:{
+		case 3:{
 			hsbValueBathRoom = HSBType::fromRGB(200, 200, 100)
 		    rgbLights.apply(Group_DMX_BathRoom,Group_DMX_BathRoom,hsbValueBathRoom)
 		}
@@ -379,3 +387,30 @@ then
 	
 end
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////// Change the scene of light, e.g. warm white, white, lounge and night //////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+rule "Change the scene in Hallway"
+when
+	Item Scene_Hallway  received command
+then
+	logInfo("Debug", "Scene is hallway " + receivedCommand.toString())
+
+	switch receivedCommand {
+		//OFF
+		case 0: {
+			Light_Hallway.sendCommand(OFF)
+		}
+		//ON
+		case 1:{
+		    Light_Hallway.sendCommand(ON)
+		}
+		//NIGHT
+		case 2:{
+		    Light_Hallway.sendCommand(ON)
+		}
+		
+	}		
+	
+end

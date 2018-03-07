@@ -11,4 +11,5 @@ Switch Alexa_Off "Lights" [ "Lighting" ]
 Switch Alexa_Night "Night" [ "Lighting" ]
 Switch Alexa_MasterBedroom "Master Bedroom" [ "Lighting" ]
 Switch Alexa_MasterBedroom_Reading "Master Bedroom Reading" [ "Lighting" ]
+Switch Alexa_MasterBedroom_Night "Master Bedroom Night" [ "Lighting" ](Group_AlexaEmulator)
 Switch Alexa_Bathroom "Bathroom" [ "Lighting"]

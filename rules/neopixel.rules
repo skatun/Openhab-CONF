@@ -1,0 +1,23 @@
+rule "LED Strip Kitchen Benchtop JSON Color"
+when Item LEDStrip_Kitchen_Benchtop_Color received update
+then 
+    logInfo("led strip",LEDStrip_Kitchen_Benchtop_Color.state)
+    LEDStrip_Kitchen_Benchtop.sendCommand("{\"color\": {" + 
+		"\"r\": " + (LEDStrip_Kitchen_Benchtop_Color.state as HSBType).red + "," +
+		"\"g\": " + (LEDStrip_Kitchen_Benchtop_Color.state as HSBType).green + "," +
+		"\"b\": " + (LEDStrip_Kitchen_Benchtop_Color.state as HSBType).blue + "}}") 
+end
+
+rule "LED Strip Kitchen Benchtop JSON Speed"
+when Item LEDStrip_Kitchen_Benchtop_Speed received update
+then 
+    logInfo("led strip","hkjxzckj")//LEDStrip_Kitchen_Benchtop_Speed.state
+    LEDStrip_Kitchen_Benchtop.sendCommand("{\"transition\": \"" + LEDStrip_Kitchen_Benchtop_Speed.state + "\"}") 
+end
+
+rule "LED Strip Kitchen Benchtop JSON Intensity"
+when Item LEDStrip_Kitchen_Benchtop_Intensity received update
+then 
+    logInfo("led strip",LEDStrip_Kitchen_Benchtop_Intensity.state)
+    LEDStrip_Kitchen_Benchtop.sendCommand("{\"brightness\":" + LEDStrip_Kitchen_Benchtop_Intensity.state + "}") 
+end

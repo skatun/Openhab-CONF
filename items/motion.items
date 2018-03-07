@@ -3,7 +3,7 @@
 
 //Switch HueMotion "Hue Motion" <present> (Group_Motion, Group_Sensors) { http="<[http://192.168.0.35/api/NBsf40qcbRLM5o3d5S5OcClIGuPNI8JF2KA440Pr/sensors/3:2000:JS(getHueMotionEvent.js)]" }
 
-Contact HueMotionBathroom "Hue Motion Detected" (Group_Motion, Group_Sensors) { http="<[http://192.168.0.11/api/NBsf40qcbRLM5o3d5S5OcClIGuPNI8JF2KA440Pr/sensors/3:1000:JS(getHueMotion.js)]" }
+Contact HueMotionBathroom "Hue Motion Detected" (Group_Motion, Group_Sensors) { http="<[http://192.168.0.10/api/NBsf40qcbRLM5o3d5S5OcClIGuPNI8JF2KA440Pr/sensors/3:1000:JS(getHueMotion.js)]" }
 //DateTime HueMotionEventDate "Hue Motion Detected at [%1$tR]" (Group_Motion, Group_Sensors) { http="<[http://192.168.0.35/api/NBsf40qcbRLM5o3d5S5OcClIGuPNI8JF2KA440Pr/sensors/3:5000:JS(getHueMotionEventDate.js)]" }
 //Number HueTempBathroom "Hue Temperature [%.0f]�C" (Group_Temperature, Group_Sensors) { http="<[http://192.168.0.35/api/NBsf40qcbRLM5o3d5S5OcClIGuPNI8JF2KA440Pr/sensors/2:60000:JS(getHueTemperature.js)]" }
 //String HueLight "Hue Light Level [%s]" (Group_LightLevel, Group_Sensors) { http="<[http://192.168.0.35/api/NBsf40qcbRLM5o3d5S5OcClIGuPNI8JF2KA440Pr/sensors/4:60000:JS(getHueLight.js)]" }

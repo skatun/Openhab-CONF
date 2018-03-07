@@ -1,0 +1,33 @@
+rule "Alert for Items that are  NULL for more than 1 hour  "
+when
+   Item Presence_Home changed from OFF to ON
+then
+    if (NotificationSent.state!=ON && (vTimeOfDay=="AFTERNOON" || vTimeOfDay=="EVENING")) {
+        logInfo("Notification", "Yay I triggered the rule")
+        if(Group_Allitems.members.filter[i | i.state == NULL].size > 0) {
+            val alertMsg = new StringBuilder()
+            alertMsg.append("The following Items are still NULL after 1 hour:")
+            Group_Allitems.members.filter[i | i.state == NULL].forEach[i | alertMsg.append(i.name + ", ")]
+            sendMail("skatun@gmail.com","Sensor need to be checked",alertMsg.toString())
+        }
+    
+
+        logInfo("Notification", "Yay I triggered the rule 2")
+        if(Group_Battery.members.filter[i | i.state <= 20].size > 0) {
+            val alertMsg = new StringBuilder()
+            alertMsg.append("The following Items have low batteryr:")
+            Group_Battery.members.filter[i | i.state <= 2].forEach[i | alertMsg.append(i.name + ", ")]
+            sendMail("skatun@gmail.com","Sensor need to be checked",alertMsg.toString())
+        }
+
+
+        logInfo("Notification", "Yay I triggered the Moisture Rule")
+        if(Group_Miflora_Moisture.members.filter[i | i.state <= 10].size > 0) {
+            val alertMsg = new StringBuilder()
+            alertMsg.append("The following Items have low moisture:")
+            Group_Miflora_Moisture.members.filter[i | i.state <= 2].forEach[i | alertMsg.append(i.name + ", ")]
+            sendMail("skatun@gmail.com;eli.dankertsen@gmail.com ","Sensor need to be checked",alertMsg.toString())
+        }
+        NotificationSent.sendCommand(ON)   
+    }
+end

@@ -31,19 +31,42 @@ end
 
 rule "Switch pressed"
 when
-    Item Group_LightSwitches received command CLOSED
+    Item Group_LightSwitches changed from OPEN to CLOSED 
 then 
+	//received update
+	Thread::sleep(5)
 	Presence_Home.sendCommand(ON)
-end
+	val changedSwitch = Group_LightSwitches.members.filter[switchPressed | switchPressed.lastUpdate != null].sortBy[lastUpdate].last
+	if(changedSwitch == null) logWarn("FILE", "Something is amiss, no Item has a valid lastUpdate!")
+
+	val sceneItemTemp = changedSwitch.name.toUpperCase().replace("CONTACT","SCENE") as String
+	
+	val sceneItem = Group_RoomScenes.members.findFirst[roomName | sceneItemTemp.contains(roomName.name.toUpperCase())] as NumberItem
+	
+	logInfo("Light switch", "Scene is now " + sceneItem)
+	if (sceneItem!=null){
+        if(sceneItem.state == 0){
+		    if (vTimeOfDay.state.toString.contains("NIGHT")){
+			   sceneItem.sendCommand(2)
+		    }
+		   	else{
+				sceneItem.sendCommand(1)
+		   	}
+	    }
+	    else {
+			sceneItem.sendCommand(0)
+	    }
+	}
+end 
 
 
 rule "turn off all lights"
 when
     Item Light_All_Off received command ON
 then 
-	Scene_LivingRoom1.sendCommand(1)
-	Scene_BathRoom.sendCommand(1)
-	Scene_MasterBedRoom.sendCommand(1)
+	Scene_LivingRoom1.sendCommand(0)
+	Scene_BathRoom.sendCommand(0)
+	Scene_MasterBedRoom.sendCommand(0)
 	Light_Hallway.sendCommand(OFF)
 	if (vTimeOfDay.state.toString=="NIGHT"){
 		MoodSelector_LivingRoom.sendCommand(4)
@@ -55,7 +78,7 @@ end
 
 
 
-
+/*
 rule "Update kitchen light when button pressed"
 when
     Item Contact_LivingRoomL changed from OPEN to CLOSED
@@ -70,7 +93,7 @@ if(Light_Kitchen.state == ON){
 		
 	}
 end
-
+*/
 
 
 
@@ -105,6 +128,7 @@ rule "Update hallway light when motion happens"
 when
     Item HueMotionBathroom changed from CLOSED to OPEN 
 then
+	Presence_Home.sendCommand(ON)
 	Light_Hallway_Timer.sendCommand(ON)
 	if (Light_Hallway.state ==OFF) {
 		Light_Hallway.sendCommand(ON)		
@@ -113,7 +137,7 @@ then
 end
 
 
-rule "Update bathroom light when motion dissapears"
+rule "Update hallway light when motion dissapears"
 when
 	Item Light_Hallway_Timer received command OFF
     //Item HueMotionBathroom changed from OPEN to CLOSED 
@@ -124,30 +148,8 @@ then
 	
 end
 
-rule "Update bathroom light when button pressed"
-when
-    Item Contact_BathroomR changed from OPEN to CLOSED or 
-	Item Contact_BedroomR changed from OPEN to CLOSED
-then
-	
- 	
-	if(Scene_BathRoom.state == 1){
-		if (vTimeOfDay.state.toString.contains("NIGHT")){
-			Scene_BathRoom.sendCommand(3)
-		}
-		else{
-			Scene_BathRoom.sendCommand(2)
-		}
-	}
-	else {
-		Scene_BathRoom.sendCommand(1)
-	}
 
-	
-end
-
-
-
+/*
 rule "Update hallway light when button pressed"
 when
     Item Contact_BathroomL changed from OPEN to CLOSED or 
@@ -178,22 +180,4 @@ then
 end
 
 
-rule "Update master bedroom light when button pressed"
-when
-    Item Contact_MasterBedroomL changed from OPEN to CLOSED
-then
-	if(Scene_MasterBedRoom.state == 1){
-		if (vTimeOfDay.state.toString.contains("NIGHT")){
-			Scene_MasterBedRoom.sendCommand(4)
-		}
-		else{
-			Scene_MasterBedRoom.sendCommand(2)
-		}
-	}
-	else {
-		Scene_MasterBedRoom.sendCommand(1)
-	}
-	
-
-end
-
+*/

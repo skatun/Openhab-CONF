@@ -1,0 +1,8 @@
+//Number Miflora_Sensor4_Light "Sensor4 Sunlight Intensity [%d lux]" <text> (gMiflora, gLight) {mqtt="<[mosquitto:miflora/sensor4:state:JSONPATH($.light)]"}
+
+String LEDStrip_Kitchen_Benchtop "Office String" {mqtt=">[mosquitto:livingroom/Kitchen_Benchtop/set:state:*:default]"}
+Switch LEDStrip_Kitchen_Benchtop_Power "Office Power" (Status){mqtt=">[mosquitto:livingroom/Kitchen_Benchtop/set:command:*:MAP(LEDStripEffectJSON.map)]"}
+Number LEDStrip_Kitchen_Benchtop_FX "Office Fx" (Status){mqtt=">[mosquitto:livingroom/Kitchen_Benchtop/set:command:*:MAP(LEDStripEffectJSON.map)]"}
+Color LEDStrip_Kitchen_Benchtop_Color "Office Color"	<rgb>	(Status)
+Number LEDStrip_Kitchen_Benchtop_Speed "Office Speed [%.0f]"		(Status)
+Number LEDStrip_Kitchen_Benchtop_Intensity "Office Intensity [%d]" (Status)

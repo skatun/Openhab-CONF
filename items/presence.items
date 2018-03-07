@@ -4,8 +4,10 @@ Switch Presence_Kim "Kim" (Group_MyOpenhab)
 Switch Presence_Yulia "Yulia" (Group_MyOpenhab)
 Switch Presence_Family "Family" (Group_MyOpenhab)
 Switch Presence_Guest "Guests" (Group_MyOpenhab)
-Switch Presence_Home "Somebody is at home" (Group_MyOpenhab) { expire="25m,command=OFF" }
+Switch Presence_Home "Somebody is at home" (Group_MyOpenhab) {expire="25m,command=OFF" }
+DateTime Presence_Home_LastUpdate "Last detection [%1$tm/%1$td %1$tH:%1$tM]"
 Switch Precense_Intruders "Someone uknown is home" (Group_MyOpenhab)
+
 //Camera
 
 
@@ -16,10 +18,8 @@ Switch Location_Leaving_Home_Kim "Kim left home" (Group_MyOpenhab)
 //Mobilfunktelefone
 Switch Mobile_Wlan_Kim "Cell Kim" <network> {channel="network:device:phone_kim:online"} 
 DateTime Kim_LastSeen "Kim Last seen" <network> {channel="network:device:phone_kim:lastseen"} 
-Switch MOBYULIA_WLAN "Cell Yulia" 
 
-
-
+Switch Mobile_Wlan_Yulia "Cell Yulia" 
 
 
 //String UnknownDevices    "Unknown Devices in Range: [%s]" { bluetooth="?" }

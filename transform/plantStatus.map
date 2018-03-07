@@ -1,0 +1,11 @@
+NULL=No Data
+-=No Data
+0=Perfect
+1=Water
+2=Fertilize
+3=Water with fertilizer
+4=Too damp
+6=Fertilize & Too damp
+8=overfertilized
+9=Water & overfertilized
+12=Too damp & overfertilized

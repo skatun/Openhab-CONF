@@ -1,4 +1,12 @@
+Group Group_Allitems
+Group Group_Battery
+Group Group_Netatmo_Battery
 
+Group Group_PresenceScenes
+
+// Room Groups
+Group Group_RoomScenes
+Group Group_AlexaEmulator
 Group Group_LivingRoom 
 
 
@@ -41,10 +49,24 @@ Group Group_SetPoint_Special_Holiday (Group_SetPoint_Special)
 
 Group:Number:AVG Group_Temperature_LivingRoom	"Avg. Indoor Temperature [%.1f °C]" 	<temperature>	
 
+//Presence
 Group:Contact:OR(OPEN, CLOSED)  Group_LightSwitches     "Pressed Light Switches [(%d)]"   <contact>
+Group Group_Camera_Person_Home
 
-// Moisture
+// Enviroment
 Group:Number:MIN Group_Moisture_LivingRoom	"Minimum Moisture [%.1f ]" 	<temperature>	
+Group:Number:MAX Group_Max_CO2 "All Room CO2 [%.1f ppm]" //e.g. "1000 ppm"
+
+// Mi Flora specific groups
+Group Group_Miflora_Light "Mi Flora Sunlight Intensity elements" (Group_Allitems)
+Group Group_Miflora_Conductivity "Mi Flora Soil Conductivity/Fertility elements" (Group_Allitems)
+Group Group_Miflora_Battery "Mi Flora Sensor Battery Level elements" (Group_Allitems,Group_Battery)
+Group Group_Miflora_Moisture "Mi Flora Soil Moisture elements" (Group_Allitems)
+ 
+Group Group_MiFlora
+
+//Netatmo spesific groups
+Group Group_Netatmo_Battery
 
 Group Group_MyOpenhab // for Items that are exposed to IFTTT
 Group Group_Chart     // for Items to persist for charting
