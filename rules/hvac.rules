@@ -1,0 +1,11 @@
+rule "Hvac Rule"
+when
+    Item Netatmo_Indoor_CO2 received command or
+	Item Netatmo_Bedroom_CO2 received command or
+    Item Netatmo_MasterBedroom_CO2 received command or
+    Item Kitchen_Fan received command or
+    Item Contact_BathroomR changed from OPEN to CLOSED or 
+	Item Contact_BedroomR changed from OPEN to CLOSED
+then
+
+end

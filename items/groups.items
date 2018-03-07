@@ -53,6 +53,7 @@ Group:Number:AVG Group_Temperature_LivingRoom	"Avg. Indoor Temperature [%.1f °C
 Group:Contact:OR(OPEN, CLOSED)  Group_LightSwitches     "Pressed Light Switches [(%d)]"   <contact>
 Group Group_Camera_Person_Home
 
+
 // Enviroment
 Group:Number:MIN Group_Moisture_LivingRoom	"Minimum Moisture [%.1f ]" 	<temperature>	
 Group:Number:MAX Group_Max_CO2 "All Room CO2 [%.1f ppm]" //e.g. "1000 ppm"
@@ -67,6 +68,14 @@ Group Group_MiFlora
 
 //Netatmo spesific groups
 Group Group_Netatmo_Battery
+=======
+// Moisture
+
+Group:Number:MIN Group_Moisture_LivingRoom	"Minimum Moisture [%.1f °C]" 	<temperature>	
+
+// CO2
+Group:Number:Max Group_MaxCO2	"Maximum CO2 level [%.1f ppm]" 	<temperature>	
+
 
 Group Group_MyOpenhab // for Items that are exposed to IFTTT
 Group Group_Chart     // for Items to persist for charting

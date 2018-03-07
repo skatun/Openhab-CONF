@@ -27,10 +27,12 @@ var String RGBvalues
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
  val Functions.Function3 rgbLights= [ GroupItem mainGroup,GroupItem subGroup, HSBType hsbValueIn |
+
 	Presence_Home.sendCommand(ON)
     val hsbOff = HSBType::fromRGB(0, 0, 0)
     mainGroup.members.filter[l|l.state.toString != hsbOff.toString].forEach[l| l.sendCommand(hsbOff.toString()) ]
 	//mainGroup.members.filter[l|(l.state as HSBType).value != 0].forEach[l| l.sendCommand(hsbOff.toString()) ]
+
 	subGroup.members.forEach[l2|l2.sendCommand(hsbValueIn)]	
 ]
 
@@ -186,10 +188,8 @@ rule "Set RGB value Living Room"
             Item Color_LivingRoom changed
     then
     	hsbValue = Color_LivingRoom.state as HSBType
-
 		Group_DMX_LivingRoom.members.filter[l|
-			//logInfo("Debug","Light brightness for  " +l.name + " is  "  + (l.state as HSBType).value)
-			(l.state as HSBType).value!= 0
+			l.state.toString != hsbOff
 		].forEach[l| l.sendCommand(hsbValue.toString) ]
 		
 		Dimmer_LivingRoom.postUpdate((Color_LivingRoom.state as HSBType).value)
@@ -204,7 +204,7 @@ rule "Change dimming in Living Room"
 when
 	Item Dimmer_LivingRoom changed
 then
-	Color_LivingRoom.sendCommand(Dimmer_LivingRoom.state as PercentType)
+	Color_LivingRoom.sendCommand(Dimmer_LivingRoom.state)
 end
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////

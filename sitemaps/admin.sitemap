@@ -64,6 +64,24 @@ sitemap admin label="Admin"
 
 	}
 	
+	Frame label="Battery levels" {
+		Text label="Netatmo Levels" icon="battery"{
+			Text item=Netatmo_Indoor_wifi icon="signal"
+			Text item=Netatmo_Outdoor_BatteryVP icon="battery"
+			Text item=Netatmo_Outdoor_RfStatus icon="rf"
+			Text item=nRainBatteryStatus icon="battery"
+			Text item=nRainRfstatus icon="rf"	
+		}
+
+		Text label="Miflora Levels" icon="battery"{
+			Text item=Netatmo_Indoor_wifi icon="signal"
+			Text item=Netatmo_Outdoor_BatteryVP icon="battery"
+			Text item=Netatmo_Outdoor_RfStatus icon="rf"
+			Text item=nRainBatteryStatus icon="battery"
+			Text item=nRainRfstatus icon="rf"	
+		}
+	}
+
 	Frame label="Alarms" {
 		Text label="Alarm" icon="groundfloor"{
 			Switch item=Ventilation_Filter label="Changing of filter in HVAC" icon="fan" mappings=[ON="CHANGE REQUIRED", OFF="OK"]
