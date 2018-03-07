@@ -1,0 +1,6 @@
+rule "Update graph"
+when
+    Item chart_period changed or chart_selection changed
+then
+   chart_visible.sendCommand(chart_period.state as Number + chart_selection.state as Number) 
+end

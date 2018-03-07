@@ -5,6 +5,7 @@ val nightWeekdays = 23
 val nightWeekends = 0
 val preHeatMinutes = 15
 val evenings = 20
+val afternoon = 10
 
 rule "Calculate time of day state"
 when
@@ -40,8 +41,8 @@ then
   // Calculate the start time in epoch for ALL states
   val long preHeat_start   = now.withTimeAtStartOfDay.plusHours(morning_hour).minusMinutes(15).millis // 15 minutes before morning_start
   val long morning_start   = now.withTimeAtStartOfDay.plusHours(morning_hour).millis // morning_hour based on isWeekend
-  val long day_start       = (vSunrise_Time.state as DateTimeType).calendar.timeInMillis // Astro
-  val long afternoon_start = (vEvening_Time.state as DateTimeType).calendar.timeInMillis // Astro
+  val long day_start       = now.withTimeAtStartOfDay.plusHours(morning_hour).millis//(vSunrise_Time.state as DateTimeType).calendar.timeInMillis // Astro
+  val long afternoon_start = now.withTimeAtStartOfDay.plusHours(afternoon).millis //(vEvening_Time.state as DateTimeType).calendar.timeInMillis // Astro
   //val long evening_start   = (vSunset_Time.state as DateTimeType).calendar.timeInMillis // Astro
   val long night_start     = now.withTimeAtStartOfDay.plusHours(night_hour).millis // night_hour based on isWeekend
   val long sunset_start = (vSunrise_Time.state as DateTimeType).calendar.timeInMillis
@@ -52,22 +53,53 @@ then
   var curr = "UNKNOWN"
 
   switch now {
-    case now.isAfter(preHeat_start) && now.isBefore(morning_start):   curr = "PREHEAT"
-    case now.isAfter(morning_start) && now.isBefore(day_start):       curr = "MORNING"
-    case now.isAfter(day_start) && now.isBefore(afternoon_start):     curr = "DAY"
-    case now.isAfter(afternoon_start) && now.isBefore(evening_start): curr = "AFTERNOON"
-    case now.isBefore(sunset_start) && now.isAfter(evening_start) && now.isBefore(tomorrow_start) : curr = curr
-    case now.isAfter(sunset_start)  && now.isAfter(evening_start) && now.isBefore(tomorrow_start) : curr = "EVENING"
-    case now.isAfter(night_start) : curr = "NIGHT"
- 
+    case now.isAfter(preHeat_start) && now.isBefore(morning_start):{   
+        curr = "PREHEAT"
+        Chart_Scene_DayMode.sendCommand(1)
+    }
+
+    case now.isAfter(morning_start) && now.isBefore(day_start):{       
+        curr = "MORNING"
+        Chart_Scene_DayMode.sendCommand(2)
+    }
+
+    case now.isAfter(day_start) && now.isBefore(afternoon_start):{     
+        curr = "DAY"
+        Chart_Scene_DayMode.sendCommand(3)
+    }
+
+    case now.isAfter(afternoon_start) && now.isBefore(evening_start):{
+        curr = "AFTERNOON"
+        Chart_Scene_DayMode.sendCommand(4)
+    }
+
+    case now.isBefore(sunset_start) && now.isAfter(evening_start) && now.isBefore(tomorrow_start) : {
+        curr = curr
+    }
+
+    case now.isAfter(sunset_start)  && now.isAfter(evening_start) && now.isBefore(tomorrow_start) :{ 
+        curr = "EVENING"
+        Chart_Scene_DayMode.sendCommand(5)
+    }
+
+    case now.isAfter(night_start) : {
+        curr = "NIGHT"
+        Chart_Scene_DayMode.sendCommand(6)
+    }
+    
   }
 
   // These could probably be made a part of the switch statement but seems OK here
   // However, this will only work if the state will be set to ON at some point  that makes sense.
-  if Alexa_Off.state==OFF && now.isAfter(morning_start) && now.isBefore(afternoon_start) curr = "WORK"
-  if Alexa_Off.state==OFF && now.isAfter(evening_start) && now.isBefore(night_start) curr = "NIGHT" //Going earlier to bed
-
-  Alexa_Off.sendCommand(ON)
+  if Alexa_Off.state==OFF && now.isAfter(morning_start) && now.isBefore(afternoon_start){
+    curr = "WORK"
+    Chart_Scene_DayMode.sendCommand(7)
+  }
+  if Alexa_Off.state==OFF && now.isAfter(evening_start) && now.isBefore(night_start){
+       curr = "NIGHT" //Going earlier to bed
+       Chart_Scene_DayMode.sendCommand(6)
+  }
+  
 
   //if(vTimeOfDay.state.toString != curr) {
     logInfo(logName, "Current time of day is now " + curr)
@@ -143,6 +175,7 @@ then
 		val setpoint = todGroup.members.findFirst[sptod |sptod.name.contains(room.name)] as NumberItem      
      
         // Get the special setpoint if there isn't a normal one or we are not in normal mode, how to handle these ones????
+        /*
         if(setpoint == null || mode != "NORMAL"){ 
             val specialTod = Group_SetPoint_Special.members.findFirst[specTod | specTod.name.equalsIgnoreCase("Group_SetPoint_Special_"+tod+"_"+mode)] as GroupItem
             //logInfo(logName, "SpecialTodGroup is now " + specialTod.toString)
@@ -163,6 +196,7 @@ then
             //logInfo(logName, "setpoint 43:---  " + setpoint2.state.toString)
 
         }
+        */
         
 
         // if setpoint is null we do not change the heater's setting and let it stay the same as it was before How to rewrite this?????

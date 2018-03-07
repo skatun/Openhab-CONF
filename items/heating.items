@@ -7,7 +7,11 @@ Switch Heating_Bathroom (Group_Heating){gpio="pin:5" }//Relay 6
 Switch Heating_MasterBedRoom (Group_Heating){gpio="pin:21" }//Relay 1
 Switch Heating_BedRoom (Group_Heating){gpio="pin:4" }//Relay 11
 	
-<<<<<<< HEAD
+
+Number Heating_LivingRoom_Setpoint (Group_SetPoint,Group_SetPoint_Command,Group_LivingRoom,Group_Chart,Group_Chart_Temperature_LivingRoom)
+Number Heating_BedRoom_Setpoint (Group_SetPoint,Group_SetPoint_Command,Group_BedRoom,Group_Chart,Group_Chart_Temperature_BedRoom)
+Number Heating_MasterBedRoom_Setpoint (Group_SetPoint,Group_SetPoint_Command,Group_MasterBedRoom,Group_Chart,Group_Chart_Temperature_MasterBedRoom)
+
 Number Heating_LivingRoom_Setpoint (Group_SetPoint,Group_SetPoint_Command, Group_LivingRoom)
 Number Heating_BedRoom_Setpoint (Group_SetPoint, Group_SetPoint_Command,Group_BedRoom)
 Number Heating_MasterBedRoom_Setpoint (Group_SetPoint,Group_SetPoint_Command, Group_MasterBedRoom)
@@ -30,30 +34,4 @@ Number Heating_BathRoom_Setpoint_Away (Group_SetPoint, Group_SetPoint_Work,Group
 
 Number Heating_LivingRoom_Setpoint_Evening (Group_SetPoint, Group_SetPoint_Evening,Group_LivingRoom)
 Number Heating_Setpoint_Holiday (Group_SetPoint)
-=======
-Number Heating_LivingRoom_Setpoint (Group_SetPoint,Group_SetPoint_Command,Group_LivingRoom,Group_Chart)
-Number Heating_BedRoom_Setpoint (Group_SetPoint,Group_SetPoint_Command,Group_BedRoom)
-Number Heating_MasterBedRoom_Setpoint (Group_SetPoint,Group_SetPoint_Command,Group_MasterBedRoom)
-Number Heating_BathRoom_Setpoint (Group_SetPoint,Group_SetPoint_Command,Group_BathRoom)
-
-Number Heating_LivingRoom_Setpoint_Night (Group_SetPoint,Group_SetPoint_Night,Group_LivingRoom)
-Number Heating_BedRoom_Setpoint_Night (Group_Setpoint_Special,Group_SetPoint,Group_SetPoint_Special_Night_Guests, Group_BedRoom)
-Number Heating_MasterBedRoom_Setpoint_Night (Group_SetPoint,Group_SetPoint_Night, Group_MasterBedRoom)
-Number Heating_BathRoom_Setpoint_Night (Group_SetPoint,Group_SetPoint_Night, Group_BathRoom)
-
-Number Heating_LivingRoom_Setpoint_Day (Group_SetPoint,Group_SetPoint_Morning, Group_SetPoint_Day, Group_SetPoint_PreHeat,Group_LivingRoom)
-Number Heating_BedRoom_Setpoint_Day (Group_Setpoint_Special,Group_SetPoint,Group_SetPoint_Special_PreHeat_Guests, Group_SetPoint_Special_Morning_Guests, Group_SetPoint_Special_Day_Guests,Group_BedRoom)
-Number Heating_MasterBedRoom_Setpoint_Day (Group_SetPoint,Group_SetPoint_Morning, Group_SetPoint_Day,Group_SetPoint_PreHeat,Group_MasterBedRoom)
-Number Heating_BathRoom_Setpoint_Day (Group_SetPoint,Group_SetPoint_Morning, Group_SetPoint_Day,Group_SetPoint_PreHeat,Group_BathRoom)
-
-Number Heating_LivingRoom_Setpoint_Away (Group_Setpoint_Special,Group_SetPoint,Group_SetPoint_Work,Group_LivingRoom)
-Number Heating_BedRoom_Setpoint_Away (Group_Setpoint_Special,Group_SetPoint,Group_SetPoint_Morning, Group_SetPoint_Day, Group_SetPoint_PreHeat,Group_SetPoint_Special_Work_Guests,Group_BedRoom)
-Number Heating_MasterBedRoom_Setpoint_Away (Group_Setpoint_Special,Group_SetPoint,Group_SetPoint_Work,Group_MasterBedRoom)
-Number Heating_BathRoom_Setpoint_Away (Group_Setpoint_Special,Group_SetPoint,Group_SetPoint_Work,Group_BathRoom)
-
-Number Heating_LivingRoom_Setpoint_Evening (Group_SetPoint,Group_SetPoint_Evening,Group_LivingRoom)
-Number Heating_Setpoint_Holiday (Group_SetPoint_Special_Holiday,Group_Setpoint_Special,Group_SetPoint)
->>>>>>> c3e61af2758892d10ec9aa11b55734cc52ff5476
-
-
 Number Fans { modbus="fan:0" }

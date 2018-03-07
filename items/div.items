@@ -8,3 +8,6 @@ Switch Div_Ola {exec="ON:sudo systemctl restart olad.service"}
 Switch Div_Openhab {exec="ON:sudo systemctl restart opeanhab2.service"}
 
 Color Color_RGBKitchen 
+
+Player Chromecast_LivingRoom
+String Chromecast_LivingRoom_PlayURI

@@ -1,0 +1,8 @@
+rule "Motion Bath DG"
+  when
+     Item Light_Wall_TV received command 
+  then
+    //playStream("chromecast:chromecast:2d96bb873af9f3242119f32bc93ccfd2","http://st01.dlf.de/dlf/01/128/mp3/stream.mp3")
+    Chromecast_LivingRoom_PlayURI.sendCommand("http://lb.topradio.be/topradio.mp3")
+	Chromecast_LivingRoom.sendCommand(PLAY)
+end

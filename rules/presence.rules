@@ -1,0 +1,67 @@
+
+
+rule "Noise Level"
+when
+	Item Netatmo_Indoor_Noise received update
+then
+    if (Netatmo_Indoor_Noise.state>35.0){
+        Presence_Home.sendCommand(ON)
+    }
+end
+
+rule "Senor update"
+when
+    Item Presence_Home received update
+then
+    Presence_Home_LastUpdate.postUpdate( new DateTimeType() )
+    //if workMode = "GUESTS"{
+         //if now - last uknown seen > 2h and (timeOFDay=evenng or timeOFDay=night or {
+         //    workmode = "NORMAL"
+         //}
+         //}
+end
+
+rule "CO2 update"
+when
+    Item Group_Max_CO2 received update
+then
+   if (Group_Max_CO2.state<600){
+        Presence_Home.sendCommand(OFF)
+    }
+end
+
+rule "Camera update"
+when
+    Item Group_Camera_Person_Home changed from OFF to ON
+then
+     Presence_Home.sendCommand(ON) 
+     Scene_Presence_Kim.sendCommand(1)
+end
+
+rule "Camera unknown update"
+when
+    Item Group_Camera_Person_Home changed from OFF to ON
+then
+     Presence_Home.sendCommand(ON)
+     Scene_Presence_Yulia.sendCommand(1)
+     //if workMode="Normal" and timeOfDay = evening or imeOfDay = "NIGHT" {
+     //    workMode = "GUEST"
+     //}
+end
+
+
+//Welcome_Kim_Home
+
+rule "Alert for Items that are  NULL for more than 1 hour  "
+when
+   Item Presence_Home changed from OFF to ON
+then
+  
+       if(Group_Allitems.members.filter[i | i.state == NULL].size > 0) {
+           val alertMsg = new StringBuilder()
+           alertMsg.append("The following Items are still NULL after 1 hour:")
+           Group_Allitems.members.filter[i | i.state == NULL].forEach[i | alertMsg.append(i.name + ", ")]
+           sendMail("skatun@gmail.com","Sensor need to be checked",alertMsg.toString())
+       }
+   ])
+end

@@ -1,0 +1,5 @@
+String BatteryMessage
+String WaterMessage
+String NutricionMessage
+
+Switch NotificationSent

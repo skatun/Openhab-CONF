@@ -7,5 +7,10 @@ when
 then
 	if (Group_Moisture_LivingRoom.state <10 && emailSent){
 	    sendMail("skatun@gmail.com","Plant","Water plants in living room")
+		emailSent=false
     }
+	else {
+		emailSent=true
+	}
+
 end

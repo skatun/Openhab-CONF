@@ -17,48 +17,53 @@
  */
 
 
-Number   Netatmo_Indoor_Temperature    "Indoor Temperature [%.2f °C]"  (Group_Netatmo, Group_Temperature,Group_Temperature_LivingRoom	) {netatmo="70:ee:50:1a:fc:b6#Temperature"}
+Number   Netatmo_Indoor_Temperature    "Indoor Temperature [%.2f °C]"  (Group_Netatmo, Group_Temperature,Group_Temperature_LivingRoom,Group_Chart,Group_Chart_Temperature_LivingRoom	) {netatmo="70:ee:50:1a:fc:b6#Temperature"}
 Number   Netatmo_Indoor_Humidity       "Indoor Humidity [%d %%]" (Group_Netatmo)  {netatmo="70:ee:50:1a:fc:b6#Humidity"}
 Number   Netatmo_Indoor_Pressure       "Indoor Pressure [%.2f mbar]" (Group_Netatmo)  {netatmo="70:ee:50:1a:fc:b6#Pressure"}
 Number   Netatmo_Indoor_Noise          "Indoor Noise [%d db]"  (Group_Netatmo)  {netatmo="70:ee:50:1a:fc:b6#Noise"}
 Number   Netatmo_Indoor_wifi           "Indoor Wifi status [%d/4]"   (Group_Netatmo)  {netatmo="70:ee:50:1a:fc:b6#Wifistatus"}
-Number   Netatmo_Indoor_CO2    "Indoor Carbon Dioxide [%d ppm]"  (Group_Netatmo)  {netatmo="70:ee:50:1a:fc:b6#Co2"}
+Number   Netatmo_Indoor_CO2    "Indoor Carbon Dioxide [%d ppm]"  (Group_Netatmo,Group_Max_CO2)  {netatmo="70:ee:50:1a:fc:b6#Co2"}
 Number   Netatmo_Indoor_Max_CO2        "Indoor Maxinum Carbon Dioxide Today [%d ppm]"      (Netatmo)  {netatmo="weather=70:ee:50:1a:fc:b6#max_co2"}
 //Number   Netatmo_Indoor_Humidex    "Indoor Humidex [%.2f °C]"  (Group_Netatmo)  {netatmo="70:ee:50:1a:fc:b6#Humidex"}
 
-Number Netatmo_Outdoor_Temperature "Outdoor Temperature [%.1f °C]" (Group_Netatmo, Group_Temperature){netatmo="70:ee:50:1a:fc:b6#02:00:00:1a:f6:14#Temperature"}
+Number Netatmo_Outdoor_Temperature "Outdoor Temperature [%.1f °C]" (Group_Netatmo, Group_Temperature,Group_History){netatmo="70:ee:50:1a:fc:b6#02:00:00:1a:f6:14#Temperature"}
 Number Netatmo_Outdoor_Humidity "Outdoor Humidity [%.2f %%]" (Group_Netatmo){netatmo="70:ee:50:1a:fc:b6#02:00:00:1a:f6:14#Humidity"}
 Number Netatmo_Outdoor_RfStatus "Outdoor RF status [%d/5]"  (Group_Netatmo){netatmo="70:ee:50:1a:fc:b6#02:00:00:1a:f6:14#Rfstatus"}
-//Number Netatmo_Outdoor_BatteryVP "Outdoor battery status [%d/5]"  (Group_Netatmo){netatmo="70:ee:50:1a:fc:b6#02:00:00:1a:f6:14#BatteryStatus"}
+Number Netatmo_Outdoor_Battery "Outdoor Battery Status"  (Group_Netatmo,Group_Battery,Group_Netatmo_Battery){netatmo="70:ee:50:1a:fc:b6#02:00:00:1a:f6:14#BatteryStatus:JS(netatmo_battery.js)"}
 
 //i030b44 03:00:00:03:0b:44
-Number   Netatmo_Bedroom_Temperature    "Indoor Temperature [%.2f °C]"  (Group_Netatmo, Group_Temperature) {netatmo="70:ee:50:1a:fc:b6#03:00:00:00:49:54#Temperature"}
+Number   Netatmo_Bedroom_Temperature    "Indoor Temperature [%.2f °C]"  (Group_Netatmo, Group_Temperature,Group_History,Group_Chart_Temperature_BedRoom) {netatmo="70:ee:50:1a:fc:b6#03:00:00:00:49:54#Temperature"}
 Number   Netatmo_Bedroom_Humidity       "Indoor Humidity [%d %%]" (Group_Netatmo)  {netatmo="70:ee:50:1a:fc:b6#03:00:00:00:49:54#Humidity"}
-Number   Netatmo_Bedroom_CO2    "Indoor Carbon Dioxide [%d ppm]"  (Group_Netatmo)  {netatmo="70:ee:50:1a:fc:b6#03:00:00:00:49:54#Co2"}
+Number   Netatmo_Bedroom_CO2    "Indoor Carbon Dioxide [%d ppm]"  (Group_Netatmo,Group_Max_CO2)  {netatmo="70:ee:50:1a:fc:b6#03:00:00:00:49:54#Co2"}
+Number   Netatmo_Bedroom_Battery "Outdoor battery status [%d/5]"  (Group_Netatmo,Group_Battery,Group_Netatmo_Battery){netatmo="70:ee:50:1a:fc:b6#03:00:00:00:49:54#BatteryStatus"}
 
 
 //i03777a 03:00:00:03:77:7a
-Number   Netatmo_MasterBedroom_Temperature    "Indoor Temperature [%.2f °C]"  (Group_Netatmo, Group_Temperature) {netatmo="70:ee:50:1a:fc:b6#03:00:00:03:77:7a#Temperature"}
+Number   Netatmo_MasterBedroom_Temperature    "Indoor Temperature [%.2f °C]"  (Group_Netatmo, Group_Temperature,Group_History,Group_Chart_Temperature_MasterBedRoom) {netatmo="70:ee:50:1a:fc:b6#03:00:00:03:77:7a#Temperature"}
 Number   Netatmo_MasterBedroom_Humidity       "Indoor Humidity [%d %%]" (Group_Netatmo)  {netatmo="70:ee:50:1a:fc:b6#03:00:00:03:77:7a#Humidity"}
-Number   Netatmo_MasterBedroom_CO2    "Indoor Carbon Dioxide [%d ppm]"  (Group_Netatmo)  {netatmo="70:ee:50:1a:fc:b6#03:00:00:03:77:7a#Co2"}
+Number   Netatmo_MasterBedroom_CO2    "Indoor Carbon Dioxide [%d ppm]"  (Group_Netatmo,Group_Max_CO2)  {netatmo="70:ee:50:1a:fc:b6#03:00:00:03:77:7a#Co2"}
+Number   Netatmo_MasterBedroom_Battery "Outdoor battery status [%.0f %%]"  (Group_Netatmo,Group_Battery,Group_Netatmo_Battery){netatmo="70:ee:50:1a:fc:b6#03:00:00:03:77:7a#BatteryStatus"}
 
 
-Number   Netatmo_SportsBod_Temperature    "Sports Bod Temperature [%.2f °C]"  (Group_Netatmo, Group_Temperature) {netatmo="70:ee:50:27:30:a8#02:00:00:27:42:d0#Temperature"}
+Number   Netatmo_SportsBod_Temperature    "Sports Bod Temperature [%.2f °C]"  (Group_Netatmo, Group_Temperature,Group_History) {netatmo="70:ee:50:27:30:a8#02:00:00:27:42:d0#Temperature"}
 Number   Netatmo_SportsBod_Humidity       "Sports Bod Humidity [%d %%]" (Group_Netatmo)  {netatmo="70:ee:50:27:30:a8#02:00:00:27:42:d0#Humidity"}
 
 //70ee502730a8
-Number   Netatmo_SnikkerBod_Temperature    "Snikker Bod Temperature [%.2f °C]"  (Group_Netatmo, Group_Temperature) {netatmo="70:ee:50:27:30:a8#Temperature"}
+Number   Netatmo_SnikkerBod_Temperature    "Snikker Bod Temperature [%.2f °C]"  (Group_Netatmo, Group_Temperature,Group_History) {netatmo="70:ee:50:27:30:a8#Temperature"}
 Number   Netatmo_SnikkerBod_Humidity       "Snikker Bod Humidity [%d %%]" (Group_Netatmo)  {netatmo="70:ee:50:27:30:a8#Humidity"}
 Number   Netatmo_SnikkerBod_CO2    "Snikker Bod Carbon Dioxide [%d ppm]"  (Group_Netatmo)   {netatmo="70:ee:50:27:30:a8#Co2"}
+
 /*
 String Welcome_Home                "Home [%s]"          {netatmo="camera=5859b11a2b2b46e32e8b584b#Name"}
 DateTime Welcome_Kim_LastSeen   "Kim last seen [%1$ta, %1$td.%1$tm.%1$tY %1$tR]" (GF_Living) {netatmo="camera=5859b11a2b2b46e32e8b584b#c23774ab-683b-4f7a-acc7-36b00e2a4f03#LastSeen"}
-Switch   Welcome_Kim_AtHome     "Person [%s]" {netatmo="camera=5859b11a2b2b46e32e8b584b#c23774ab-683b-4f7a-acc7-36b00e2a4f03#OutOfSight"}
+Switch   Welcome_Kim_Home     "Person [%s]" (Group_Camera_Person_Home) {netatmo="camera=5859b11a2b2b46e32e8b584b#c23774ab-683b-4f7a-acc7-36b00e2a4f03#OutOfSight"}
 
 DateTime Welcome_Yulia_LastSeen   "Kim last seen [%1$ta, %1$td.%1$tm.%1$tY %1$tR]" (GF_Living) {netatmo="camera=5859b11a2b2b46e32e8b584b#d1595c2d-419a-4a81-badc-23e144caca7c#LastSeen"}
-Switch   Welcome_Yulia_AtHome     "Person [%s]" {netatmo="camera=5859b11a2b2b46e32e8b584b#d1595c2d-419a-4a81-badc-23e144caca7c#OutOfSight"}
-
+Switch   Welcome_Yulia_Home     "Person [%s]"  (Group_Camera_Person_Home) {netatmo="camera=5859b11a2b2b46e32e8b584b#d1595c2d-419a-4a81-badc-23e144caca7c#OutOfSight"}
 */
+
+//Number  Welcome_Unknown_Home       "Number of Unknown @Home [%d]"  (Group_Camera_Person_Home)  {netatmo="camera=5859b11a2b2b46e32e8b584b#UNKNOWN#HomeCount"}
+
 /*
 
 DateTime Welcome_E_LastSeen   "E... zuletzt gesehen [%1$ta, %1$td.%1$tm.%1$tY %1$tR]" (GF_Living) {netatmo="camera=xxxxxxxxxxxxxxxxxxxxxxxxxx#ef4b886e-41ef-4e60-bf17-5b1f7799544b#LastSeen"}

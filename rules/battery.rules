@@ -1,0 +1,12 @@
+ rule "Netatmo Battery"
+
+when
+
+  Item Group_Netatmo_Battery received command
+
+then
+   val changedUnit = Group_Netatmo_Battery.members.filter[ItemChanged| ItemChanged.lastUpdate != null].sortBy[lastUpdate].last
+
+  changedUnit.postUpdate((receivedCommand as DecimalType) * 20)
+
+end

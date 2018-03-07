@@ -8,18 +8,23 @@ sitemap littlechina label="LittleChina"
 			Switch item=Div_Openhab label="Reset Openhab"
 			Text item=vTimeOfDay label="Time of the day [%s]"
 			//Selection item=Fans label="Fan Speed" icon="fan" mappings=[0="Off", 1="Low", 2="Medium", 3="Max"]
-			Selection item=Scene_LivingRoom label="Scene Selector" mappings=[1="OFF", 2="ON", 3="DINNER", 4="READING",5="FIREPLACE", 6="BAR", 7="PARTY", 8="TV",9="COOKING", 10="WALL", 11="KITCHEN", 12="LOUNGE"]
+			Selection item=Scene_LivingRoom label="Scene Selector" mappings=[0="OFF", 1="ON", 3="DINNER", 4="READING",5="FIREPLACE", 6="BAR", 7="PARTY", 8="TV",9="COOKING", 10="WALL", 11="KITCHEN", 12="LOUNGE"]
 			Selection item=Scene_Workmode label="Work Mode" icon="fan" mappings=[0="OFF", 1="NORMAL", 2="GUESTS", 3="HOLIDAY"]
+		
+			Switch item=LEDStrip_Kitchen_Benchtop_Power
+			Selection item=LEDStrip_Kitchen_Benchtop_FX mappings=[1="BPM",2="Noise",3="Fire",4="Rainbow",5="Twinkle",6="Glitter",7="Solid",8="Sinelon",9="Juggle",10="Confetti",11="Dots",12="Lightning",13="Candy Cane",14="Cyclon Rainbow",15="Ripple",16="Christmas Alternate",17="Police All",18="Police One",19="Random Stars",20="Sine Hue"] 
+			Colorpicker item=LEDStrip_Kitchen_Benchtop_Color
+			Setpoint item=LEDStrip_Kitchen_Benchtop_Speed minValue=5 maxValue=240 step=5
+			Setpoint item=LEDStrip_Kitchen_Benchtop_Intensity minValue=0 maxValue=255 step=16
 		}
 		
 		Text label="Living Room" icon="groundfloor"{
 			Frame label="Lights" {
-				Switch item=Scene_LivingRoom1 label="Group 1" mappings=[1="OFF", 2="ON", 3="DINNER", 4="READING"]
+				Switch item=Scene_LivingRoom1 label="Group 1" mappings=[0="OFF", 1="ON", 3="DINNER", 4="READING"]
 				Switch item=Scene_LivingRoom2 label="Group 2" mappings=[5="FIREPLACE", 6="BAR", 7="PARTY", 8="TV"]
 				Switch item=Scene_LivingRoom3 label="Group 3" mappings=[9="COOKING", 10="WALL", 11="KITCHEN", 12="LOUNGE"]
 
 
-				//Switch item=MoodSelector_LivingRoom label="Mood" mappings=[1="Red", 2="Green", 3="Blue",4="White"]
 				Switch item=MoodSelector_LivingRoom label="Mood" mappings=[1="WharmWhite", 2="White", 3="Lounge",4="Night"]
 				Slider item=Dimmer_LivingRoom label="Dimmer" icon="slider"
 				Colorpicker item=Color_LivingRoom label="Color Wheel" icon="colorwheel" 
@@ -33,6 +38,7 @@ sitemap littlechina label="LittleChina"
 				Setpoint item=Heating_LivingRoom_Setpoint label="Living Room Temperature Set Point  [%.1f °C]" icon="temperature" minValue=1 maxValue=30 step=0.5
 				Text item=Group_Temperature_LivingRoom icon="temperature"
 				Switch item=Heating_LivingRoom  label="Heating status" icon="temperature" mappings=[ON="OFF", OFF="ON"]
+				Text item=Miflora_Sensor9_Temperature label="Fridge Temperature" icon="temperature"
 			}
 			
 			Frame label="Air/Living Quality" {
@@ -55,7 +61,7 @@ sitemap littlechina label="LittleChina"
 		
 		Text label="Master Bedroom" icon="bedroom"{
 			Frame label="Lights" {
-				Switch item=Scene_MasterBedRoom label="Scenes" mappings=[1="OFF", 2="ON", 3="NIGHT", 4="READING"]
+				Switch item=Scene_MasterBedRoom label="Scene" mappings=[0="OFF", 1="ON", 2="NIGHT", 3="READING"] //mappings=["masterBedRoom.map"] //mappings=[0="OFF", 1="ON", 2="NIGHT", 3="READING"]
 				Slider item=Dimmer_MasterBedRoom label="Dimmer" icon="slider"
 				Colorpicker item=Color_MasterBedRoom label="Color Wheel" icon="colorwheel"
 			}
@@ -82,7 +88,7 @@ sitemap littlechina label="LittleChina"
 		}
 		
 		Text label="Bathroom" icon="bath"{
-			Switch item=Scene_BathRoom label="Scenes" mappings=[1="OFF", 2="ON", 3="NIGHT", 4="SHOWER"]
+			Switch item=Scene_BathRoom label="Scenes" mappings=[0="OFF", 1="ON", 2="NIGHT", 3="SHOWER"]
 			Colorpicker item=Color_BathRoom label="Color Wheel" icon="colorwheel"
 			//Switch item=Fans label="FAN" mappings=[1="OFF", 2="LOW", 3="MEDIUM", 4="HIGH"]
 		}
@@ -93,21 +99,51 @@ sitemap littlechina label="LittleChina"
 		
 		}
 		
-		Text label="Flowers" icon="garden"{
-			Text item=Miflora_Sensor1_Moisture label="Palm flower" icon="humidity"
-			Text item=Miflora_Sensor2_Moisture label="Orchide flower" icon="humidity"
-			Text item=Miflora_Sensor3_Moisture label="sensor3" icon="temperature"
-			Text item=Miflora_Sensor4_Moisture label="sensor4" icon="temperature"
-			Text item=Miflora_Sensor5_Moisture label="Olive 1" icon="temperature"
-			Text item=Miflora_Sensor6_Moisture label="Olive 2" icon="temperature"
+		Text label="Plant overview" icon="weather_pollen" {
+			Frame label="Livingroom" {
+				Text label="Sensor 1 : Plant1 [MAP(plantstatus.map):%s]" icon="weather_pollen" valuecolor=[0="green", !=0="red"]{
+					Text item=Miflora_Sensor1_Moisture label="Moisture" icon="humidity"
+					Text item=Miflora_Sensor1_Conductivity label="Conductivity"icon="temperature"
+					Text item=Miflora_Sensor1_Light label="Light level" icon="light"
+					Text item=Miflora_Sensor1_Battery label="Battery" icon="battery"
+					Text item=Miflora_Sensor1_Temperature label="Temperature" icon="temperature"
+					
+					Switch item=chart_period label="Graph Interval" mappings=[0="Day", 1="Week", 2="Month", 3="Year"]
 			
-			Text item=Miflora_Sensor1_Conductivity icon="temperature"
-			Text item=Miflora_Sensor2_Conductivity icon="temperature"
-			Text item=Miflora_Sensor3_Conductivity icon="temperature"
-			Text item=Miflora_Sensor4_Conductivity icon="temperature"
-			Text item=Miflora_Sensor5_Conductivity icon="temperature"
-			Text item=Miflora_Sensor6_Conductivity icon="temperature"
-		
+					Chart item=Group_Chart_Temperature_LivingRoom period=D refresh=30000]//  visibility=[chart_visible==0, chart_period=="Uninitialized"] 
+					//Chart item=Group_Chart_Temperature_LivingRoom period=W refresh=30000 visibility=[chart_visible==1]
+					//Chart item=Group_Chart_Temperature_LivingRoom period=M refresh=30000 visibility=[chart_visible==2]
+					//Chart item=Group_Chart_Temperature_LivingRoom period=Y refresh=30000 visibility=[chart_visible==3]
+	
+				}
+
+				Text item=Miflora_Sensor2_Moisture label="Sensor 2: Orchide flower" icon="humidity"
+				Text item=Miflora_Sensor3_Moisture label="Sensor 3: " icon="humidity"
+				Text item=Miflora_Sensor4_Moisture label="Sensor 4: " icon="humidity"
+				Text item=Miflora_Sensor5_Moisture label="Sensor 5: " icon="humidity"
+				Text item=Miflora_Sensor6_Moisture label="Sensor 6: " icon="humidity"
+				Text item=Miflora_Sensor7_Moisture label="Sensor 7: " icon="humidity"
+				Text item=Miflora_Sensor8_Moisture label="Sensor 8: " icon="humidity"
+				Text item=Miflora_Sensor9_Moisture label="Sensor 9: " icon="humidity"
+				Text item=Miflora_Sensor10_Moisture label="Sensor 10: Olive 2" icon="humidity"
+				Text item=Miflora_Sensor11_Moisture label="Sensor 11: Olive 2" icon="humidity"
+				
+				Text item=Miflora_Sensor1_Conductivity icon="temperature"
+				Text item=Miflora_Sensor2_Conductivity icon="temperature"
+				Text item=Miflora_Sensor3_Conductivity icon="temperature"
+				Text item=Miflora_Sensor4_Conductivity icon="temperature"
+				Text item=Miflora_Sensor5_Conductivity icon="temperature"
+				Text item=Miflora_Sensor6_Conductivity icon="temperature"
+				Text item=Miflora_Sensor7_Conductivity icon="temperature"
+				Text item=Miflora_Sensor8_Conductivity icon="temperature"
+				Text item=Miflora_Sensor9_Conductivity icon="temperature"
+				Text item=Miflora_Sensor10_Conductivity icon="temperature"
+				Text item=Miflora_Sensor11_Conductivity icon="temperature"
+			
+			}
+			
+        	//Frame label="Kitchen" {
+			//}
 		}
 		
 		Text label="Temperatures" icon="temperature"{
@@ -122,15 +158,24 @@ sitemap littlechina label="LittleChina"
 			Text item=Miflora_Sensor4_Temperature icon="temperature"
 			Text item=Miflora_Sensor5_Temperature icon="temperature"
 			Text item=Miflora_Sensor6_Temperature icon="temperature"
+			Text item=Miflora_Sensor7_Temperature icon="temperature"
+			Text item=Miflora_Sensor8_Temperature icon="temperature"
+			Text item=Miflora_Sensor9_Temperature icon="temperature"
+			Text item=Miflora_Sensor10_Temperature icon="temperature"
 		
 		}
 		Text label="Presence" icon="motion"{
-			Switch item=Scene_Presence_Kim label="Kim's status" icon="light" mappings=[1="AWAY", 2="NETATMO", 3="WIFI", 4="BLUETOOTH"]
-			Text item=Welcome_Kim_LastSeen label="Kim last seen" icon="motion"
-			Switch item= MOBKIM_WLAN
+			Switch item=Presence_Home label="Someone is home" icon="motion"
+			Text item= Presence_Home_LastUpdate label="Last update"
+			Switch item=Scene_Presence_Kim label="Kim's status" icon="motion" mappings=[0="AWAY", 1="HOME", 2="WORK", 3="HOLIDAY",4="UNKNOWN"]
+			//Text item=Welcome_Kim_LastSeen label="Kim last seen" icon="motion"
+			//Text item=Kim_LastSeen label="Kim last seen" icon="motion"
+			
+			//Switch item = Presence_Home label="Someone is home"
 		
-		  	Switch item=Scene_Presence_Yulia label="Yulia's status" icon="light" mappings=[1="AWAY", 2="NETATMO", 3="WIFI", 4="BLUETOOTH"]
-			Text item=Welcome_Yulia_LastSeen label="Yulia last seen" icon="motion"
+		  	Switch item= Scene_Presence_Yulia label="Yulia's status" icon="motion" mappings=[0="AWAY", 1="HOME", 2="WORK", 3="HOLIDAY",4="UNKNOWN"]
+			Text item=vWorkMode label="Work mode"
+			//Text item=Welcome_Yulia_LastSeen label="Yulia last seen" icon="motion"
 		}
 		
 		
