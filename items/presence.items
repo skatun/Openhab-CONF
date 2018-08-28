@@ -1,4 +1,11 @@
 
+Switch Presence_MasterBedroom "Master Bedroom" (Group_MyOpenhab, Group_Presence)
+Switch Presence_Bedroom "Bedroom" (Group_MyOpenhab, Group_Presence)
+Switch Presence_Bathroom "Bathroom" (Group_MyOpenhab, Group_Presence)
+Switch Presence_Livingroom "Livingroom" (Group_MyOpenhab, Group_Presence)
+Switch Presence_Hallway "Hallway" (Group_MyOpenhab, Group_Presence)
+Switch Presence_Balcony "Balcony" (Group_MyOpenhab, Group_Presence)
+
 
 Switch Presence_Kim "Kim" (Group_MyOpenhab)
 Switch Presence_Yulia "Yulia" (Group_MyOpenhab)
